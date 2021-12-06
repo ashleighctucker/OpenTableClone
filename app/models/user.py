@@ -13,7 +13,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     restaurants = db.relationship('Restaurant', back_populates='owner')
-    #restaurants = db.relationship('Restaurant')
 
     @property
     def password(self):
