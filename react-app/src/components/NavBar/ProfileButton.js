@@ -74,12 +74,12 @@ function ProfileButton() {
       {showMenu && (
         <div className="profile-dropdown">
           {sessionUser? (
-            <li className='WelcomeUser'>Welcome, {sessionUser.username}!</li>
-          ):
-            <li className='WelcomeUser'>Welcome, Guest!</li>
-            }
-          <p className='NavProfile'>My profile</p>
-          <p className='NavFavorites'>My Favorites</p>
+            <div>
+              <li className='WelcomeUser'>Welcome, {sessionUser.firstName}!</li>
+              <p className='NavProfile'>My profile</p>
+              <p className='NavFavorites'>My Favorites</p>
+            </div>
+          ): null }
           {sessionLinks}
         </div>
       )}
