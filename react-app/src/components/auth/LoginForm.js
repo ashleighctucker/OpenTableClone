@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+
 import { useHistory } from 'react-router';
+import './forms.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -39,7 +41,8 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
+    <form onSubmit={onLogin} className='FormContainer'>
+      <h1 className='LoginHeader'>Log In</h1>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>

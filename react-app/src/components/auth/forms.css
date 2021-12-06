@@ -1,0 +1,56 @@
+.LoginEmailLabel {
+
+}
+
+.FormContainer{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 10px;
+}
+
+.SignupHeader, .LoginHeader {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.LoginEmailLabel {
+    margin: 22px;
+}
+
+.SignupFirstLabel, .SignupUsernameLabel {
+    margin: 25px;
+}
+
+.SignupLastLabel {
+    margin: 26px;
+}
+
+.SignupEmailLabel {
+    margin: 42px;
+}
+
+.SignupPasswordLabel {
+    margin: 31px;
+}
+
+.SignupConfirmLabel {
+    margin: 7px;
+}
+
+.LoginEmailInput, .LoginPasswordLabel, .LoginPasswordInput, .SignupFirstInput, .SignupLastInput, .SignupUsernameInput, .SignupEmailInput, .SignupPasswordInput, .SignupConfirmInput {
+    margin: 10px;
+}
+
+.LoginFormButtons {
+    /* justify-content: space-between; */
+    margin-left: 12px;
+}
+
+.SignupFormButtons {
+    margin-left: 40px;
+}
+
+.GuestButton, .LoginButton, .SignupButton {
+    margin: 10px;
+}

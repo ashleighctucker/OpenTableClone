@@ -4,9 +4,9 @@ import * as sessionActions from '../../store/session';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import { login } from '../../store/session';
+import './NavBar.css'
 
-
-function ProfileButton({ user }) {
+function ProfileButton() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user)
   const [showMenu, setShowMenu] = useState(false);
@@ -38,7 +38,7 @@ function ProfileButton({ user }) {
   }
 
   let sessionLinks
-  if (!sessionUser) {
+  if (sessionUser) {
     sessionLinks = (
       <div className='NavButtons'>
         <NavLink to='/' exact={true} activeClassName='active' className='NavHome'>
@@ -60,7 +60,7 @@ function ProfileButton({ user }) {
           Sign Up
         </NavLink>
         <button type='button' onClick={loginGuest} className='NavGuest'>
-          Login as Guest
+          Guest User
         </button>
       </div>
     )
@@ -69,14 +69,17 @@ function ProfileButton({ user }) {
   return (
     <div className='NavProfileDropdown'>
       <button className='MenuButton' onClick={openMenu}>
-        <i class="fa-solid fa-bars"></i>
+        <i className="fa-solid fa-bars"></i>
       </button>
       {showMenu && (
         <div className="profile-dropdown">
-          {/* <li>{user.username}</li>
-          <li>{user.email}</li> */}
-          <p className='NavProfile'>My profile</p>
-          <p className='NavFavorites'>My Favorites</p>
+          {sessionUser? (
+            <div>
+              <li className='WelcomeUser'>Welcome, {sessionUser.firstName}!</li>
+              <p className='NavProfile'>My profile</p>
+              <p className='NavFavorites'>My Favorites</p>
+            </div>
+          ): null }
           {sessionLinks}
         </div>
       )}
