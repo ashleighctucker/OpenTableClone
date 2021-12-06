@@ -4,7 +4,7 @@ import * as sessionActions from '../../store/session';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import { login } from '../../store/session';
-
+import './NavBar.css'
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -75,8 +75,7 @@ function ProfileButton() {
         <div className="profile-dropdown">
           {sessionUser? (
             <div>
-              <li>{sessionUser.username}</li>
-              <li>{sessionUser.email}</li>
+              <li>Welcome, {sessionUser.username}</li>
             </div>
           ): null}
           <p className='NavProfile'>My profile</p>
