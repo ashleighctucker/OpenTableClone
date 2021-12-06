@@ -1,6 +1,6 @@
 from .db import db
 from sqlalchemy.sql import func
-
+import datetime
 
 class Restaurant(db.Model):
     __tablename__ = 'restaurants'
@@ -15,9 +15,9 @@ class Restaurant(db.Model):
     description = db.Column(db.Text, nullable=False, unique=True)
     cover_photo = db.Column(db.String(255), nullable=False)
     cuisine_type = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime(timezone = True), server_default=func.now())
-    updated_at = db.Column(db.DateTime(timezone = True), server_default=func.now())
+    createdat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updatedat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     owner = db.relationship('User', back_populates="restaurants")
     
     
@@ -122,28 +122,22 @@ class Restaurant(db.Model):
         
         
     @property
-    def created_at(self):
-        return self.created_at
+    def createdat(self):
+        return self.createdat
 
-    @created_at.setter
-    def created_at(self, created_at):
-        self.created_at = created_at
+    @createdat.setter
+    def createdat(self, createdat):
+        self.createdat = createdat
     
     
     @property
-    def updated_at(self):
-        return self.updated_at
+    def updatedat(self):
+        return self.updatedat
 
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        self.updated_at = updated_at
+    @updatedat.setter
+    def updatedat(self, updatedat):
+        self.updatedat = updatedat
     
- 
-    
-    
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
 
     def to_dict(self):
         return {
@@ -158,6 +152,6 @@ class Restaurant(db.Model):
             
             'cover_photo': self.cover_photo,
             'cuisine_type': self.cuisine_type,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at,
+            'createdat': self.createdat,
+            'updatedat': self.updatedat,
         }
