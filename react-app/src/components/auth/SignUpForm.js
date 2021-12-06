@@ -91,8 +91,8 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
-      <button type='button' onClick={loginGuest}>Continue as Guest</button>
       <button type='submit'>Sign Up</button>
+      <button type='button' onClick={loginGuest}>Continue as Guest</button>
     </form>
   );
 };
