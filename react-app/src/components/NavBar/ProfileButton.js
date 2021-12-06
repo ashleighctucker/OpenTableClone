@@ -60,7 +60,7 @@ function ProfileButton() {
           Sign Up
         </NavLink>
         <button type='button' onClick={loginGuest} className='NavGuest'>
-          Login as Guest
+          Guest User
         </button>
       </div>
     )
@@ -74,10 +74,10 @@ function ProfileButton() {
       {showMenu && (
         <div className="profile-dropdown">
           {sessionUser? (
-            <div>
-              <li>Welcome, {sessionUser.username}</li>
-            </div>
-          ): null}
+            <li className='WelcomeUser'>Welcome, {sessionUser.username}!</li>
+          ):
+            <li className='WelcomeUser'>Welcome, Guest!</li>
+            }
           <p className='NavProfile'>My profile</p>
           <p className='NavFavorites'>My Favorites</p>
           {sessionLinks}
