@@ -9,7 +9,9 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import SplashPage from './components/splashPage';
 import HomePage from './components/HomePage';
+import Restaurant from './components/Restaurant';
 import { authenticate } from './store/session';
+import NewRestaurant from './components/NewRestaurant';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -35,6 +37,12 @@ function App() {
         </Route>
         <Route path="/home">
           <HomePage />
+        </Route>
+        <Route path="/restaurants/:restaurantId">
+          <Restaurant />
+        </Route>
+        <Route path="/restaurants/new">
+          <NewRestaurant />
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
