@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { signUp } from "../../store/session";
+
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { Redirect } from 'react-router-dom';
+import { signUp, login } from '../../store/session';
+
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -25,6 +27,11 @@ const SignUpForm = () => {
       }
     }
   };
+
+  const loginGuest = (e) => {
+    e.preventDefault()
+    return dispatch(login('demo@aa.io', 'password'))
+  }
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -108,7 +115,8 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
-      <button type="submit">Sign Up</button>
+      <button type='submit'>Sign Up</button>
+      <button type='button' onClick={loginGuest}>Continue as Guest</button>
     </form>
   );
 };

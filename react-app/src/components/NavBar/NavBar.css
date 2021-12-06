@@ -1,0 +1,67 @@
+.NavBarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid 1px grey;
+    margin-bottom: 20px;
+}
+
+.SearchMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.NavProfileDropdown {
+    margin: 20px;
+}
+
+.profile-dropdown{
+    display: flex;
+    color: rgb(0, 0, 0);
+    background-color: rgb(226, 226, 226);
+    flex-direction: column;
+    position: absolute;
+    padding: 10px 20px;
+    right: 15px;
+    top: 65px;
+    list-style: none;
+    border-radius: 5px;
+}
+
+.NavHeader {
+    margin-left: 20px;
+}
+
+.NavButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.NavHome {
+    margin: 10px;
+}
+
+.NavLogin {
+    margin: 10px;
+}
+
+.NavSignin {
+    margin: 10px;
+}
+
+.NavLogout {
+    margin: 10px;
+}
+
+.NavGuest {
+
+}
+
+.NavProfile {
+    margin: 10px;
+}
+.NavFavorites {
+    margin: 10px;
+}
