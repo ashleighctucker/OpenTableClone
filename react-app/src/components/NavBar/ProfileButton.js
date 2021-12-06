@@ -69,7 +69,7 @@ function ProfileButton() {
   return (
     <div className='NavProfileDropdown'>
       <button className='MenuButton' onClick={openMenu}>
-        <i class="fa-solid fa-bars"></i>
+        <i className="fa-solid fa-bars"></i>
       </button>
       {showMenu && (
         <div className="profile-dropdown">

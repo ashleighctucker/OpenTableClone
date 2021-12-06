@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: solid 1px black;
 }
 
 .SearchMenu {
@@ -58,6 +59,8 @@
     border: solid 1px black;
     background-color: rgb(230, 230, 230);
     border-radius: 5px;
+    max-width: 125px;
+    margin: 10px 0px 10px 10px
 }
 
 .NavLogout {
