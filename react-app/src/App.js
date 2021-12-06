@@ -38,11 +38,11 @@ function App() {
         <Route path="/home">
           <HomePage />
         </Route>
-        <Route path="/restaurants/:restaurantId">
-          <Restaurant />
-        </Route>
-        <Route path="/restaurants/new">
+        <Route exact path="/restaurants/new">
           <NewRestaurant />
+        </Route>
+        <Route path="/restaurants/:id">
+          <Restaurant />
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
