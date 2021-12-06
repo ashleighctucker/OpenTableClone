@@ -6,7 +6,7 @@ import LogoutButton from '../auth/LogoutButton';
 import { login } from '../../store/session';
 
 
-function ProfileButton({ user }) {
+function ProfileButton() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user)
   const [showMenu, setShowMenu] = useState(false);
@@ -38,7 +38,7 @@ function ProfileButton({ user }) {
   }
 
   let sessionLinks
-  if (!sessionUser) {
+  if (sessionUser) {
     sessionLinks = (
       <div className='NavButtons'>
         <NavLink to='/' exact={true} activeClassName='active' className='NavHome'>
@@ -73,8 +73,12 @@ function ProfileButton({ user }) {
       </button>
       {showMenu && (
         <div className="profile-dropdown">
-          {/* <li>{user.username}</li>
-          <li>{user.email}</li> */}
+          {sessionUser? (
+            <div>
+              <li>{sessionUser.username}</li>
+              <li>{sessionUser.email}</li>
+            </div>
+          ): null}
           <p className='NavProfile'>My profile</p>
           <p className='NavFavorites'>My Favorites</p>
           {sessionLinks}
