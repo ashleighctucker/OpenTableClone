@@ -1,0 +1,67 @@
+.splash-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    url(https://p2d7x8x2.stackpathcdn.com/content/uploads/2018/01/Sushisamba.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40rem;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  width: 35rem;
+  color: white;
+}
+
+.description > h1 {
+  font-size: 3rem;
+}
+
+#splash-search {
+  height: 2rem;
+  width: 25rem;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+}
+.description-btn {
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.description-btn:hover {
+  opacity: 0.9;
+}
+
+.search {
+  display: flex;
+}
+
+.icon-div {
+  background-color: crimson;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  border-radius: 5px;
+  border: none;
+}
+.icon-div:hover {
+  cursor: pointer;
+}
