@@ -1,11 +1,10 @@
 from .db import db
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
 from sqlalchemy.sql import func
 
 
-class Restaurant(db.Model, UserMixin):
+class Restaurant(db.Model):
     __tablename__ = 'restaurants'
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), nullable=False)
     location = db.Column(db.Text, nullable=False)
     price_point = db.Column(db.Integer, nullable=False)
@@ -20,6 +19,7 @@ class Restaurant(db.Model, UserMixin):
     
     cuisine_type = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
+    owner = db.relationship('User', back_populates="restaurants")
     created_at = db.Column(db.DateTime(timezone = True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone = True), server_default=func.now())
     
