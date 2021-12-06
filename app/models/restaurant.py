@@ -33,4 +33,4 @@ class Restaurant(db.Model):
             'description': self.description,
 
             'cover_photo': self.cover_photo,
-            'cuisine_type': self.cuisine_type,
+            'cuisine_type': self.cuisine_type}
