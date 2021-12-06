@@ -38,7 +38,7 @@ function ProfileButton({ user }) {
   }
 
   let sessionLinks
-  if (!sessionUser) {
+  if (sessionUser) {
     sessionLinks = (
       <div className='NavButtons'>
         <NavLink to='/' exact={true} activeClassName='active' className='NavHome'>
