@@ -12,6 +12,8 @@ import HomePage from './components/HomePage';
 import Restaurant from './components/Restaurant';
 import { authenticate } from './store/session';
 import NewRestaurant from './components/NewRestaurant';
+import Favorites from './components/Favorites';
+import Profile from './components/UserProfile';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -56,6 +58,12 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
+        <Route path="/favorites">
+          <Favorites />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
