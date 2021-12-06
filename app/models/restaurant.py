@@ -20,6 +20,9 @@ class Restaurant(db.Model):
     updatedat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     owner = db.relationship('User', back_populates="restaurants")
+    
+    cuisine_type = db.Column(db.Integer, db.ForeignKey("cuisines.id"), nullable=False)
+    cuisine = db.relationship('Cuisine', back_populates="restaurant_cuisines")
 
     def to_dict(self):
         return {
