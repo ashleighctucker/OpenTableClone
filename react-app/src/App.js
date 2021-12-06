@@ -8,7 +8,12 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import SplashPage from './components/splashPage';
+import HomePage from './components/HomePage';
+import Restaurant from './components/Restaurant';
 import { authenticate } from './store/session';
+import NewRestaurant from './components/NewRestaurant';
+import Favorites from './components/Favorites';
+import Profile from './components/UserProfile';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -32,6 +37,15 @@ function App() {
         <Route exact path="/">
           <SplashPage />
         </Route>
+        <Route path="/home">
+          <HomePage />
+        </Route>
+        <Route exact path="/restaurants/new">
+          <NewRestaurant />
+        </Route>
+        <Route path="/restaurants/:id">
+          <Restaurant />
+        </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
@@ -44,9 +58,12 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true}>
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
+        <Route path="/favorites">
+          <Favorites />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+
+import { useHistory } from 'react-router';
 import './forms.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const user = useSelector(state => state.session.user);
+  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -17,6 +20,7 @@ const LoginForm = () => {
     if (data) {
       setErrors(data);
     }
+    
   };
 
   const updateEmail = (e) => {
@@ -28,12 +32,12 @@ const LoginForm = () => {
   };
 
   const loginGuest = (e) => {
-    e.preventDefault()
-    return dispatch(login('demo@aa.io', 'password'))
-  }
+    e.preventDefault();
+    return dispatch(login('demo@aa.io', 'password'));
+  };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
 
   return (
@@ -45,31 +49,29 @@ const LoginForm = () => {
         ))}
       </div>
       <div>
-        <label htmlFor='email' className='LoginEmailLabel'>Email</label>
+        <label htmlFor="email">Email</label>
         <input
-          className='LoginEmailInput'
-          name='email'
-          type='text'
-          placeholder='Email'
+          name="email"
+          type="text"
+          placeholder="Email"
           value={email}
           onChange={updateEmail}
         />
       </div>
       <div>
-        <label htmlFor='password' className='LoginPasswordLabel'>Password</label>
+        <label htmlFor="password">Password</label>
         <input
-          className='LoginPasswordInput'
-          name='password'
-          type='password'
-          placeholder='Password'
+          name="password"
+          type="password"
+          placeholder="Password"
           value={password}
           onChange={updatePassword}
         />
       </div>
-      <div className='LoginFormButtons'>
-        <button type='submit' className='LoginButton'>Login</button>
-        <button type='button' className='GuestButton' onClick={loginGuest}>Continue as Guest</button>
-      </div>
+      <button type="submit">Login</button>
+      <button type="button" onClick={loginGuest}>
+        Continue as Guest
+      </button>
     </form>
   );
 };
