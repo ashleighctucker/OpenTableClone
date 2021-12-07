@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     restaurants = db.relationship('Restaurant', back_populates='owner')
     user_reservations = db.relationship('Reservation', back_populates="restaurant_customers")
+    reviewer = db.relationship('Review',back_populates='owner')
 
 
     @property
