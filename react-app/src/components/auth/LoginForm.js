@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
-import './forms.css';
+import './forms.css'
 
-const LoginForm = () => {
+
+const LoginForm = ({setShowModal}) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +18,13 @@ const LoginForm = () => {
     if (data) {
       setErrors(data);
     }
+    setShowModal(false)
   };
+
+  const cancel = async (e) => {
+    e.preventDefault()
+    setShowModal(false)
+  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -45,8 +52,9 @@ const LoginForm = () => {
         ))}
       </div>
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className='LoginEmailLabel'>Email</label>
         <input
+          className='LoginEmailInput'
           name="email"
           type="text"
           placeholder="Email"
@@ -55,8 +63,9 @@ const LoginForm = () => {
         />
       </div>
       <div>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className='LoginPasswordLabel'>Password</label>
         <input
+          className='LoginPasswordInput'
           name="password"
           type="password"
           placeholder="Password"
@@ -64,10 +73,13 @@ const LoginForm = () => {
           onChange={updatePassword}
         />
       </div>
-      <button type="submit">Login</button>
-      <button type="button" onClick={loginGuest}>
-        Continue as Guest
-      </button>
+      <div className='LoginFormButtons'>
+        <button type="submit" className='LoginButton'>Login</button>
+        <button type="button" onClick={loginGuest} className='GuestButton'>
+          Guest User
+        </button>
+      </div>
+      <button type='button' className='CancelButton' onClick={cancel}>Cancel</button>
     </form>
   );
 };
