@@ -14,13 +14,10 @@ import { authenticate } from './store/session';
 import NewRestaurant from './components/NewRestaurant';
 import Favorites from './components/Favorites';
 import Profile from './components/UserProfile';
-import * as restaurantActions from './store/restaurant';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-
-  dispatch(restaurantActions.getRestaurants());
 
   useEffect(() => {
     (async () => {
