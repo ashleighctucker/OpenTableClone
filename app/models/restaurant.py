@@ -15,7 +15,7 @@ class Restaurant(db.Model):
     contact_email = db.Column(db.String(100))
     description = db.Column(db.Text, nullable=False, unique=True)
     cover_photo = db.Column(db.String(255), nullable=False)
-    cuisine_type = db.Column(db.Integer, nullable=False)
+    
     createdat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updatedat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)

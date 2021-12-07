@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     restaurants = db.relationship('Restaurant', back_populates='owner')
-    user_reservations = db.relationship('Reservations', back_populates="restaurant_customers")
+    user_reservations = db.relationship('Reservation', back_populates="restaurant_customers")
 
 
     @property
