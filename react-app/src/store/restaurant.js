@@ -13,12 +13,26 @@ const add = (restaurant) => ({
 });
 
 export const getRestaurants = () => async (dispatch) => {
-  const response = await fetch('/api/restaurants');
-  const restaurants = response.json();
+  const response = await fetch('/api/restaurants/');
+  const restaurants = await response.json();
   if (response.ok) {
-    dispatch(load(restaurants));
-    return restaurants;
+    dispatch(load(restaurants['restaurants']));
+    return restaurants['restaurants'];
   }
 };
 
+const initialState = {};
 
+export default function restaurantReducer(state = initialState, action) {
+  switch (action.type) {
+    case LOAD: {
+      const normalRestaurants = {};
+      action.list.forEach((restaurant) => {
+        normalRestaurants[restaurant.id] = restaurant;
+      });
+      return { ...state, ...normalRestaurants };
+    }
+    default:
+      return state;
+  }
+}

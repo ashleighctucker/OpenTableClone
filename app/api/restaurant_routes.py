@@ -7,8 +7,8 @@ from .auth_routes import validation_errors_to_error_messages
 from sqlalchemy import inspect
 
 
-
 restaurant_routes = Blueprint('restaurants', __name__)
+
 
 @restaurant_routes.route('/')
 def get_restaurants():
