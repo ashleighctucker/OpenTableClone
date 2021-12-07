@@ -1,8 +1,11 @@
 import React from 'react';
 import ProfileButton from './ProfileButton';
+import { useSelector } from 'react-redux';
 import './NavBar.css'
 
 const NavBar = () => {
+  let sessionUser = useSelector(state=> state.session.user)
+  
   return (
     <nav className='NavBarContainer'>
       <h1 className='NavHeader'>La Table</h1>
