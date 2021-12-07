@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { signUp, login } from '../../store/session';
 import './forms.css'
 
-const SignUpForm = () => {
+const SignUpForm = ({setShowModal}) => {
   const [errors, setErrors] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -26,11 +26,16 @@ const SignUpForm = () => {
         setErrors(data);
       }
     }
+    setShowModal(false)
   };
 
   const loginGuest = (e) => {
     e.preventDefault()
     return dispatch(login('demo@aa.io', 'password'))
+  }
+  const cancel = async (e) => {
+    e.preventDefault()
+    setShowModal(false)
   }
 
   const updateUsername = (e) => {
@@ -124,8 +129,9 @@ const SignUpForm = () => {
       </div>
       <div className='SignupFormButtons'>
         <button type='submit' className='SignupButton'>Sign Up</button>
-        <button type='button' className='GuestButton' onClick={loginGuest}>Continue as Guest</button>
+        <button type='button' className='GuestButton' onClick={loginGuest}>Guest User</button>
       </div>
+      <button type='button' className='CancelButton' onClick={cancel}>Cancel</button>
     </form>
   );
 };

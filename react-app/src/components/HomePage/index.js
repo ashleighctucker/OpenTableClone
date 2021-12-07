@@ -1,9 +1,13 @@
 import React from 'react';
-
+import './HomePage.css';
 const HomePage = () => {
   return (
     <div className="homepage-container">
-      <h1>Homepage!</h1>
+      <header className="headerContainer">
+        <div className="header-description">
+          <h1>Find your table for any occasion</h1>
+        </div>
+      </header>
     </div>
   );
 };

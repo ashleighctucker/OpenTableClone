@@ -10,7 +10,7 @@ const SplashPage = () => {
   //   const history = useHistory();
   return (
     <div className="splash-container">
-      <div className="description-container">
+      {/* <div className="description-container"> */}
         <div className="description">
           <h1>La table</h1>
           <h3>/lä ˈtābəl/ </h3>
@@ -21,7 +21,7 @@ const SplashPage = () => {
               placeholder="Find my next experience"
             ></input>
             <div className="icon-div">
-              <i class="fas fa-search"></i>
+              <i className="fas fa-search"></i>
             </div>
           </div>
           <p>Find the most exclusive tables in the LA area!</p>
@@ -29,7 +29,7 @@ const SplashPage = () => {
             Find my next experience
           </button> */}
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 };

@@ -4,9 +4,7 @@ import ProfileButton from './ProfileButton';
 import './NavBar.css'
 
 const NavBar = () => {
-  const sessionUser = useSelector(state => state.session.user)
-
-  console.log(sessionUser)
+  let sessionUser = useSelector(state => state.session.user)
 
   return (
     <nav className='NavBarContainer'>

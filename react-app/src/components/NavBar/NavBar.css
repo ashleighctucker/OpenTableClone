@@ -5,6 +5,11 @@
     border-bottom: solid 1px black;
 }
 
+.MenuButton {
+    width: 28px;
+    height: 26px;
+}
+
 .SearchMenu {
     display: flex;
     justify-content: space-between;
@@ -15,15 +20,26 @@
     margin: 20px;
 }
 
-.profile-dropdown{
+.CancelMenu {
+    border: none;
+    background-color: rbga(0,0,0,0);
+    padding: 5px;
+    border-bottom: solid 1px black;
+}
+
+.CancelMenu:hover {
+    background-color: rbga(0,0,0,0.5);
+}
+
+.profile-dropdown {
     display: flex;
     color: rgb(0, 0, 0);
-    background-color: rgb(226, 226, 226);
+    background-color: rgba(226, 226, 226, 0.7);
     flex-direction: column;
     position: absolute;
     padding: 10px 20px;
     right: 15px;
-    top: 65px;
+    top: 75px;
     list-style: none;
     border-radius: 5px;
 }
@@ -45,17 +61,21 @@
 }
 
 .NavHome, .NavLogin, .NavSignin{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
     margin: 10px;
     padding: 3px 35px;
     color: black;
-    background-color: rgb(230, 230, 230);
+    background-color: rgba(230, 230, 230, 0.7);
     text-decoration: none;
     border: solid 1px black;
     border-radius: 5px;
 }
 
 .NavGuest {
-    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    padding: 3px;
     border: solid 1px black;
     background-color: rgb(230, 230, 230);
     border-radius: 5px;
@@ -64,6 +84,8 @@
 }
 
 .NavLogout {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
     margin: 10px;
     padding: 5px 30px;
     border: solid 1px black;
@@ -73,7 +95,7 @@
 
 .NavHome:hover, .NavLogin:hover, .NavSignin:hover, .NavGuest:hover, .NavLogout:hover {
     box-shadow: 0px 0px 2px 1px grey;
-    background-color: rgb(211, 211, 211);
+    background-color: rgb(235, 235, 235);
 }
 
 .NavProfile {
