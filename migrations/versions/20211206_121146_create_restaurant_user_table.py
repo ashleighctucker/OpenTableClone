@@ -1,6 +1,6 @@
 """create restaurant/user table
 Revision ID: 96a470be4dea
-Revises: 
+Revises:
 Create Date: 2021-12-06 12:11:46.226922
 """
 from alembic import op
