@@ -45,7 +45,7 @@ function ProfileButton() {
   if (sessionUser) {
     sessionLinks = (
       <div className='NavButtons'>
-        <NavLink to='/' exact={true} activeClassName='active' className='NavHome'>
+        <NavLink to='/home' exact={true} activeClassName='active' className='NavHome'>
           Home
         </NavLink>
         <button className='NavLogout' onClick={logout}>Log Out</button>
