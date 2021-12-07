@@ -57,7 +57,6 @@ const SignUpForm = ({setShowModal}) => {
   if (user) {
     return <Redirect to="/" />;
   }
-  console.log('IN THE SIGN UPS')
 
   return (
     <form onSubmit={onSignUp} className='FormContainer'>

@@ -5,7 +5,6 @@ import '../NavBar/NavBar.css'
 
 function LoginModal() {
     const [showModal, setShowModal] = useState(false);
-    console.log('WE INSIDE THE FORM')
 
     return (
         <>

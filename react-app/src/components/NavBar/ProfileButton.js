@@ -12,7 +12,6 @@ function ProfileButton() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user)
   const [showMenu, setShowMenu] = useState(false);
-  console.log('WE INSIDE IT')
 
   const openMenu = () => {
     if(showMenu) return

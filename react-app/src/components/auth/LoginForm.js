@@ -43,7 +43,6 @@ const LoginForm = ({setShowModal}) => {
   if (user) {
     return <Redirect to="/" />;
   }
-  console.log('WHAT SUP BITCHES')
 
   return (
     <form onSubmit={onLogin} className='FormContainer'>
