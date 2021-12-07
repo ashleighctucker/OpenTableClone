@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-
+import datetime
 
 from app.models import db, Restaurant, Reservation
 from app.forms import NewRestaurant, ReservationForm
@@ -34,12 +34,17 @@ def post_restaurant():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@restaurant_routes.route('/<int:id>/reservations', methods=['POST'])
+
+
+
+#### THE ROUTE BELOW ALLOWS RESTAURANT OWNERS TO CREATE NEW RESERVATION TIME SLOTS  
+@restaurant_routes.route('/<int:id>/reservations/', methods=['POST'])
 def post_reservation(id):
     reservation_form= ReservationForm()
     reservation_form['csrf_token'].data = request.cookies['csrf_token']
     if reservation_form.validate_on_submit():
         new_reservation = Reservation (restaurant_id=reservation_form.data['restaurant_id'],
+                                       booked= False,
                                        time_slot=reservation_form.data['time_slot'],
                                        date=reservation_form.data['date'],
                                        party_size=reservation_form.data['party_size'],
@@ -50,6 +55,25 @@ def post_reservation(id):
         return new_reservation.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(reservation_form.errors)}, 500
+
+
+
+
+# THE ROUTE BELOW IS TO ALLOW CUSTOMERS TO 'DELETE' THEIR RESERVATION. IT RESETS THE RESERVATION IN THE TABLE     
+@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['DELETE'])    
+def delete_reservation(reservation_id, id):
+    reservation = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
+    #reservation = Reservation.query().filter(Reservation.id == reservation_id
+    reservation.booked = False
+    #reservation.user_id = "null"
+    reservation.notes = "null"
+    reservation.party_size = "null"
+    reservation.updatedat= datetime.datetime.utcnow
+    
+    db.session.commit()
+    return reservation.to_dict()
+    
+        
 
         
 
