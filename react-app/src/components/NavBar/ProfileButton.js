@@ -15,21 +15,21 @@ function ProfileButton() {
   console.log('WE INSIDE IT')
 
   const openMenu = () => {
-    if (showMenu) return;
+    if(showMenu) return
     setShowMenu(true);
+  };
+
+  const closeMenu = () => {
+    setShowMenu(false);
   };
 
   useEffect(() => {
     if (!showMenu) return;
 
-    const closeMenu = () => {
-      setShowMenu(false);
-    };
-
     document.addEventListener('click', closeMenu);
 
     return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
+  }, []);
 
   const logout = (e) => {
     e.preventDefault();
@@ -78,9 +78,14 @@ function ProfileButton() {
 
   return (
     <div className='NavProfileDropdown'>
-      <button className='MenuButton' onClick={openMenu}>
-        <i className="fa-solid fa-bars"></i>
-      </button>
+      {!showMenu ? (
+        <div>
+          <button className='MenuButton' onClick={openMenu}>
+            <i className="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      ): <button className='MenuButton' onClick={closeMenu}>X</button> }
+
       {showMenu && (
         <div className="profile-dropdown">
           {sessionUser? (
@@ -94,7 +99,7 @@ function ProfileButton() {
         </div>
       )}
     </div>
-  );
+  )
 }
 
 export default ProfileButton;

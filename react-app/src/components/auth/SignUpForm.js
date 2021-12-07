@@ -33,6 +33,10 @@ const SignUpForm = ({setShowModal}) => {
     e.preventDefault()
     return dispatch(login('demo@aa.io', 'password'))
   }
+  const cancel = async (e) => {
+    e.preventDefault()
+    setShowModal(false)
+  }
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -126,8 +130,9 @@ const SignUpForm = ({setShowModal}) => {
       </div>
       <div className='SignupFormButtons'>
         <button type='submit' className='SignupButton'>Sign Up</button>
-        <button type='button' className='GuestButton' onClick={loginGuest}>Continue as Guest</button>
+        <button type='button' className='GuestButton' onClick={loginGuest}>Guest User</button>
       </div>
+      <button type='button' className='CancelButton' onClick={cancel}>Cancel</button>
     </form>
   );
 };
