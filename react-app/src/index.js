@@ -6,7 +6,10 @@ import App from './App';
 import configureStore from './store';
 import './index.css';
 
+
 const store = configureStore();
+
+
 
 ReactDOM.render(
   <React.StrictMode>
