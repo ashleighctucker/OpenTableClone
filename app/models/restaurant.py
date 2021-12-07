@@ -38,6 +38,7 @@ class Restaurant(db.Model):
         first_and_last_name = str(self.owner.firstName) + \
             str(" ") + str(self.owner.lastName)
         return {
+            'id': self.id,
             'name': self.name,
             'location': self.location,
             'price_point': self.price_point,

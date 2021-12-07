@@ -1,5 +1,4 @@
 from .db import db
-from sqlalchemy.sql import func
 import datetime
 
 
@@ -18,9 +17,8 @@ class Review(db.Model):
     restaurant = db.relationship(
         'Restaurant', back_populates="restaurant_review")
 
-
-def to_dict(self):
-    return {
-        'rating': self.rating,
-        'comment': self.comment
-    }
+    def to_dict(self):
+        return {
+            'rating': self.rating,
+            'comment': self.comment
+        }

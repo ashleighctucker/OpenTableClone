@@ -32,3 +32,4 @@ class NewRestaurant(FlaskForm):
     cuisine_type = IntegerField("Cusine Type",  validators=[DataRequired()])
     phone_number = StringField("Phone Number", validators=[DataRequired(), Regexp(
         "^(\+0?1\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$", flags=0, message="Must be a valid phone number")])
+    user_id = IntegerField("User Id", validators=[DataRequired()])
