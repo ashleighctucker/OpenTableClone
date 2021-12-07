@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 
+
 from app.models import db, Restaurant, Reservation
 from app.forms import NewRestaurant
 from .auth_routes import validation_errors_to_error_messages
@@ -17,6 +18,7 @@ def get_restaurants():
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
 
+
 @restaurant_routes.route('/', methods=["POST"])
 def post_restaurant():
     print('hi')
@@ -30,3 +32,7 @@ def post_restaurant():
         return newRestaurant.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 500
+
+@restaurant_routes.route('/<int:id>/reservations', methods=['POST'])
+def post_reservation():
+    reservation_form= ReservationForm()
