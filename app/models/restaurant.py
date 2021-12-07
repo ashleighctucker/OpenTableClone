@@ -28,6 +28,8 @@ class Restaurant(db.Model):
 
     reservation = db.relationship(
         'Reservation', back_populates="restaurant_reservations")
+    restaurant_favorites = db.relationship(
+        'Favorite', back_populates="restaurant_fav")
 
 
 
