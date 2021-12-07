@@ -25,6 +25,8 @@ class Restaurant(db.Model):
     cuisine_type = db.Column(
         db.Integer, db.ForeignKey("cuisines.id"), nullable=False)
     cuisine = db.relationship('Cuisine', back_populates="restaurant_cuisines")
+    
+    reservation = db.relationship('Reservation', back_populates="restaurant_reservations")
 
     def to_dict(self):
         type = str(self.cuisine)
