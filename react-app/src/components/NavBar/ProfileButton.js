@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import { NavLink } from 'react-router-dom';
@@ -6,11 +6,13 @@ import { login } from '../../store/session';
 import SignupModal from "../auth/SignupModal";
 import './NavBar.css'
 import LoginModal from "../auth/LoginModal";
+import { useHistory } from 'react-router';
 
 
 function ProfileButton() {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user)
+  const sessionUser = useSelector((state) => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
 
   const openMenu = () => {
@@ -33,11 +35,13 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    return history.push('/');
   };
   const loginGuest = (e) => {
-    e.preventDefault()
-    return dispatch(login('demo@aa.io', 'password'))
-  }
+    e.preventDefault();
+    dispatch(login('demo@aa.io', 'password'));
+    return history.push('/home');
+  };
 
   let sessionLinks;
 
@@ -45,11 +49,14 @@ function ProfileButton() {
     sessionLinks = (
       <div className='NavButtons'>
         <NavLink to='/home' exact={true} activeClassName='active' className='NavHome'>
+
           Home
         </NavLink>
-        <button className='NavLogout' onClick={logout}>Log Out</button>
+        <button className="NavLogout" onClick={logout}>
+          Log Out
+        </button>
       </div>
-    )
+    );
   } else {
     sessionLinks = (
       <div className='NavButtons'>
@@ -58,19 +65,14 @@ function ProfileButton() {
         </NavLink>
 
         <LoginModal className='NavLogin'/>
-        {/* <NavLink to='/login' exact={true} activeClassName='active' className='NavLogin'>
-          Login
-        </NavLink> */}
+       
         <SignupModal className='NavSignin'/>
-        {/* <NavLink to='/sign-up' exact={true} activeClassName='active' className='NavSignin'>
-          Sign Up
-        </NavLink> */}
 
         <button type='button' onClick={loginGuest} className='NavGuest'>
           Guest User
         </button>
       </div>
-    )
+    );
   }
 
   // console.log(sessionLinks)
@@ -87,13 +89,13 @@ function ProfileButton() {
 
       {showMenu && (
         <div className="profile-dropdown">
-          {sessionUser? (
+          {sessionUser ? (
             <div>
               <li className='WelcomeUser'>Welcome, {sessionUser.firstName}!</li>
               <p className='NavProfile'>My Profile</p>
               <p className='NavFavorites'>My Favorites</p>
             </div>
-          ): null }
+          ) : null}
           {sessionLinks}
         </div>
       )}
