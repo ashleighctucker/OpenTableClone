@@ -4,5 +4,5 @@ from .restaurant import Restaurant
 from .cuisine import Cuisine
 from .reservation import Reservation
 from .favorite import Favorite
-from .reviews import Review
+from .review import Review
 
