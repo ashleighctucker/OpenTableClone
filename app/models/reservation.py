@@ -1,14 +1,23 @@
 from .db import db
-from sqlalchemy.sql import func
 import datetime
 
 
-class Restaurant(db.Model):
+class Reservation(db.Model):
     __tablename__ = 'restaurants'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(256), nullable=False)
-    location = db.Column(db.Text, nullable=False)
-    price_point = db.Column(db.Integer, nullable=False)
+    
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurants.id"), nullable=False)
+    restaurant_reservations = db.relationship('Restaurant', back_populates="reservation")
+    
+    
+    
+    time_slot = db.Column(db.String(20), nullable=False)
+    party_size = db.Column(db.Integer)
+    available_size = db.Column(db.Integer, nullable=False)
+    
+    users_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    restaurant_customers = db.relationship('User', back_populates="user_reservations")
+    
     phone_number = db.Column(db.String(20), nullable=False, unique=True)
     open_time = db.Column(db.String(20), nullable=False)
     close_time = db.Column(db.String(20), nullable=False)
@@ -18,13 +27,7 @@ class Restaurant(db.Model):
     cuisine_type = db.Column(db.Integer, nullable=False)
     createdat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updatedat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    owner = db.relationship('User', back_populates="restaurants")
-    
-    cuisine_type = db.Column(db.Integer, db.ForeignKey("cuisines.id"), nullable=False)
-    cuisine = db.relationship('Cuisine', back_populates="restaurant_cuisines")
-    
-    reservation = db.relationship('Reservation', back_populates="restaurant_reservations")
+   
 
     def to_dict(self):
         return {
