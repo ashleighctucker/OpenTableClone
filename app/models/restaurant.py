@@ -29,8 +29,11 @@ class Restaurant(db.Model):
     reservation = db.relationship(
         'Reservation', back_populates="restaurant_reservations")
 
+
+
     def to_dict(self):
         type = str(self.cuisine)
+        first_and_last_name = str(self.owner.firstName)+ str(" ") + str(self.owner.lastName)
         return {
             'name': self.name,
             'location': self.location,
@@ -40,7 +43,7 @@ class Restaurant(db.Model):
             'close_time': self.close_time,
             'contact_email': self.contact_email,
             'description': self.description,
-
+            'reservations' : [{"time_slot":obj.time_slot, "user_id":obj.user_id, "party_size":obj.party_size, "available_size":obj.available_size, "notes":obj.notes, "booked":obj.booked} for obj in self.reservation],
             'cover_photo': self.cover_photo,
             'cuisine_type': type
         }
