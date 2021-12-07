@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     restaurants = db.relationship('Restaurant', back_populates='owner')
     user_reservations = db.relationship('Reservation', back_populates="restaurant_customers")
     user_favorites = db.relationship('Favorite', back_populates='user_fav')
+    reviewer = db.relationship('Review',back_populates='owner')
 
 
     @property
