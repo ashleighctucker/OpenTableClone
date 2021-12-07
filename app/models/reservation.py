@@ -18,6 +18,8 @@ class Reservation(db.Model):
     
     booked =db.Column(db.Boolean, default= False)
     notes = db.Column(db.Text)
+    
+    date = db.Column(db.Date, nullable=False)
     createdat=db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updatedat=db.Column(db.DateTime, default=datetime.datetime.utcnow)
     
