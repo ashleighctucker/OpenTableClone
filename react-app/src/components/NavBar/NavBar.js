@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 import ProfileButton from './ProfileButton';
-import { useSelector } from 'react-redux';
 import './NavBar.css'
 
 const NavBar = () => {
