@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 
+
 from app.models import db, Restaurant, Reservation
-from app.forms import NewRestaurant
+from app.forms import NewRestaurant, ReservationForm
 from .auth_routes import validation_errors_to_error_messages
 from sqlalchemy import inspect
 
@@ -17,9 +18,9 @@ def get_restaurants():
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
 
+
 @restaurant_routes.route('/', methods=["POST"])
 def post_restaurant():
-    print('hi')
     form = NewRestaurant()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -30,3 +31,22 @@ def post_restaurant():
         return newRestaurant.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 500
+
+@restaurant_routes.route('/<int:id>/reservations', methods=['POST'])
+def post_reservation(id):
+    reservation_form= ReservationForm()
+    reservation_form['csrf_token'].data = request.cookies['csrf_token']
+    if reservation_form.validate_on_submit():
+        new_reservation = Reservation (restaurant_id=reservation_form.data['restaurant_id'],
+                                       time_slot=reservation_form.data['time_slot'],
+                                       date=reservation_form.data['date'],
+                                       party_size=reservation_form.data['party_size'],
+                                       available_size=reservation_form.data['available_size'], user_id=reservation_form.data['user_id'], 
+                                       notes=reservation_form.data['notes'])
+        db.session.add(new_reservation)
+        db.session.commit()
+        return new_reservation.to_dict()
+    else:
+        return {'errors': validation_errors_to_error_messages(reservation_form.errors)}, 500
+
+        
