@@ -1,0 +1,6 @@
+from flask import Blueprint, jsonify, request
+from flask_login import login_required
+
+from app.models import db, Favorite
+
+fav_routes = Blueprint('favorites', __name__)
