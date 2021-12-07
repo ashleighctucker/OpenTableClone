@@ -29,6 +29,7 @@ class Reservation(db.Model):
             'id': self.id,
             'restaurant_id': self.restaurant_id,
             'time_slot': self.time_slot,
+            'date': self.date,
             'user_id': self.user_id,
             'booked': self.booked,
             'notes': self.notes,
