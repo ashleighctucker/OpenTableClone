@@ -1,8 +1,8 @@
-"""adding Cuisines model and relationship.
+"""Create cuisines.
 
-Revision ID: 9871bb82a922
+Revision ID: 033d24161adc
 Revises: 96a470be4dea
-Create Date: 2021-12-06 17:03:42.291292
+Create Date: 2021-12-06 19:05:54.004098
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9871bb82a922'
+revision = '033d24161adc'
 down_revision = '96a470be4dea'
 branch_labels = None
 depends_on = None

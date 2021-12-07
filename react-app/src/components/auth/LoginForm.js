@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
-
-import { useHistory } from 'react-router';
-import './forms.css'
+import './forms.css';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -12,7 +10,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -20,7 +17,6 @@ const LoginForm = () => {
     if (data) {
       setErrors(data);
     }
-    
   };
 
   const updateEmail = (e) => {
@@ -37,12 +33,12 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/home" />;
   }
 
   return (
-    <form onSubmit={onLogin} className='FormContainer'>
-      <h1 className='LoginHeader'>Log In</h1>
+    <form onSubmit={onLogin} className="FormContainer">
+      <h1 className="LoginHeader">Log In</h1>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>

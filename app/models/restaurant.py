@@ -1,6 +1,7 @@
 from .db import db
 from sqlalchemy.sql import func
 import datetime
+import copy
 
 
 class Restaurant(db.Model):
@@ -15,18 +16,20 @@ class Restaurant(db.Model):
     contact_email = db.Column(db.String(100))
     description = db.Column(db.Text, nullable=False, unique=True)
     cover_photo = db.Column(db.String(255), nullable=False)
-    
+
     createdat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updatedat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     owner = db.relationship('User', back_populates="restaurants")
-    
-    cuisine_type = db.Column(db.Integer, db.ForeignKey("cuisines.id"), nullable=False)
+
+    cuisine_type = db.Column(
+        db.Integer, db.ForeignKey("cuisines.id"), nullable=False)
     cuisine = db.relationship('Cuisine', back_populates="restaurant_cuisines")
     
     reservation = db.relationship('Reservation', back_populates="restaurant_reservations")
 
     def to_dict(self):
+        type = str(self.cuisine)
         return {
             'name': self.name,
             'location': self.location,
@@ -38,4 +41,5 @@ class Restaurant(db.Model):
             'description': self.description,
 
             'cover_photo': self.cover_photo,
-            'cuisine_type': self.cuisine_type}
+            'cuisine_type': type
+        }
