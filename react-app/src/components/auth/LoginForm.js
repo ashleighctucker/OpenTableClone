@@ -3,16 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 
-import { useHistory } from 'react-router';
 import './forms.css'
 
-const LoginForm = () => {
+const LoginForm = ({setShowModal}) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  console.log('WHAT SUP BITCHES')
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const LoginForm = () => {
     if (data) {
       setErrors(data);
     }
-    
+    setShowModal(false)
   };
 
   const updateEmail = (e) => {

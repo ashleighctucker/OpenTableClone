@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { signUp, login } from '../../store/session';
 import './forms.css'
 
-const SignUpForm = () => {
+const SignUpForm = ({setShowModal}) => {
   const [errors, setErrors] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -26,6 +26,7 @@ const SignUpForm = () => {
         setErrors(data);
       }
     }
+    setShowModal(false)
   };
 
   const loginGuest = (e) => {
@@ -52,6 +53,7 @@ const SignUpForm = () => {
   if (user) {
     return <Redirect to="/" />;
   }
+  console.log('IN THE SIGN UPS')
 
   return (
     <form onSubmit={onSignUp} className='FormContainer'>

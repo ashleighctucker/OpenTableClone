@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import { NavLink } from 'react-router-dom';
-import LogoutButton from '../auth/LogoutButton';
 import { login } from '../../store/session';
+import SignupModal from "../auth/SignupModal";
 import './NavBar.css'
+import LoginModal from "../auth/LoginModal";
+
 
 function ProfileButton() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user)
   const [showMenu, setShowMenu] = useState(false);
+  console.log('WE INSIDE IT')
 
   const openMenu = () => {
     if (showMenu) return;
@@ -37,7 +40,8 @@ function ProfileButton() {
     return dispatch(login('demo@aa.io', 'password'))
   }
 
-  let sessionLinks
+  let sessionLinks;
+
   if (sessionUser) {
     sessionLinks = (
       <div className='NavButtons'>
@@ -50,21 +54,27 @@ function ProfileButton() {
   } else {
     sessionLinks = (
       <div className='NavButtons'>
-        <NavLink to='/' exact={true} activeClassName='active' className='NavHome'>
+        <NavLink to='/home' exact={true} activeClassName='active' className='NavHome'>
           Home
         </NavLink>
-        <NavLink to='/login' exact={true} activeClassName='active' className='NavLogin'>
+
+        <LoginModal className='NavLogin'/>
+        {/* <NavLink to='/login' exact={true} activeClassName='active' className='NavLogin'>
           Login
-        </NavLink>
-        <NavLink to='/sign-up' exact={true} activeClassName='active' className='NavSignin'>
+        </NavLink> */}
+        <SignupModal className='NavSignin'/>
+        {/* <NavLink to='/sign-up' exact={true} activeClassName='active' className='NavSignin'>
           Sign Up
-        </NavLink>
+        </NavLink> */}
+
         <button type='button' onClick={loginGuest} className='NavGuest'>
           Guest User
         </button>
       </div>
     )
   }
+
+  // console.log(sessionLinks)
 
   return (
     <div className='NavProfileDropdown'>
@@ -76,7 +86,7 @@ function ProfileButton() {
           {sessionUser? (
             <div>
               <li className='WelcomeUser'>Welcome, {sessionUser.firstName}!</li>
-              <p className='NavProfile'>My profile</p>
+              <p className='NavProfile'>My Profile</p>
               <p className='NavFavorites'>My Favorites</p>
             </div>
           ): null }
