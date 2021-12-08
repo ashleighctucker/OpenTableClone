@@ -1,3 +1,4 @@
+from sqlalchemy.sql.functions import func
 from .db import db
 import datetime
 
@@ -13,7 +14,7 @@ class Reservation(db.Model):
     party_size = db.Column(db.Integer)
     available_size = db.Column(db.Integer, nullable=False)
     
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
     restaurant_customers = db.relationship('User', back_populates="user_reservations")
     
     booked =db.Column(db.Boolean, default= False)
@@ -21,7 +22,7 @@ class Reservation(db.Model):
     
     date = db.Column(db.Date, nullable=False)
     createdat=db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    updatedat=db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updatedat=db.Column(db.DateTime, default=datetime.datetime.utcnow, onupdate=func.now())
     
 
     def to_dict(self):
@@ -29,6 +30,7 @@ class Reservation(db.Model):
             'id': self.id,
             'restaurant_id': self.restaurant_id,
             'time_slot': self.time_slot,
+            'date': self.date,
             'user_id': self.user_id,
             'booked': self.booked,
             'notes': self.notes,
