@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFavorite } from '../../store/favorites';
 
@@ -13,15 +13,13 @@ const Favorites = () => {
       await dispatch(getFavorite(userId));
     };
     asyncLoad();
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <div>
       <h1>My Restaurants</h1>
       <p>Favorites:</p>
-      {Object.keys(favorites).map(key => {
-        <p>{key}</p>
-      })}
+
     </div>
   );
 };
