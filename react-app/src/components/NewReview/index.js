@@ -7,7 +7,6 @@ const CreateReview = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const { restaurantId } = useParams();
-  console.log(restaurantId);
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState('');
   const [userId, setUserId] = useState(sessionUser.id);
@@ -23,7 +22,6 @@ const CreateReview = () => {
       createReview(rating, comment, restaurantId, userId)
     );
     reset();
-    console.log(returnedFromDispatch);
   };
 
   return (

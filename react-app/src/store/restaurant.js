@@ -179,7 +179,6 @@ export const createReview =
     });
     if (response.ok) {
       const data = await response.json();
-      console.log('this is the response', data);
       dispatch(addReview(data));
       return data.id;
     } else if (response.status < 500) {
@@ -233,10 +232,10 @@ export default function restaurantReducer(state = initialState, action) {
       newState[restaurantId].reviews[action.newReview.id] = action.newReview;
       return newState;
     }
-    case REMOVE_REVIEWS: {
-      newState = { ...state };
-      console.log(newState);
-    }
+    // case REMOVE_REVIEWS: {
+    //   newState = { ...state };
+    //   console.log(newState);
+    // }
     case ADD: {
       return {
         ...state,
@@ -254,7 +253,8 @@ export default function restaurantReducer(state = initialState, action) {
       delete newState[action.restaurantId];
       return newState;
     }
-    default:
+    default: {
       return state;
+    }
   }
 }

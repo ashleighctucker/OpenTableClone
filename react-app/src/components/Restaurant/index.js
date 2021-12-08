@@ -12,7 +12,6 @@ const Restaurant = () => {
   if (rawReviews) {
     reviews = Object.values(rawReviews);
   }
-  console.log(rawReviews);
 
   return (
     <div className="restaurant-container">
