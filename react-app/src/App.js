@@ -40,9 +40,9 @@ function App() {
         <Route path="/home">
           <HomePage />
         </Route>
-        <Route exact path="/restaurants/new">
+        <ProtectedRoute exact path="/restaurants/new">
           <NewRestaurant />
-        </Route>
+        </ProtectedRoute>
         <Route path="/restaurants/:restaurantId">
           <Restaurant />
         </Route>
