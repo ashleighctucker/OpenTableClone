@@ -33,7 +33,6 @@ const NewRestaurant = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    console.log('before edit');
     const data = await dispatch(
       addRestaurant(
         sessionUser.id,
