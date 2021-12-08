@@ -1,8 +1,9 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addRestaurant } from '../../store/restaurant';
 import TIMES from './times';
+import './restaurant.css';
 
 const NewRestaurant = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,6 @@ const NewRestaurant = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    console.log('before edit');
     const data = await dispatch(
       addRestaurant(
         sessionUser.id,
@@ -46,7 +46,6 @@ const NewRestaurant = () => {
         phone_number
       )
     );
-    console.log('after edit');
 
     if (typeof data != 'number') {
       return setErrors(data);
