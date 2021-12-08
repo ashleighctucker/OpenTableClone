@@ -28,7 +28,7 @@ function App() {
       await dispatch(getRestaurants());
       await dispatch(getCuisineTypes()).then(() => setLoaded(true));
     })();
-  }, []);
+  }, [dispatch]);
 
   if (!loaded) {
     return null;
