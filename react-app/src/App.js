@@ -14,6 +14,7 @@ import { authenticate } from './store/session';
 import NewRestaurant from './components/NewRestaurant';
 import Favorites from './components/Favorites';
 import Profile from './components/UserProfile';
+import { getRestaurants, createReview } from './store/restaurant';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
