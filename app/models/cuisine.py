@@ -12,7 +12,9 @@ class Cuisine(db.Model):
 
     def to_dict(self):
         return {
-            'type': self.type}
+            'type': self.type,
+            'id': self.id,
+        }
 
     def __repr__(self):
         return self.type

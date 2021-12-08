@@ -14,10 +14,17 @@ const add = (restaurant) => ({
 
 export const getRestaurants = () => async (dispatch) => {
   const response = await fetch('/api/restaurants/');
-  const restaurants = await response.json();
   if (response.ok) {
+    const restaurants = await response.json();
     dispatch(load(restaurants['restaurants']));
-    return restaurants['restaurants'];
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred.'];
   }
 };
 
@@ -55,10 +62,17 @@ export const addRestaurant =
         phone_number,
       }),
     });
-    const restaurant = await response.json();
     if (response.ok) {
+      const restaurant = await response.json();
       dispatch(add(restaurant));
-      return restaurant;
+      return restaurant.id;
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ['An error occurred.'];
     }
   };
 
