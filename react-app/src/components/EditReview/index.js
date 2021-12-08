@@ -24,14 +24,16 @@ const EditReview = ({ id, setShowModal }) => {
   return (
     <div className="createReview">
       <form onSubmit={handleSubmit} className="editReviewForm">
-        <input
-          type="number"
-          onChange={(e) => setRating(e.target.value)}
+        <select
+          onChange={(e) => setRating(Number(e.target.value))}
           value={rating}
-          placeholder="rating"
-          name="rating"
-          required
-        />
+        >
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </select>
         <textarea
           onChange={(e) => setComment(e.target.value)}
           value={comment}

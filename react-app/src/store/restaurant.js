@@ -181,7 +181,7 @@ export const createReview =
       const data = await response.json();
       console.log('this is the response', data);
       dispatch(addReview(data));
-      return data.id;
+      return data;
     } else if (response.status < 500) {
       const data = await response.json();
       if (data.errors) {

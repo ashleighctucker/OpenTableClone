@@ -25,7 +25,7 @@ const CreateReview = () => {
       createReview(rating, comment, restaurantId, userId)
     );
     if (data) {
-      setErrors(data);
+      setErrors([]);
     }
     reset();
     console.log(data);
@@ -34,14 +34,21 @@ const CreateReview = () => {
   return (
     <div className="createReview">
       <form onSubmit={handleSubmit} className="createReviewForm">
-        <input
-          type="number"
-          onChange={(e) => setRating(e.target.value)}
+        <div className="errors">
+          {errors && errors.map((error, i) => {
+            return <p key={i}>{error}</p>;
+          })}
+        </div>
+        <select
+          onChange={(e) => setRating(Number(e.target.value))}
           value={rating}
-          placeholder="rating"
-          name="rating"
-          required
-        />
+        >
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </select>
         <textarea
           onChange={(e) => setComment(e.target.value)}
           value={comment}
