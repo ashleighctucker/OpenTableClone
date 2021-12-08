@@ -56,7 +56,16 @@ def post_reservation(id):
 
 @restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['PUT'])    
 def customer_create_reservation(reservation_id, id):
-    pr
+    reservation_form= ReservationForm()
+    reservation_to_edit = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
+    reservation_form['csrf_token'].data = request.cookies['csrf_token']
+    if reservation_form.validate_on_submit():
+        reservation_to_edit.booked = True
+        reservation_to_edit.party_size = reservation_form.data['party_size']
+        reservation_to_edit.user_id = reservation_form.data['user_id']
+        reservation_to_edit.notes = reservation_form.data['notes']
+    db.session.commit()
+    return reservation_to_edit.to_dict()
 
 
     
