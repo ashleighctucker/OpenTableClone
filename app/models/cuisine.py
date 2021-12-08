@@ -8,7 +8,7 @@ class Cuisine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(100), nullable=False, unique=True)
     restaurant_cuisines = db.relationship(
-        'Restaurant', back_populates='cuisine')
+        'Restaurant', back_populates='cuisine', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
