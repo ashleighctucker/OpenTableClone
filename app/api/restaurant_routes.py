@@ -34,7 +34,7 @@ def post_restaurant():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@restaurant_routes.route('/<int:id>', methods=["PUT"])
+@restaurant_routes.route('/<int:id>/', methods=["PUT"])
 def edit_restaurant(id):
     form = EditRestaurant()
     restaurantToEdit = Restaurant.query.get(int(id))
