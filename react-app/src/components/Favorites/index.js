@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFavorite } from '../../store/favorites';
+import './favorites.css'
 
 const Favorites = () => {
   const favorites = useSelector(state => state.favorites)
@@ -16,9 +17,11 @@ const Favorites = () => {
   }, [dispatch, userId]);
 
   return (
-    <div>
-      <h1>My Restaurants</h1>
-      <p>Favorites:</p>
+    <div className='favoritesContainer'>
+      <div className='favoritesSidebar'>
+        <h1 className='favoritesHeader'>My Restaurants</h1>
+      </div>
+      <p> favorites.... </p>
 
     </div>
   );

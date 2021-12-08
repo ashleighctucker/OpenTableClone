@@ -71,12 +71,12 @@ function ProfileButton() {
       {!showMenu ? (
         <div>
           <button className="MenuButton" onClick={openMenu}>
-            <i className="fa-solid fa-bars"></i>
+            <i className="fa-solid fa-bars fa-2x"></i>
           </button>
         </div>
       ) : (
         <button className="MenuButton" onClick={closeMenu}>
-          X
+          <i class="far fa-window-close fa-2x"></i>
         </button>
       )}
 
