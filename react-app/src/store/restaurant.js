@@ -163,11 +163,8 @@ export default function restaurantReducer(state = initialState, action) {
         ...newState,
         ...state[restaurantId].reviews,
       };
-      // console.log('new review', action.newReview);
-      // console.log('this is the new State', state[restaurantId].reviews);
       return {
         ...state,
-        // ...state[restaurantId] : {state[restaurantId] state[restaurantId].reviews : {...newState}}
       };
     }
     case REMOVE_REVIEWS: {

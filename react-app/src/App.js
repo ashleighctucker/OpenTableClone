@@ -15,10 +15,13 @@ import NewRestaurant from './components/NewRestaurant';
 import Favorites from './components/Favorites';
 import Profile from './components/UserProfile';
 import { getRestaurants, createReview } from './store/restaurant';
+import CreateReview from './components/NewReview';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+
+  dispatch(getRestaurants());
 
   useEffect(() => {
     (async () => {
@@ -46,6 +49,7 @@ function App() {
         </ProtectedRoute>
         <Route path="/restaurants/:restaurantId">
           <Restaurant />
+          <CreateReview />
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
