@@ -13,7 +13,7 @@ class Reservation(db.Model):
     party_size = db.Column(db.Integer)
     available_size = db.Column(db.Integer, nullable=False)
     
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
     restaurant_customers = db.relationship('User', back_populates="user_reservations")
     
     booked =db.Column(db.Boolean, default= False)
