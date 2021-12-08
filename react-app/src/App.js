@@ -14,6 +14,11 @@ import { authenticate } from './store/session';
 import NewRestaurant from './components/NewRestaurant';
 import Favorites from './components/Favorites';
 import Profile from './components/UserProfile';
+import EditRestaurant from './components/EditRestaurant';
+import { getCuisineTypes } from './store/cuisine_types';
+import { getRestaurants, createReview } from './store/restaurant';
+import CreateReview from './components/NewReview';
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -22,7 +27,8 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      setLoaded(true);
+      await dispatch(getRestaurants());
+      await dispatch(getCuisineTypes()).then(() => setLoaded(true));
     })();
   }, [dispatch]);
 
@@ -30,21 +36,21 @@ function App() {
     return null;
   }
 
-  return (
-    <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route exact path="/">
-          <SplashPage />
-        </Route>
+  const Routes = () => {
+    return (
+      <>
         <Route path="/home">
           <HomePage />
         </Route>
         <ProtectedRoute exact path="/restaurants/new">
           <NewRestaurant />
         </ProtectedRoute>
-        <Route path="/restaurants/:restaurantId">
+        <Route exact path="/restaurants/:restaurantId/edit">
+          <EditRestaurant />
+        </Route>
+        <Route exact path="/restaurants/:restaurantId">
           <Restaurant />
+          <CreateReview />
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
@@ -64,6 +70,18 @@ function App() {
         <Route path="/profile">
           <Profile />
         </Route>
+      </>
+    );
+  };
+
+  return (
+    <BrowserRouter>
+      <NavBar />
+      <Switch>
+        <Route exact path="/">
+          <SplashPage />
+        </Route>
+        {loaded ? <Routes /> : null}
       </Switch>
     </BrowserRouter>
   );

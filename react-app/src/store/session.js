@@ -40,7 +40,7 @@ export const login = (email, password) => async (dispatch) => {
       password,
     }),
   });
-  console.log('login!!!')
+
 
   if (response.ok) {
     const data = await response.json();
@@ -70,7 +70,6 @@ export const logout = () => async (dispatch) => {
 
 export const signUp =
   (username, email, password, firstName, lastName) => async (dispatch) => {
-    // console.log("findmebetter", firstName, lastName, username, email, password);
     const response = await fetch("/api/auth/signup", {
       method: "POST",
       headers: {
