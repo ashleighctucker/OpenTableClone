@@ -57,6 +57,14 @@ def edit_restaurant(id):
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
+@restaurant_routes.route('/<int:id>', methods=["DELETE"])
+def delete_restaurant(id):
+    restaurantToDelete = Restaurant.query.get(int(id))
+    db.session.delete(restaurantToDelete)
+    db.session.commit()
+    return {'message': f"Deleted restuarant {id}"}
+
+
 @restaurant_routes.route('/<int:id>/reservations', methods=['POST'])
 def post_reservation(id):
     reservation_form = ReservationForm()
