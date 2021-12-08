@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -27,6 +28,29 @@ const Restaurant = () => {
           );
         })}
       </div>
+=======
+import React, {useEffect} from 'react';
+import {useDispatch} from 'react-redux'
+import CustomerBookReservationModal from '../CustomerBookReservation';
+import getRestaurants from '../../store/restaurant'
+
+
+const Restaurant = () => {
+  const dispatch = useDispatch();
+  //dispatch(getRestaurants())
+  const asyncLoad = () => async(dispatch) => {
+    await dispatch(getRestaurants())
+  };
+  //asyncLoad()
+  useEffect(() => {
+    asyncLoad()
+  }, [])
+  return (
+    <div className="restaurant-container">
+      <h1>Single Restaurant Page</h1>
+      <CustomerBookReservationModal/>
+
+>>>>>>> WIP
     </div>
   );
 };
