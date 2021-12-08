@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addRestaurant } from '../../store/restaurant';
 import TIMES from './times';
-import { getCuisineTypes } from '../../store/cuisine_types';
+import './restaurant.css';
+
+
 
 const NewRestaurant = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  useEffect(() => {
-    const asyncLoad = async () => {
-      await dispatch(getCuisineTypes());
-    };
-    asyncLoad();
-  }, [dispatch]);
 
   const sessionUser = useSelector((state) => state.session.user);
   const cuisine_types = useSelector((state) => state.cuisine_types);
@@ -26,8 +21,8 @@ const NewRestaurant = () => {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [price_point, setPricePoint] = useState(1);
-  const [open_time, setOpenTime] = useState('');
-  const [close_time, setCloseTime] = useState('');
+  const [open_time, setOpenTime] = useState(TIMES[0]);
+  const [close_time, setCloseTime] = useState(TIMES[0]);
   const [contact_email, setContactEmail] = useState('');
   const [description, setDescription] = useState('');
   const [cover_photo, setCoverPhoto] = useState('');
@@ -53,8 +48,9 @@ const NewRestaurant = () => {
         phone_number
       )
     );
-    if (data) {
-      setErrors(data);
+
+    if (typeof data != 'number') {
+      return setErrors(data);
     }
     history.push(`/restaurants/${data}`);
   };
@@ -62,6 +58,11 @@ const NewRestaurant = () => {
   return (
     <div className="restaurant-form">
       <form id="new-restaurant-form" onSubmit={handleSubmit}>
+        <div className="error-div">
+          {errors.map((error, i) => (
+            <p key={i}>{error}</p>
+          ))}
+        </div>
         <div>
           <label htmlFor="name">Restaurant Name</label>
           <input
@@ -156,7 +157,7 @@ const NewRestaurant = () => {
           <select
             name="cuisine_type"
             value={cuisine_type}
-            onChange={(e) => setCuisineType}
+            onChange={(e) => setCuisineType(e.target.value)}
           >
             {types.map((type) => (
               <option key={type.id} value={type.id}>

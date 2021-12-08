@@ -2,12 +2,14 @@ import re
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 
+
 from app.models import db, Restaurant, Reservation
 from app.forms import NewRestaurant, RestaurantOwnerReservationForm, CustomerReservationForm
 
 from .auth_routes import validation_errors_to_error_messages
 
 restaurant_routes = Blueprint('restaurants', __name__)
+
 
 @restaurant_routes.route('/')
 def get_restaurants():
@@ -30,7 +32,8 @@ def post_restaurant():
 
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
-@restaurant_routes.route('/<int:id>', methods=["PUT"])
+
+@restaurant_routes.route('/<int:id>/', methods=["PUT"])
 def edit_restaurant(id):
     form = EditRestaurant()
     restaurantToEdit = Restaurant.query.get(int(id))
@@ -61,14 +64,12 @@ def delete_restaurant(id):
     return {'message': f"Deleted restuarant {id}"}
 
 
-
-
-
 ## Customer reservation routes below ##
-@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>/', methods=['PUT'])    
+@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>/', methods=['PUT'])
 def customer_create_and_edit_reservation(reservation_id, id):
-    reservation_form= CustomerReservationForm()
-    reservation_to_edit = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
+    reservation_form = CustomerReservationForm()
+    reservation_to_edit = db.session.query(Reservation).filter(
+        Reservation.id == reservation_id).first()
     reservation_form['csrf_token'].data = request.cookies['csrf_token']
     if reservation_form.validate_on_submit():
         reservation_to_edit.booked = True
@@ -81,54 +82,53 @@ def customer_create_and_edit_reservation(reservation_id, id):
 
 @restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['DELETE'])
 def customer_delete_reservation(reservation_id, id):
-        reservation = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
-        reservation.booked = False
-        reservation.user_id = None
-        reservation.notes = None
-        reservation.party_size = None
-        
-        db.session.commit()
-        return reservation.to_dict()
-        
-        
+    reservation = db.session.query(Reservation).filter(
+        Reservation.id == reservation_id).first()
+    reservation.booked = False
+    reservation.user_id = None
+    reservation.notes = None
+    reservation.party_size = None
 
-
+    db.session.commit()
+    return reservation.to_dict()
 
 
 ## Restaurant owner reservation routes below ##
 @restaurant_routes.route('/<int:id>/reservations/', methods=['POST'])
 def restaurant_owner_post_reservation(id):
-    reservation_form= RestaurantOwnerReservationForm()
+    reservation_form = RestaurantOwnerReservationForm()
     reservation_form['csrf_token'].data = request.cookies['csrf_token']
     if reservation_form.validate_on_submit():
-        new_reservation = Reservation (restaurant_id=id,
-                                       time_slot=reservation_form.data['time_slot'],
-                                       date=reservation_form.data['date'],
-                                       available_size=reservation_form.data['available_size'])
+        new_reservation = Reservation(restaurant_id=id,
+                                      time_slot=reservation_form.data['time_slot'],
+                                      date=reservation_form.data['date'],
+                                      available_size=reservation_form.data['available_size'])
         db.session.add(new_reservation)
         db.session.commit()
         return new_reservation.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(reservation_form.errors)}, 400
 
-#Restaurant Owner delete and edit reservation time slot blueprint and routes below 
+
+# Restaurant Owner delete and edit reservation time slot blueprint and routes below
 reservation_restaurant_owner_routes = Blueprint('reservations', __name__)
+
 
 @reservation_restaurant_owner_routes.route('/<int:reservation_id>/', methods=['PUT'])
 def restaurant_owner_edit_reservation(reservation_id):
-    reservation_form= RestaurantOwnerReservationForm()
-    reservation_to_edit = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
+    reservation_form = RestaurantOwnerReservationForm()
+    reservation_to_edit = db.session.query(Reservation).filter(
+        Reservation.id == reservation_id).first()
     reservation_form['csrf_token'].data = request.cookies['csrf_token']
-    
+
     if reservation_form.validate_on_submit():
-        reservation_to_edit.time_slot=reservation_form.data['time_slot']
-        reservation_to_edit.date=reservation_form.data['date']
-        reservation_to_edit.available_size=reservation_form.data['available_size']
+        reservation_to_edit.time_slot = reservation_form.data['time_slot']
+        reservation_to_edit.date = reservation_form.data['date']
+        reservation_to_edit.available_size = reservation_form.data['available_size']
         db.session.commit()
         return reservation_to_edit.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(reservation_form.errors)}, 400
-
 
 
 @reservation_restaurant_owner_routes.route('/<int:reservation_id>/', methods=['DELETE'])
@@ -137,4 +137,3 @@ def restaurant_owner_delete_reservation(reservation_id):
     db.session.delete(reservation_to_delete)
     db.session.commit()
     return {'message': f"Deleted restuarant {reservation_id}"}
-
