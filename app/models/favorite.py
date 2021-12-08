@@ -14,5 +14,6 @@ class Favorite(db.Model):
         return {
             'id': self.id,
             'userId': self.userId,
-            'restaurantId': self.restaurantId
+            'restaurantId': self.restaurantId,
+            # 'restaurants': [{"name": obj.name} for obj in self.restaurant_fav]
         }
