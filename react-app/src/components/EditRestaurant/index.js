@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { editRestaurant } from '../../store/restaurant';
 import TIMES from '../NewRestaurant/times';
-
+import '../NewRestaurant/restaurant.css';
 
 // to-do this should eventually be a modal
 
 const EditRestaurant = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
 
   const { restaurantId } = useParams();
   const restaurant = useSelector((state) => state.restaurants[restaurantId]);
@@ -21,19 +20,17 @@ const EditRestaurant = () => {
     types.push(cuisine_types[type]);
   }
 
-  const [name, setName] = useState(restaurant.name);
-  const [location, setLocation] = useState(restaurant.location);
-  const [price_point, setPricePoint] = useState(restaurant.price_point);
-  const [open_time, setOpenTime] = useState(restaurant.open_time);
-  const [close_time, setCloseTime] = useState(restaurant.close_time);
-  const [contact_email, setContactEmail] = useState(restaurant.contact_email);
-  const [description, setDescription] = useState(restaurant.description);
-  const [cover_photo, setCoverPhoto] = useState(restaurant.cover_photo);
+  const [name, setName] = useState(restaurant?.name);
+  const [location, setLocation] = useState(restaurant?.location);
+  const [price_point, setPricePoint] = useState(restaurant?.price_point);
+  const [open_time, setOpenTime] = useState(restaurant?.open_time);
+  const [close_time, setCloseTime] = useState(restaurant?.close_time);
+  const [contact_email, setContactEmail] = useState(restaurant?.contact_email);
+  const [description, setDescription] = useState(restaurant?.description);
+  const [cover_photo, setCoverPhoto] = useState(restaurant?.cover_photo);
   const [cuisine_type, setCuisineType] = useState(1);
-  const [phone_number, setPhoneNumber] = useState(restaurant.phone_number);
+  const [phone_number, setPhoneNumber] = useState(restaurant?.phone_number);
   const [errors, setErrors] = useState([]);
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +50,6 @@ const EditRestaurant = () => {
         phone_number
       )
     );
-    console.log(data);
     if (typeof data != 'number') {
       return setErrors(data);
     }
