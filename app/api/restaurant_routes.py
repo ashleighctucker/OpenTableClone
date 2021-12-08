@@ -59,22 +59,22 @@ def post_reservation(id):
 
 @restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['PUT'])    
 def customer_create_reservation(reservation_id, id):
-    
+    pr
 
 
 # THE ROUTE BELOW IS TO ALLOW CUSTOMERS TO 'DELETE' THEIR RESERVATION. IT RESETS THE RESERVATION IN THE TABLE     
-@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['DELETE'])    
+@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['DELETE'])
 def delete_reservation(reservation_id, id):
-    reservation = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
-    reservation.booked = False
-    #reservation.user_id = "null"
-    reservation.notes = "null"
-    reservation.party_size = "null"
-    reservation.updatedat= datetime.datetime.utcnow
-    
-    db.session.commit()
-    return reservation.to_dict()
-    
+        reservation = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
+        reservation.booked = False
+        #reservation.user_id = "null"
+        reservation.notes = "null"
+        reservation.party_size = "null"
+        reservation.updatedat= datetime.datetime.utcnow
+        
+        db.session.commit()
+        return reservation.to_dict()
+        
         
 
         
