@@ -25,8 +25,13 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
+<<<<<<< HEAD
       await dispatch(getRestaurants());
       await dispatch(getCuisineTypes()).then(() => setLoaded(true));
+=======
+
+      setLoaded(true);
+>>>>>>> 37f0d05 (edit/delete thunks tested)
     })();
   }, [dispatch]);
 
@@ -34,9 +39,20 @@ function App() {
     return null;
   }
 
+<<<<<<< HEAD
   const Routes = () => {
     return (
       <>
+=======
+
+  return (
+    <BrowserRouter>
+      <NavBar />
+      <Switch>
+        <Route exact path="/">
+          <SplashPage />
+        </Route>
+>>>>>>> 37f0d05 (edit/delete thunks tested)
         <Route path="/home">
           <HomePage />
         </Route>
