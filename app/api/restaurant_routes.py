@@ -29,4 +29,4 @@ def post_restaurant():
         db.session.commit()
         return newRestaurant.to_dict()
     else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 500
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400

@@ -43,7 +43,7 @@ function App() {
         <Route exact path="/restaurants/new">
           <NewRestaurant />
         </Route>
-        <Route path="/restaurants/:id">
+        <Route path="/restaurants/:restaurantId">
           <Restaurant />
         </Route>
         <Route path="/login" exact={true}>

@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, session, redirect
+from flask.helpers import url_for
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -10,6 +11,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.restaurant_routes import restaurant_routes
 from .api.review_routes import review_routes
+from .api.cuisine_type_routes import cuisine_type_routes
 
 from .seeds import seed_commands
 
@@ -35,6 +37,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(restaurant_routes, url_prefix='/api/restaurants')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
+app.register_blueprint(cuisine_type_routes, url_prefix="/api/cuisine_types")
 db.init_app(app)
 Migrate(app, db, compare_type=True)
 
