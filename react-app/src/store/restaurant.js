@@ -147,6 +147,7 @@ export const deleteReview = (id) => async (dispatch) => {
 const initialState = {};
 
 export default function restaurantReducer(state = initialState, action) {
+  let newState;
   switch (action.type) {
     case LOAD: {
       const normalRestaurants = {};
@@ -158,17 +159,12 @@ export default function restaurantReducer(state = initialState, action) {
     case UPDATE_REVIEWS:
     case ADD_REVIEWS: {
       const restaurantId = action.newReview.restaurantId;
-      let newState = { ...action.newReview };
-      state[restaurantId].reviews = {
-        ...newState,
-        ...state[restaurantId].reviews,
-      };
-      return {
-        ...state,
-      };
+      newState = { ...state };
+      newState[restaurantId].reviews[action.newReview.id] = action.newReview;
+      return newState;
     }
     case REMOVE_REVIEWS: {
-      const newState = { ...state };
+      newState = { ...state };
       console.log(newState);
     }
     case ADD: {
