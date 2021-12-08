@@ -11,7 +11,6 @@ restaurant_routes = Blueprint('restaurants', __name__)
 
 @restaurant_routes.route('/')
 def get_restaurants():
-
     restaurants = Restaurant.query.all()
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
@@ -65,7 +64,7 @@ def delete_restaurant(id):
 
 
 ## Customer reservation routes below ##
-@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>/', methods=['PUT'])    
+@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>/', methods=['PUT'])
 def customer_create_and_edit_reservation(reservation_id, id):
     reservation_form= CustomerReservationForm()
     reservation_to_edit = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
@@ -86,11 +85,11 @@ def customer_delete_reservation(reservation_id, id):
         reservation.user_id = None
         reservation.notes = None
         reservation.party_size = None
-        
+
         db.session.commit()
         return reservation.to_dict()
-        
-        
+
+
 
 
 
@@ -111,7 +110,7 @@ def restaurant_owner_post_reservation(id):
     else:
         return {'errors': validation_errors_to_error_messages(reservation_form.errors)}, 400
 
-#Restaurant Owner delete and edit reservation time slot blueprint and routes below 
+#Restaurant Owner delete and edit reservation time slot blueprint and routes below
 reservation_restaurant_owner_routes = Blueprint('reservations', __name__)
 
 @reservation_restaurant_owner_routes.route('/<int:reservation_id>/', methods=['PUT'])
@@ -119,7 +118,7 @@ def restaurant_owner_edit_reservation(reservation_id):
     reservation_form= RestaurantOwnerReservationForm()
     reservation_to_edit = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
     reservation_form['csrf_token'].data = request.cookies['csrf_token']
-    
+
     if reservation_form.validate_on_submit():
         reservation_to_edit.time_slot=reservation_form.data['time_slot']
         reservation_to_edit.date=reservation_form.data['date']
@@ -137,4 +136,3 @@ def restaurant_owner_delete_reservation(reservation_id):
     db.session.delete(reservation_to_delete)
     db.session.commit()
     return {'message': f"Deleted restuarant {reservation_id}"}
-
