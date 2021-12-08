@@ -111,7 +111,6 @@ export const addRestaurant =
     }
   };
 
-
 export const editRestaurant =
   (
     restaurantId,
@@ -164,7 +163,7 @@ export const deleteRestaurant = (restaurantId) => async (dispatch) => {
   const message = await response.json();
   dispatch(remove(restaurantId));
   return message;
-  };
+};
 
 export const createReview =
   (rating, comment, restaurantId, userId) => async (dispatch) => {
@@ -183,7 +182,7 @@ export const createReview =
       console.log('this is the response', data);
       dispatch(addReview(data));
       return data.id;
-    else if (response.status < 500) {
+    } else if (response.status < 500) {
       const data = await response.json();
       if (data.errors) {
         return data.errors;
