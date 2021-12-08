@@ -10,6 +10,7 @@ from .models import db, User, Restaurant, Cuisine, Reservation
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.restaurant_routes import restaurant_routes
+# from .api.favorite_routes import fav_routes
 
 from .api.favorite_routes import fav_routes
 from .api.review_routes import review_routes
@@ -43,6 +44,7 @@ app.register_blueprint(restaurant_routes, url_prefix='/api/restaurants')
 app.register_blueprint(fav_routes, url_prefix='/api/favorites')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
 app.register_blueprint(cuisine_type_routes, url_prefix="/api/cuisine_types")
+
 db.init_app(app)
 Migrate(app, db, compare_type=True)
 

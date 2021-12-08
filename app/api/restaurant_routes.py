@@ -7,7 +7,6 @@ from app.models import db, Restaurant, Reservation
 from app.forms import NewRestaurant, ReservationForm, EditRestaurant
 from .auth_routes import validation_errors_to_error_messages
 
-
 restaurant_routes = Blueprint('restaurants', __name__)
 
 

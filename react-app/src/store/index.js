@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import session from './session';
 import restaurants from './restaurant';
 import cuisine_types from './cuisine_types';
-import favoriteReducer from './favorites'
+import favoriteReducer from './favorites';
 
 const rootReducer = combineReducers({
   session,

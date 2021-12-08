@@ -1,8 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 import ProfileButton from './ProfileButton';
-import './NavBar.css';
-
+import './NavBar.css'
 
 const NavBar = () => {
   let sessionUser = useSelector((state) => state.session.user);
