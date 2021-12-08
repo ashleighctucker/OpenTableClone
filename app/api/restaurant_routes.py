@@ -34,10 +34,7 @@ def post_restaurant():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-
-
-
-#### THE ROUTE BELOW ALLOWS RESTAURANT OWNERS TO CREATE NEW RESERVATION TIME SLOTS  
+ 
 @restaurant_routes.route('/<int:id>/reservations/', methods=['POST'])
 def post_reservation(id):
     reservation_form= ReservationForm()
@@ -62,15 +59,14 @@ def customer_create_reservation(reservation_id, id):
     pr
 
 
-# THE ROUTE BELOW IS TO ALLOW CUSTOMERS TO 'DELETE' THEIR RESERVATION. IT RESETS THE RESERVATION IN THE TABLE     
+    
 @restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['DELETE'])
 def delete_reservation(reservation_id, id):
         reservation = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
         reservation.booked = False
-        #reservation.user_id = "null"
-        reservation.notes = "null"
-        reservation.party_size = "null"
-        reservation.updatedat= datetime.datetime.utcnow
+        reservation.user_id = None
+        reservation.notes = None
+        reservation.party_size = None
         
         db.session.commit()
         return reservation.to_dict()
@@ -78,4 +74,3 @@ def delete_reservation(reservation_id, id):
         
 
         
-
