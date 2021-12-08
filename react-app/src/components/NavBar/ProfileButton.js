@@ -34,11 +34,13 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    setShowMenu(false)
     return history.push('/');
   };
   const loginGuest = (e) => {
     e.preventDefault();
     dispatch(login('demo@aa.io', 'password'));
+    setShowMenu(false)
     return history.push('/home');
   };
 
@@ -46,13 +48,8 @@ function ProfileButton() {
 
   if (sessionUser) {
     sessionLinks = (
-      <div className="NavButtons">
-        <NavLink
-          to="/home"
-          exact={true}
-          activeClassName="active"
-          className="NavHome"
-        >
+      <div className='NavButtons'>
+        <NavLink to='/home' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu} >
           Home
         </NavLink>
         <button className="NavLogout" onClick={logout}>
@@ -62,19 +59,14 @@ function ProfileButton() {
     );
   } else {
     sessionLinks = (
-      <div className="NavButtons">
-        <NavLink
-          to="/home"
-          exact={true}
-          activeClassName="active"
-          className="NavHome"
-        >
+      <div className='NavButtons'>
+        <NavLink to='/home' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu}>
           Home
         </NavLink>
 
-        <LoginModal className="NavLogin" />
+        <LoginModal className='NavLogin'/>
 
-        <SignupModal className="NavSignin" />
+        <SignupModal className='NavSignin'/>
 
         <button type="button" onClick={loginGuest} className="NavGuest">
           Guest User
@@ -102,10 +94,15 @@ function ProfileButton() {
       {showMenu && (
         <div className="profile-dropdown">
           {sessionUser ? (
-            <div>
-              <li className="WelcomeUser">Welcome, {sessionUser.firstName}!</li>
-              <p className="NavProfile">My Profile</p>
-              <p className="NavFavorites">My Favorites</p>
+            <div className='profileButtons'>
+              <li className='WelcomeUser'>Welcome, {sessionUser.firstName}!</li>
+              <NavLink to='/profile' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu}>
+                My Profile
+              </NavLink>
+
+              <NavLink to='/favorites' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu}>
+                My Favorites
+              </NavLink>
             </div>
           ) : null}
           {sessionLinks}

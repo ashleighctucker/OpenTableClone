@@ -6,7 +6,6 @@ import datetime
 from app.models import db, Restaurant, Reservation
 from app.forms import NewRestaurant, ReservationForm, EditRestaurant
 from .auth_routes import validation_errors_to_error_messages
-from sqlalchemy import inspect
 
 
 restaurant_routes = Blueprint('restaurants', __name__)
@@ -14,12 +13,12 @@ restaurant_routes = Blueprint('restaurants', __name__)
 
 @restaurant_routes.route('/')
 def get_restaurants():
-
     restaurants = Restaurant.query.all()
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
 
 @restaurant_routes.route('/', methods=["POST"])
+@login_required
 def post_restaurant():
     form = NewRestaurant()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -66,7 +65,7 @@ def delete_restaurant(id):
 
 @restaurant_routes.route('/<int:id>/reservations', methods=['POST'])
 
- 
+
 @restaurant_routes.route('/<int:id>/reservations/', methods=['POST'])
 def post_reservation(id):
     reservation_form = ReservationForm()
@@ -78,7 +77,7 @@ def post_reservation(id):
                                        time_slot=reservation_form.data['time_slot'],
                                        date=reservation_form.data['date'],
                                        party_size=reservation_form.data['party_size'],
-                                       available_size=reservation_form.data['available_size'], user_id=reservation_form.data['user_id'], 
+                                       available_size=reservation_form.data['available_size'], user_id=reservation_form.data['user_id'],
                                        notes=reservation_form.data['notes'])
 
         db.session.add(new_reservation)
@@ -89,12 +88,12 @@ def post_reservation(id):
 
 
 
-# @restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['PUT'])    
+# @restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['PUT'])
 # def customer_create_reservation(reservation_id, id):
-    
 
 
-    
+
+
 @restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['DELETE'])
 def delete_reservation(reservation_id, id):
         reservation = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
@@ -102,10 +101,6 @@ def delete_reservation(reservation_id, id):
         reservation.user_id = None
         reservation.notes = None
         reservation.party_size = None
-        
+
         db.session.commit()
         return reservation.to_dict()
-        
-        
-
-

@@ -14,10 +14,16 @@ import { authenticate } from './store/session';
 import NewRestaurant from './components/NewRestaurant';
 import Favorites from './components/Favorites';
 import Profile from './components/UserProfile';
+import { makeFavorite } from './store/favorites';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+
+  const favorites = async() => {
+    await makeFavorite({'userId': 1, 'restaurantId': 1})
+  }
+  favorites()
 
   useEffect(() => {
     (async () => {
