@@ -107,11 +107,7 @@ export const editRestaurant =
     phone_number
   ) =>
   async (dispatch) => {
-<<<<<<< HEAD
     const response = await fetch(`/api/restaurants/${restaurantId}/`, {
-=======
-    const response = await fetch(`/api/restaurants/${restaurantId}`, {
->>>>>>> 37f0d05 (edit/delete thunks tested)
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -142,11 +138,7 @@ export const editRestaurant =
   };
 
 export const deleteRestaurant = (restaurantId) => async (dispatch) => {
-<<<<<<< HEAD
   const response = await fetch(`/api/restaurants/${restaurantId}/`, {
-=======
-  const response = await fetch(`/api/restaurants/${restaurantId}`, {
->>>>>>> 37f0d05 (edit/delete thunks tested)
     method: 'DELETE',
   });
   const message = await response.json();

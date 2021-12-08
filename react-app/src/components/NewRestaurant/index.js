@@ -5,6 +5,8 @@ import { addRestaurant } from '../../store/restaurant';
 import TIMES from './times';
 import './restaurant.css';
 
+
+
 const NewRestaurant = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -31,6 +33,7 @@ const NewRestaurant = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
+    console.log('before edit');
     const data = await dispatch(
       addRestaurant(
         sessionUser.id,
