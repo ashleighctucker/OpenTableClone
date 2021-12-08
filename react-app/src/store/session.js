@@ -41,6 +41,7 @@ export const login = (email, password) => async (dispatch) => {
     }),
   });
 
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data));
@@ -100,6 +101,7 @@ export const signUp =
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
+      console.log('session!!!')
       return { user: action.payload };
     case REMOVE_USER:
       return { user: null };

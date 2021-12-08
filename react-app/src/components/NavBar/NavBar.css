@@ -63,6 +63,7 @@
 .NavHome, .NavLogin, .NavSignin{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    text-align: center;
     margin: 10px;
     padding: 3px 35px;
     color: black;
@@ -75,6 +76,7 @@
 .NavGuest {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    text-align: center;
     padding: 3px;
     border: solid 1px black;
     background-color: rgb(230, 230, 230);
@@ -86,8 +88,9 @@
 .NavLogout {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    text-align: center;
     margin: 10px;
-    padding: 5px 30px;
+    padding: 3px 30px;
     border: solid 1px black;
     background-color: rgb(230, 230, 230);
     border-radius: 5px;
@@ -103,4 +106,9 @@
 }
 .NavFavorites {
     margin: 10px;
+}
+
+.profileButtons {
+    display: flex;
+    flex-direction: column;
 }

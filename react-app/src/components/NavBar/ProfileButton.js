@@ -47,14 +47,6 @@ function ProfileButton() {
   if (sessionUser) {
     sessionLinks = (
       <div className="NavButtons">
-        <NavLink
-          to="/home"
-          exact={true}
-          activeClassName="active"
-          className="NavHome"
-        >
-          Home
-        </NavLink>
         <button className="NavLogout" onClick={logout}>
           Log Out
         </button>
@@ -63,15 +55,6 @@ function ProfileButton() {
   } else {
     sessionLinks = (
       <div className="NavButtons">
-        <NavLink
-          to="/home"
-          exact={true}
-          activeClassName="active"
-          className="NavHome"
-        >
-          Home
-        </NavLink>
-
         <LoginModal className="NavLogin" />
 
         <SignupModal className="NavSignin" />
@@ -100,12 +83,20 @@ function ProfileButton() {
       {showMenu && (
         <div className="profile-dropdown">
           {sessionUser ? (
-            <div>
+            <div className='profileButtons'>
               <li className="WelcomeUser">Welcome, {sessionUser.firstName}!</li>
-              <p className="NavProfile">My Profile</p>
-              <p className="NavFavorites">My Favorites</p>
+              <NavLink to='/profile' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu}>
+                My Profile
+              </NavLink>
+
+              <NavLink to='/favorites' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu}>
+                My Favorites
+              </NavLink>
             </div>
           ) : null}
+          <NavLink to='/home' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu} >
+            Home
+          </NavLink>
           {sessionLinks}
         </div>
       )}

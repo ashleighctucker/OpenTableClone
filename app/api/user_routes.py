@@ -31,7 +31,7 @@ def create_favs(id):
     form = FavoriteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        newFav = Favorite(userId=form.data['userId'], restaurantId=form.data['restaurantId'])
+        newFav = Favorite(userId=id, restaurantId=form.data['restaurantId'])
         db.session.add(newFav)
         db.session.commit()
         return newFav.to_dict()

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar/NavBar';
@@ -15,8 +15,10 @@ import NewRestaurant from './components/NewRestaurant';
 import Favorites from './components/Favorites';
 import Profile from './components/UserProfile';
 import EditRestaurant from './components/EditRestaurant';
-import { getRestaurants } from './store/restaurant';
 import { getCuisineTypes } from './store/cuisine_types';
+import { getRestaurants, createReview } from './store/restaurant';
+import CreateReview from './components/NewReview';
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -48,6 +50,7 @@ function App() {
         </Route>
         <Route exact path="/restaurants/:restaurantId">
           <Restaurant />
+          <CreateReview />
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
