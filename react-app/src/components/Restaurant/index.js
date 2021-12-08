@@ -1,18 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteReview } from '../../store/restaurant';
 import { useParams } from 'react-router';
 const Restaurant = () => {
   const { restaurantId } = useParams();
-  const rawReviews = useSelector(
-    (state) =>
-      // Object.values(state.restaurants[restaurantId]?.reviews)
-      state.restaurants[restaurantId]?.reviews
-  );
+  const dispatch = useDispatch();
   let reviews;
+  const rawReviews = useSelector(
+    (state) => state.restaurants[restaurantId]?.reviews
+  );
+
   if (rawReviews) {
     reviews = Object.values(rawReviews);
   }
-  console.log(rawReviews);
+
+  const deleteOneReview = (id) => {
+    dispatch(deleteReview(id));
+  };
 
   return (
     <div className="restaurant-container">
@@ -23,6 +27,12 @@ const Restaurant = () => {
             <div>
               {review.rating}
               {review.comment}
+              <div>
+                <button>edit</button>
+                <button onClick={() => deleteOneReview(review.id)}>
+                  delete
+                </button>
+              </div>
             </div>
           );
         })}
