@@ -1,6 +1,5 @@
 import React from 'react';
 import './splashPage.css';
-import { useHistory } from 'react-router-dom';
 
 const SplashPage = () => {
   //   const routeChange = () => {

@@ -4,7 +4,6 @@ from flask_login import login_required
 from app.models import db, Restaurant, Reservation
 from app.forms import NewRestaurant
 from .auth_routes import validation_errors_to_error_messages
-from sqlalchemy import inspect
 
 
 
@@ -12,14 +11,17 @@ restaurant_routes = Blueprint('restaurants', __name__)
 
 @restaurant_routes.route('/')
 def get_restaurants():
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     restaurants = Restaurant.query.all()
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
 
 @restaurant_routes.route('/', methods=["POST"])
+@login_required
 def post_restaurant():
-    print('hi')
     form = NewRestaurant()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

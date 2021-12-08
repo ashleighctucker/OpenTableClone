@@ -35,6 +35,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'firstName': self.firstName,
             'lastName': self.lastName,
-            'reservations' : [{"time_slot":obj.time_slot, "user_id":obj.user_id, "party_size":obj.party_size, "available_size":obj.available_size, "notes":obj.notes, "booked":obj.booked, "restaurant_id": obj.restaurant_id, "reservation_id": obj.id} for obj in self.user_reservations]
+            'reservations' : [{"time_slot":obj.time_slot, "user_id":obj.user_id, "party_size":obj.party_size, "available_size":obj.available_size, "notes":obj.notes, "booked":obj.booked, "restaurant_id": obj.restaurant_id, "reservation_id": obj.id} for obj in self.user_reservations],
+            'favorites': [{'id': obj.id, 'userId': obj.userId, 'restaurantId': obj.restaurantId} for obj in self.user_favorites]
         }
 #'reservations': [{"restaurant.id":obj.restaurant_id, "time_slot":obj.time_slot, "date":obj.date, "party_size":obj.party_size, "available_size":obj.available_size, "booked":obj.booked, "notes":obj.notes} for obj in self.user_reservations]
