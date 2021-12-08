@@ -22,6 +22,7 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
+
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -29,6 +30,7 @@ function App() {
   if (!loaded) {
     return null;
   }
+
 
   return (
     <BrowserRouter>

@@ -1,6 +1,16 @@
 import React from 'react';
 import './HomePage.css';
+import { useDispatch } from 'react-redux';
+import { getRestaurants, deleteRestaurant } from '../../store/restaurant';
+
 const HomePage = () => {
+  const dispatch = useDispatch();
+
+  const load = async () => {
+    await dispatch(getRestaurants());
+    await dispatch(deleteRestaurant(3));
+  };
+  load();
   return (
     <div className="homepage-container">
       <header className="headerContainer">
