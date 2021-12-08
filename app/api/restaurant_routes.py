@@ -1,7 +1,7 @@
 import re
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-import datetime
+
 
 from app.models import db, Restaurant, Reservation
 from app.forms import NewRestaurant, ReservationForm, EditRestaurant
@@ -32,6 +32,7 @@ def post_restaurant():
     else:
 
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
 
 @restaurant_routes.route('/<int:id>', methods=["PUT"])
 def edit_restaurant(id):
@@ -64,48 +65,20 @@ def delete_restaurant(id):
     return {'message': f"Deleted restuarant {id}"}
 
 
-@restaurant_routes.route('/<int:id>/reservations', methods=['POST'])
-
- 
-@restaurant_routes.route('/<int:id>/reservations/', methods=['POST'])
+@ restaurant_routes.route('/<int:id>/reservations', methods=['POST'])
 def post_reservation(id):
     reservation_form = ReservationForm()
     reservation_form['csrf_token'].data = request.cookies['csrf_token']
     if reservation_form.validate_on_submit():
-
-        new_reservation = Reservation (restaurant_id=reservation_form.data['restaurant_id'],
-                                       booked= False,
-                                       time_slot=reservation_form.data['time_slot'],
-                                       date=reservation_form.data['date'],
-                                       party_size=reservation_form.data['party_size'],
-                                       available_size=reservation_form.data['available_size'], user_id=reservation_form.data['user_id'], 
-                                       notes=reservation_form.data['notes'])
-
+        new_reservation = Reservation(restaurant_id=reservation_form.data['restaurant_id'],
+                                      time_slot=reservation_form.data['time_slot'],
+                                      date=reservation_form.data['date'],
+                                      party_size=reservation_form.data['party_size'],
+                                      available_size=reservation_form.data[
+            'available_size'], user_id=reservation_form.data['user_id'],
+            notes=reservation_form.data['notes'])
         db.session.add(new_reservation)
         db.session.commit()
         return new_reservation.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(reservation_form.errors)}, 500
-
-
-
-# @restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['PUT'])    
-# def customer_create_reservation(reservation_id, id):
-    
-
-
-    
-@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['DELETE'])
-def delete_reservation(reservation_id, id):
-        reservation = db.session.query(Reservation).filter(Reservation.id == reservation_id).first()
-        reservation.booked = False
-        reservation.user_id = None
-        reservation.notes = None
-        reservation.party_size = None
-        
-        db.session.commit()
-        return reservation.to_dict()
-        
-        
-
-

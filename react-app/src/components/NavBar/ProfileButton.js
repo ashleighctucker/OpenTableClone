@@ -83,8 +83,6 @@ function ProfileButton() {
     );
   }
 
-  // console.log(sessionLinks)
-
   return (
     <div className="NavProfileDropdown">
       {!showMenu ? (
