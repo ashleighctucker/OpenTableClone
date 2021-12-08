@@ -1,3 +1,4 @@
+from sqlalchemy.sql.functions import func
 from .db import db
 import datetime
 
@@ -21,7 +22,7 @@ class Reservation(db.Model):
     
     date = db.Column(db.Date, nullable=False)
     createdat=db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    updatedat=db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updatedat=db.Column(db.DateTime, default=datetime.datetime.utcnow, onupdate=func.now())
     
 
     def to_dict(self):
