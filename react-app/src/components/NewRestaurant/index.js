@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addRestaurant } from '../../store/restaurant';
 import TIMES from './times';
-// import { getCuisineTypes } from '../../store/cuisine_types';
 
 const NewRestaurant = () => {
   const dispatch = useDispatch();
