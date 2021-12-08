@@ -11,14 +11,14 @@ class Reservation(db.Model):
     restaurant_reservations = db.relationship('Restaurant', back_populates="reservation")
     
     time_slot = db.Column(db.String(20), nullable=False)
-    party_size = db.Column(db.Integer)
+    party_size = db.Column(db.Integer, nullable=True)
     available_size = db.Column(db.Integer, nullable=False)
     
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
     restaurant_customers = db.relationship('User', back_populates="user_reservations")
     
     booked =db.Column(db.Boolean, default= False)
-    notes = db.Column(db.Text)
+    notes = db.Column(db.Text, nullable=True)
     
     date = db.Column(db.Date, nullable=False)
     createdat=db.Column(db.DateTime, default=datetime.datetime.utcnow)
