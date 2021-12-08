@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteReview } from '../../store/restaurant';
 import { useParams } from 'react-router';
+import EditReviewModal from '../EditReview/EditReviewModal';
 const Restaurant = () => {
   const { restaurantId } = useParams();
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Restaurant = () => {
               {review.rating}
               {review.comment}
               <div>
-                <button>edit</button>
+                <EditReviewModal id={review.id} />
                 <button onClick={() => deleteOneReview(review.id)}>
                   delete
                 </button>
