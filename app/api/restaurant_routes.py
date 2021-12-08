@@ -1,8 +1,10 @@
+import re
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 
 from app.models import db, Restaurant, Reservation
 from app.forms import NewRestaurant, RestaurantOwnerReservationForm, CustomerReservationForm
+
 from .auth_routes import validation_errors_to_error_messages
 
 restaurant_routes = Blueprint('restaurants', __name__)
@@ -12,7 +14,6 @@ def get_restaurants():
 
     restaurants = Restaurant.query.all()
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
-
 
 
 @restaurant_routes.route('/', methods=["POST"])
@@ -29,6 +30,35 @@ def post_restaurant():
 
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
+@restaurant_routes.route('/<int:id>', methods=["PUT"])
+def edit_restaurant(id):
+    form = EditRestaurant()
+    restaurantToEdit = Restaurant.query.get(int(id))
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+
+        restaurantToEdit.name = form.data['name']
+        restaurantToEdit.location = form.data['location']
+        restaurantToEdit.price_point = form.data['price_point']
+        restaurantToEdit.phone_number = form.data['phone_number']
+        restaurantToEdit.open_time = form.data["open_time"]
+        restaurantToEdit.close_time = form.data["close_time"]
+        restaurantToEdit.contact_email = form.data["contact_email"]
+        restaurantToEdit.description = form.data['description']
+        restaurantToEdit.cover_photo = form.data['cover_photo']
+        restaurantToEdit.cuisine_type = form.data['cuisine_type']
+        db.session.commit()
+        return restaurantToEdit.to_dict()
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+@restaurant_routes.route('/<int:id>', methods=["DELETE"])
+def delete_restaurant(id):
+    restaurantToDelete = Restaurant.query.get(int(id))
+    db.session.delete(restaurantToDelete)
+    db.session.commit()
+    return {'message': f"Deleted restuarant {id}"}
 
 
 
@@ -61,6 +91,7 @@ def customer_delete_reservation(reservation_id, id):
         return reservation.to_dict()
         
         
+
 
 
 
@@ -106,3 +137,4 @@ def restaurant_owner_delete_reservation(reservation_id):
     db.session.delete(reservation_to_delete)
     db.session.commit()
     return {'message': f"Deleted restuarant {reservation_id}"}
+
