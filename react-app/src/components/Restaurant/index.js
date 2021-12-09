@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 const Restaurant = () => {
   const { restaurantId } = useParams();
+  const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const rawReviews = useSelector(
-    (state) =>
-      // Object.values(state.restaurants[restaurantId]?.reviews)
-      state.restaurants[restaurantId]?.reviews
+    (state) => state.restaurants[restaurantId]?.reviews
   );
   let reviews;
   if (rawReviews) {
@@ -15,7 +14,7 @@ const Restaurant = () => {
 
   return (
     <div className="restaurant-container">
-      <h1>Single Restaurant Page</h1>
+      <h1>{restaurant?.name}</h1>
       <div>
         {reviews?.map((review) => {
           return (

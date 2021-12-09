@@ -9,7 +9,6 @@ const CreateReview = () => {
   const { restaurantId } = useParams();
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState('');
-  const [userId, setUserId] = useState(sessionUser.id);
 
   const reset = () => {
     setRating(1);
@@ -19,33 +18,37 @@ const CreateReview = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const returnedFromDispatch = await dispatch(
-      createReview(rating, comment, restaurantId, userId)
+      createReview(rating, comment, restaurantId, sessionUser.id)
     );
     reset();
   };
 
   return (
-    <div className="createReview">
-      <form onSubmit={handleSubmit} className="createReviewForm">
-        <input
-          type="number"
-          onChange={(e) => setRating(e.target.value)}
-          value={rating}
-          placeholder="rating"
-          name="rating"
-          required
-        />
-        <textarea
-          onChange={(e) => setComment(e.target.value)}
-          value={comment}
-          placeholder="comment"
-          name="comment"
-        />
-        <button type="submit" className="submitBtn">
-          Submit
-        </button>
-      </form>
-    </div>
+    <>
+      {sessionUser ? (
+        <div className="createReview">
+          <form onSubmit={handleSubmit} className="createReviewForm">
+            <input
+              type="number"
+              onChange={(e) => setRating(e.target.value)}
+              value={rating}
+              placeholder="rating"
+              name="rating"
+              required
+            />
+            <textarea
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+              placeholder="comment"
+              name="comment"
+            />
+            <button type="submit" className="submitBtn">
+              Submit
+            </button>
+          </form>
+        </div>
+      ) : null}
+    </>
   );
 };
 
