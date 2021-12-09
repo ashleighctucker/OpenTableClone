@@ -5,7 +5,7 @@ import CustomerReservationForm  from './CustomerReservationForm';
 function CustomerBookReservationModal({arrayOfAvailableDates, availableReservationsArray}) {
   const [showModal, setShowModal] = useState(false);
 
-  return (<>
+  const bookAReservationButton = (<>
       <button className="customerBookReservationButton" onClick={() => setShowModal(true)}>Book a reservation</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
@@ -13,6 +13,9 @@ function CustomerBookReservationModal({arrayOfAvailableDates, availableReservati
         </Modal>
       )}
     </>
+  );
+
+  return (arrayOfAvailableDates.length ? bookAReservationButton : <h2> No reservations available</h2>
   );
 }
 
