@@ -8,7 +8,8 @@ const ADD_REVIEWS = 'reviews/addReviews';
 const UPDATE_REVIEWS = 'reviews/updateReviews';
 const REMOVE_REVIEWS = 'reviews/removeReviews';
 
-const ADD_CUSTOMER_RESERVATION = 'reservations/addCustomerReservation'
+const ADD_CUSTOMER_RESERVATION = 'reservations/addCustomerReservation';
+const ADD_RESERVATION = 'reservations/ADD_RESERVATION';
 
 export const addReview = (newReview) => ({
   type: ADD_REVIEWS,
@@ -45,6 +46,12 @@ const remove = (restaurantId) => ({
   restaurantId,
 });
 
+const addReservation = (reservation) => ({
+  type: ADD_RESERVATION,
+  reservation,
+});
+
+// gets all restaurants with reservations and reviews eager loaded
 export const getRestaurants = () => async (dispatch) => {
   const response = await fetch('/api/restaurants/', {
     headers: {
@@ -65,6 +72,7 @@ export const getRestaurants = () => async (dispatch) => {
   }
 };
 
+// adds a single restaurant
 export const addRestaurant =
   (
     user_id,
@@ -113,6 +121,7 @@ export const addRestaurant =
     }
   };
 
+// edits a restaurant entry
 export const editRestaurant =
   (
     restaurantId,
@@ -167,6 +176,7 @@ export const deleteRestaurant = (restaurantId) => async (dispatch) => {
   return message;
 };
 
+//creates a single review
 export const createReview =
   (rating, comment, restaurantId, userId) => async (dispatch) => {
     const response = await fetch('/api/reviews/', {
@@ -193,6 +203,7 @@ export const createReview =
     }
   };
 
+// edits a single review
 export const editReview = (rating, comment, id) => async (dispatch) => {
   const res = await fetch(`/api/reviews/${id}`, {
     method: 'PUT',
@@ -207,6 +218,7 @@ export const editReview = (rating, comment, id) => async (dispatch) => {
   return updatedReview;
 };
 
+// deletes a single review
 export const deleteReview = (id) => async (dispatch) => {
   const res = await fetch(`/api/reviews/${id}`, {
     method: 'DELETE',
@@ -215,29 +227,73 @@ export const deleteReview = (id) => async (dispatch) => {
   return res;
 };
 
-export const addCustomerReservation = (newCustomerReservation, idxOfReservationSlotInState) => ({
-  type: ADD_CUSTOMER_RESERVATION,
+export const addCustomerReservation = (
   newCustomerReservation,
   idxOfReservationSlotInState
+) => ({
+  type: ADD_CUSTOMER_RESERVATION,
+  newCustomerReservation,
+  idxOfReservationSlotInState,
 });
 
 export const createCustomerReservation =
-  (restaurantId, reservationId, userId, partySize, notes, booked, idxOfReservationSlotInState) => async (dispatch) => {
-    const response = await fetch(`/api/restaurants/${restaurantId}/reservations/${reservationId}/`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id:userId,
-        party_size:partySize,
-        notes,
-        booked,
-      }),
-    });
+  (
+    restaurantId,
+    reservationId,
+    userId,
+    partySize,
+    notes,
+    booked,
+    idxOfReservationSlotInState
+  ) =>
+  async (dispatch) => {
+    const response = await fetch(
+      `/api/restaurants/${restaurantId}/reservations/${reservationId}/`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: userId,
+          party_size: partySize,
+          notes,
+          booked,
+        }),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       console.log('this is the response', data);
       dispatch(addCustomerReservation(data, idxOfReservationSlotInState));
       return data.id;
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ['An error occurred.'];
+    }
+  };
+
+// creates a single reservation entry
+export const createReservation =
+  (restaurantId, time_slot, date, available_size) => async (dispatch) => {
+    const response = await fetch(
+      `/api/restaurants/${restaurantId}/reservations/`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          time_slot,
+          date,
+          available_size,
+        }),
+      }
+    );
+    if (response.ok) {
+      const newReservation = await response.json();
+      dispatch(addReservation(newReservation));
+      return null;
     } else if (response.status < 500) {
       const data = await response.json();
       if (data.errors) {
@@ -260,7 +316,9 @@ export default function restaurantReducer(state = initialState, action) {
       });
       return { ...state, ...normalRestaurants };
     }
-    case UPDATE_REVIEWS:
+    case UPDATE_REVIEWS: {
+      break;
+    }
     case ADD_REVIEWS: {
       const restaurantId = action.newReview.restaurantId;
       newState = { ...state };
@@ -269,6 +327,7 @@ export default function restaurantReducer(state = initialState, action) {
     }
     case REMOVE_REVIEWS: {
       newState = { ...state };
+      break;
     }
     case ADD: {
       return {
@@ -287,10 +346,19 @@ export default function restaurantReducer(state = initialState, action) {
       delete newState[action.restaurantId];
       return newState;
     }
-    case ADD_CUSTOMER_RESERVATION: { 
-      const restaurantId = action.newCustomerReservation.restaurant_id
+    case ADD_CUSTOMER_RESERVATION: {
+      const restaurantId = action.newCustomerReservation.restaurant_id;
       const newState = { ...state };
-      newState[restaurantId].reservations[action.idxOfReservationSlotInState] = action.newCustomerReservation;
+      newState[restaurantId].reservations[action.idxOfReservationSlotInState] =
+        action.newCustomerReservation;
+      return newState;
+    }
+    case ADD_RESERVATION: {
+      newState = { ...state };
+      newState[action.reservation.restaurantId].reservations = {
+        [action.reservation.id]: action.reservation,
+        ...newState[action.reservation.restaurantId].reservations,
+      };
       return newState;
     }
     default: {
