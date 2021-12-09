@@ -3,11 +3,16 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: solid 1px black;
+    background-color: crimson;
 }
 
 .MenuButton {
     width: 28px;
     height: 26px;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    /* font-style: 50px;
+    font-weight: 600; */
 }
 
 .SearchMenu {
@@ -51,7 +56,15 @@
 }
 
 .NavHeader {
+    padding: 10px;
     margin-left: 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+}
+
+.NavHeader:hover {
+    font-weight: 600;
 }
 
 .NavButtons {

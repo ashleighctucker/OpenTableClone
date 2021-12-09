@@ -180,7 +180,7 @@ export const createReview =
     if (response.ok) {
       const data = await response.json();
       dispatch(addReview(data));
-      return data.id;
+      return data;
     } else if (response.status < 500) {
       const data = await response.json();
       if (data.errors) {
@@ -232,14 +232,13 @@ export default function restaurantReducer(state = initialState, action) {
       newState[restaurantId].reviews[action.newReview.id] = action.newReview;
       return newState;
     }
-    // case REMOVE_REVIEWS: {
-    //   newState = { ...state };
-    //   console.log(newState);
-    // }
+    case REMOVE_REVIEWS: {
+      newState = { ...state };
+    }
     case ADD: {
       return {
         ...state,
-        [action.restaurant.id]: action.restaurant,
+        [action.restaurant?.id]: action.restaurant,
       };
     }
     case UPDATE: {
