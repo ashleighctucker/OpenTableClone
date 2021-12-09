@@ -11,7 +11,6 @@ const Favorites = () => {
   const dispatch = useDispatch();
 
   let favRestaurants = []
-
   for (const fav in favorites) {
     const favObj = favorites[fav]
     const favId = favObj?.restaurantId
