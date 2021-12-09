@@ -18,7 +18,7 @@ import EditRestaurant from './components/EditRestaurant';
 import { getCuisineTypes } from './store/cuisine_types';
 import { getRestaurants, createReview } from './store/restaurant';
 import CreateReview from './components/NewReview';
-
+import Footer from './components/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -70,6 +70,7 @@ function App() {
         <Route path="/profile">
           <Profile />
         </Route>
+        <Footer />
       </>
     );
   };

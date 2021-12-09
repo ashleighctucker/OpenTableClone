@@ -1,7 +1,11 @@
-
 body {
   height: 100vh;
   margin: 0;
+  font-family: BrandonText, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+    Segoe UI Symbol;
+  color: #2d333f;
+  line-height: 1.15;
 }
 
 #root {

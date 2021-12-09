@@ -25,7 +25,7 @@ const HomePage = () => {
         </div>
       </header>
       <div className="info-container">
-        <h2>Book your restaurant today</h2>
+        <h2 className="title">Book your restaurant today</h2>
         <hr></hr>
         <div className="card-container">
           {restaurants ? createCards(restaurants) : null}

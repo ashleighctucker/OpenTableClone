@@ -1,22 +1,19 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteReview } from '../../store/restaurant';
+import { deleteReview, getRestaurants } from '../../store/restaurant';
 import { useParams } from 'react-router';
 import EditReviewModal from '../EditReview/EditReviewModal';
 const Restaurant = () => {
   const { restaurantId } = useParams();
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const dispatch = useDispatch();
-  const rawReviews = useSelector(
-    (state) => state.restaurants[restaurantId]?.reviews
+  const { reviews: rawReviews } = useSelector(
+    (state) => state.restaurants[restaurantId]
   );
-
-  // if (rawReviews) {
-  //   reviews = Object.values(rawReviews);
-  // }
 
   const deleteOneReview = (id) => {
     dispatch(deleteReview(id));
+    dispatch(getRestaurants());
   };
 
   return (
