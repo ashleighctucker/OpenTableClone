@@ -34,13 +34,11 @@ export const getFavorite = (userId) => async(dispatch) => {
 
 export const makeFavorite = (content) => async(dispatch) => {
     const {userId, restaurantId} = content
-    console.log('before')
     const response = await fetch(`api/users/${userId}/favorites`, {
         method: 'POST',
         body: JSON.stringify({ userId, restaurantId })
     })
 
-    console.log('after')
 
     if (response.ok) {
         const data = await response.json()
@@ -69,7 +67,7 @@ const favoriteReducer = (state={favorites:null}, action) => {
         case GET_FAV:
             newState = Object.assign({}, state)
             const normalFavs = {...action.payload}
-            newState = {...normalFavs}
+            newState = {...normalFavs.favorites}
             return newState
         case MAKE_FAV:
             newState = Object.assign({}, state)

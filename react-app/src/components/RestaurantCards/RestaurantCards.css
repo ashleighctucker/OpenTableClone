@@ -1,0 +1,16 @@
+.restaurant-card {
+  display: flex;
+  flex-direction: column;
+  background-color: bisque;
+  padding: 1%;
+  margin: 1%;
+  width: 175px;
+  white-space: normal;
+}
+
+.restaurant-card-image {
+  width: 11em;
+  height: auto;
+}
+
+
