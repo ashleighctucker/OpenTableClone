@@ -35,9 +35,10 @@ const CreateReview = () => {
     <div className="createReview">
       <form onSubmit={handleSubmit} className="createReviewForm">
         <div className="errors">
-          {errors && errors.map((error, i) => {
-            return <p key={i}>{error}</p>;
-          })}
+          {errors &&
+            errors.map((error, i) => {
+              return <p key={i}>{error}</p>;
+            })}
         </div>
         <select
           onChange={(e) => setRating(Number(e.target.value))}
