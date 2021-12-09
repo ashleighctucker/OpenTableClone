@@ -70,7 +70,6 @@ function App() {
         <Route path="/profile">
           <Profile />
         </Route>
-        <Footer />
       </>
     );
   };
@@ -84,6 +83,7 @@ function App() {
         </Route>
         {loaded ? <Routes /> : null}
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }
