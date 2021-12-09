@@ -1,9 +1,37 @@
-<<<<<<< HEAD
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import CustomerBookReservationModal from '../CustomerBookReservation';
 const Restaurant = () => {
   const { restaurantId } = useParams();
+  const [date, setDate]= useState("");
+
+
+
+
+
+  //let allReservations = useSelector((state) =>state.restaurants?.restaurantId?.reservations)
+  let allReservations = useSelector((state) => state.restaurants[restaurantId]).reservations
+  console.log(allReservations, "<--------")
+  console.log(restaurantId, "*********************")
+  let availableReservationsArray = allReservations.filter(res => res.booked === false).sort(function(a,b){
+//                 // Turn your strings into dates, and then subtract them
+//                 // to get a value that is either negative, positive, or zero.
+                return new Date(a.date) - new Date(b.date);
+             })
+  console.log(availableReservationsArray)
+  let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date) 
+  let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
+  console.log(arrayOfAvailableDates, "HIIII")
+  console.log(date)
+
+
+
+
+
+
+
+
   const rawReviews = useSelector(
     (state) =>
       // Object.values(state.restaurants[restaurantId]?.reviews)
@@ -18,6 +46,7 @@ const Restaurant = () => {
   return (
     <div className="restaurant-container">
       <h1>Single Restaurant Page</h1>
+      <CustomerBookReservationModal arrayOfAvailableDates={arrayOfAvailableDates} availableReservationsArray={availableReservationsArray} />
       <div>
         {reviews?.map((review) => {
           return (
@@ -28,31 +57,7 @@ const Restaurant = () => {
           );
         })}
       </div>
-=======
-import React, {useEffect} from 'react';
-import {useDispatch} from 'react-redux'
-import CustomerBookReservationModal from '../CustomerBookReservation';
-import getRestaurants from '../../store/restaurant'
-
-
-const Restaurant = () => {
-  const dispatch = useDispatch();
-  //dispatch(getRestaurants())
-  const asyncLoad = () => async(dispatch) => {
-    await dispatch(getRestaurants())
-  };
-  //asyncLoad()
-  useEffect(() => {
-    asyncLoad()
-  }, [])
-  return (
-    <div className="restaurant-container">
-      <h1>Single Restaurant Page</h1>
-      <CustomerBookReservationModal/>
-
->>>>>>> WIP
     </div>
   );
 };
-
 export default Restaurant;

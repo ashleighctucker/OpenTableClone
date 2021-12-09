@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import CustomerReservationForm  from './CustomerReservationForm';
 
-function CustomerBookReservationModal() {
+function CustomerBookReservationModal({arrayOfAvailableDates, availableReservationsArray}) {
   const [showModal, setShowModal] = useState(false);
 
-  return (
-    <>
+  return (<>
       <button className="customerBookReservationButton" onClick={() => setShowModal(true)}>Book a reservation</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <CustomerReservationForm />
+          <CustomerReservationForm arrayOfAvailableDates= {arrayOfAvailableDates} availableReservationsArray={availableReservationsArray} />
         </Modal>
       )}
     </>

@@ -4,117 +4,50 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 
-function CustomerReservationForm() {
+function CustomerReservationForm({arrayOfAvailableDates, availableReservationsArray}) {
   const dispatch = useDispatch();
   const [partySize, setPartySize] = useState("");
   const [notes, setNotes] = useState("");
   const [errors, setErrors] = useState([]);
+  const [date, setDate]= useState("");
   const userId = useSelector((state) => state.session.user);
-  const {restaurantId} = useParams();
-  let allReservations = useSelector((state) =>state.restaurants?.restaurantId?.reservations)
-  console.log(allReservations, "<--------")
-  let availableReservationsObj;
-  let arrayOfAvailableDates= []
-
-const getAvailableReservations = (availableReservationsObj)=>{
-    const arrayOfAvailableReservations = []
-    for (const [idx ,reservationObj] of Object.entries(availableReservationsObj)){
-        if (reservationObj.booked == "False") {
-            arrayOfAvailableReservations.push({idx : reservationObj})}
-
-    }
-
-    // sort array of available reservation by date
-    arrayOfAvailableReservations.sort(function(a,b){
-  // Turn your strings into dates, and then subtract them
-  // to get a value that is either negative, positive, or zero.
-  return new Date(b.date) - new Date(a.date);
-})
-    return arrayOfAvailableReservations
-}
+  console.log(arrayOfAvailableDates, "YOOOOOOOOOOOOOOOOOOOOOOO")
+//   const {restaurantId} = useParams();
+//   //let allReservations = useSelector((state) =>state.restaurants?.restaurantId?.reservations)
+//   let allReservations = useSelector((state) => state.restaurants[restaurantId]).reservations
+//   console.log(allReservations, "<--------")
+//   console.log(restaurantId, "*********************")
+//   let availableReservationsArray = allReservations.filter(res => res.booked === false).sort(function(a,b){
+// //                 // Turn your strings into dates, and then subtract them
+// //                 // to get a value that is either negative, positive, or zero.
+//                 return new Date(a.date) - new Date(b.date);
+//              })
+//   console.log(availableReservationsArray)
+//   let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date) 
+//   let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
+//   console.log(arrayOfAvailableDates, "HIIII")
+console.log(date)
 
 
 
-const getArrayOfAvailableDays = (arrayOfAvailableReservations) =>{
+// const getArrayOfAvailableDays = (arrayOfAvailableReservations) =>{
     
-    arrayOfAvailableReservations.forEach(reservation => {
-        arrayOfAvailableDates.push(reservation.date)
-    });
-    return arrayOfAvailableDates
-} 
-
-
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     setErrors([]);
-//     const newCustomerReservation = dispatch(createCustomerReservation({ userId, notes, partySize })).catch(
-//       async (res) => {
-//         const data = await res.json();
-//         if (data && data.errors) setErrors(data.errors);
-//       }
-//     );
-//     if (newCustomerReservation) {
-//       window.location.reload();
-//     }
-//   };
-
-//   useEffect(() => {
-//     setQuestionTitle(currentQuestion.question.questionTitle)
-
-//   setQuestionText(currentQuestion.question.questionText)
-//   }, [currentQuestion.question]);
-
-//   if(!currentQuestion.question){
-//         return null
-//   }
-  
-  
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <ul>
-//         {errors.map((error, idx) => (
-//           <li key={idx}>{error}</li>
-//         ))}
-//       </ul>
-//       <label className="edit-question-modal-label">
-//           Reservation Date
-//       </label>
-//       <select 
-//         onChange={(e) => setDate(e.target.value)}
-//         value=date
-//       >
-//           {arrayOfAvailableDates.map((date) => ())}
-//       </select>
-//       <label className="edit-question-modal-label">
-//         Question Title
-//         </label>
-//         <textarea
-//         cols="30"
-//         rows="5"
-//           className="edit-question-modal-input"
-//           type="text"
-//           value={questionTitle}
-//           onChange={(e) => setQuestionTitle(e.target.value)}
-//           required
-//         />
-//       <label className="edit-question-modal-label">
-//         Question Description
-//         </label>
-//         <textarea
-//         rows="5"
-//         cols="30"
-//           type="text"
-//           className="edit-question-modal-input"
-//           value={questionText}
-//           onChange={(e) => setQuestionText(e.target.value)}
-//           required
-//         />
-//         <br />
-//       <button id="update-question" type="submit">Update my question</button>
-//     </form>
-//   );
+//     arrayOfAvailableReservations.forEach(reservation => {
+//         arrayOfAvailableDates.push(reservation.date)
+//     });
+//     return arrayOfAvailableDates
+// }
+let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date)
+return(
+<div>
+    <h1>reservation</h1>
+    <form method="post" action="/">
+<select  onChange={(e)=>setDate(e.target.value)} name="date" id="date">
+    {arrayOfAvailableDates.map(dateString => {return <option value={dateString} >{dateString}</option>})}
+</select>
+</form>
+{reservationsByDate.map(res => {return <button>{res.time_slot}</button>})}
+</div>)
 }
 
 export default CustomerReservationForm;
