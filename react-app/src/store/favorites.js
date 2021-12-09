@@ -39,7 +39,6 @@ export const makeFavorite = (content) => async(dispatch) => {
         body: JSON.stringify({ userId, restaurantId })
     })
 
-
     if (response.ok) {
         const data = await response.json()
         dispatch(makeFav(data))
