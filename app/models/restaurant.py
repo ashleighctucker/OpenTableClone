@@ -59,5 +59,6 @@ class Restaurant(db.Model):
                                 "id": obj.id}
                                 for obj in self.restaurant_review},
             'cover_photo': self.cover_photo,
-            'cuisine_type': type
+            'cuisine_type': type,
+            'user_id':self.user_id
         }

@@ -1,6 +1,7 @@
 .restaurant-container {
     width: 75%;
     margin: auto;
+    min-width: 500px;
 }
 
 .coverPhoto {
@@ -12,6 +13,7 @@
 .header {
     display: flex;
     border-bottom: solid 1px lightgrey;
+    justify-content: space-between;
 }
 
 .restName {
@@ -31,6 +33,7 @@
     align-items: center;
     justify-content: space-around;
     margin: 10px 40px 10px 40px;
+    min-width: 400px;
 }
 
 .contactContainer {
@@ -44,22 +47,29 @@
     padding-left: 10px;
 }
 
+.rating {
+    color: black;
+    font-size: 16px;
+}
+
 
 .far {
     margin: 10px;
 }
 
-.hours {
-    /* display: flex; */
+.stars {
+    color: crimson;
+    font-size: 20px;
+    margin: 10px;
 }
 
-#icon {
+#icon, .pricePoint, .cuisineType {
     margin: 5px;
 }
 
 
 /* -----------------------------     reviews   ---------------------------------------- */
-.reviews {
+.reviewsContainer {
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -67,9 +77,26 @@
 }
 
 .reviewsHeader {
-    border-bottom: solid 1px lightgrey;
+    border-bottom: solid 1px grey;
     margin: 30px 0px 20px 0px;
     padding: 10px 20px;
+}
+
+.review {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px lightgrey;
+    margin: 10px;
+    padding: 10px;
+}
+
+.reviewRating {
+    margin: 5px;
+    color: crimson;
+}
+
+.reviewComment {
+    margin: 10px 20px;
 }
 
 .ratingButtons {
@@ -77,9 +104,23 @@
     flex-direction: row;
 }
 
-.ratingEdit, .ratingDelete {
+.ratingDelete, .ratingEdit {
     margin: 10px;
-    padding: 5px;
-    width: 50px;
+    padding: 10px;
+    width: fit-content;
     height: fit-content;
+    border-radius: 5px;
+    border: none;
+}
+
+.ratingDelete:hover {
+    background-color: crimson;
+    color: white;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.4);
+}
+
+.ratingEdit:hover {
+    background-color: rgb(35, 158, 52);
+    color: white;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.4);
 }

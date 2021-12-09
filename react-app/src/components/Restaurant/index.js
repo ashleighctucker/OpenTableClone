@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteReview } from '../../store/restaurant';
-import { makeFavorite, getFavorite } from '../../store/favorites';
+import favoriteReducer, { makeFavorite, getFavorite, deleteFavorite } from '../../store/favorites';
 import { useParams } from 'react-router';
 import EditReviewModal from '../EditReview/EditReviewModal';
 import './restaurant.css'
@@ -12,7 +12,8 @@ const Restaurant = () => {
   const favorites = useSelector(state => state.favorites)
   const userId = useSelector(state => state.session.user.id)
   const dispatch = useDispatch();
-  console.log(favorites, '<-----')
+
+  console.log(favorites , '<-----------')
 
   //Xclose_time, Xopen_time, contact_email, phone_number, Xlocation, Xcover_photo
   //Xdescription, Xcuisine_type, Xname, Xprice_point
@@ -21,6 +22,7 @@ const Restaurant = () => {
   useEffect(() => {
     const asyncLoad = async () => {
       await dispatch(getFavorite(userId));
+      console.log('dispatching favorite', '<---')
     };
     asyncLoad();
   }, [dispatch, userId]);
@@ -49,7 +51,6 @@ const Restaurant = () => {
     } else stars = '☆☆☆☆☆'
   }
 
-
   let reviews;
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
@@ -59,30 +60,28 @@ const Restaurant = () => {
       reviews = Object.values(rawReviews);
     }
 
-  console.log(reviews, '<----')
   let reviewStars = ''
   const makeStars = (obj) => {
+    reviewStars = ''
     const thisObj = {...obj}
-    console.log(thisObj, obj, '<<<<----')
     for (let i=0; i<5; i++) {
       if (thisObj.rating >= 1) {
         reviewStars += '★'
         thisObj.rating -= 1
-      }
-      // else if (thisObj.rating > 0.25 && thisObj.rating < .75) reviewStars += '1/2'
-      else reviewStars += '☆'
-    }
-    console.log(thisObj, obj, '<<<<----')
-    return reviewStars
+      } else reviewStars += '☆'
+    } return reviewStars
   }
-
 
   const deleteOneReview = (id) => {
     dispatch(deleteReview(id));
   };
 
   const makeFav = (restaurantId) => {
-    dispatch(makeFavorite(userId, restaurantId))
+    dispatch(makeFavorite(+userId, +restaurantId))
+  }
+
+  const delFav = (restaurantId) => {
+    dispatch(deleteFavorite(restaurantId))
   }
 
   return (
@@ -91,13 +90,21 @@ const Restaurant = () => {
       <div  className="restaurant-container">
         <div className='header'>
           <h1 className='restName'>{restaurant?.name}</h1>
+
           <button className='favButton' type='button' onClick={()=>makeFav(restaurant.id)}>
             <i class="far fa-heart"></i>
           </button>
+
+          <button className='favButton' type='button' onClick={()=>delFav(restaurant.id)}>
+            <i class="fas fa-heart"></i>
+          </button>
+          {userId == restaurant.user_id ? (
+            <button type='button'>edit restaurant</button>
+          ): null}
         </div>
 
         <div className='restDescriptionContainer'>
-          <div className='stars'>{stars} {rating}</div>
+          <div className='stars'>{stars} <span className='rating'>{rating}</span></div>
           <div className='dots'>●</div>
           <p>
             <i className="far fa-comments" id='icon' ></i>
@@ -130,22 +137,27 @@ const Restaurant = () => {
 
         </div>
 
-        {/* <p>{restaurant.description}</p> */}
+        <h2>MAKE A RESERVATION!!!</h2>
+        <p>{restaurant.description}</p>
 
       </div>
-      <div className='reviews'>
+      <div className='reviewsContainer'>
         <h2 className='reviewsHeader'>Reviews</h2>
         {reviews?.map((review) => {
           return (
-            <div>
-              <div className='reviewRating'>{makeStars(review)}</div>
-              <div className='reviewComment'>{review.comment}</div>
+            <div className='review'>
+              <div className='reviewContent'>
+                <div className='reviewRating'>{makeStars(review)}</div>
+                <div className='reviewComment'>{review.comment}</div>
+              </div>
+              {userId == review.userId? (
               <div className='ratingButtons'>
                 <EditReviewModal id={review.id} className='ratingEdit'/>
                 <button onClick={() => deleteOneReview(review.id)} className='ratingDelete'>
                   Delete
                 </button>
               </div>
+              ): null}
             </div>
           );
         })}

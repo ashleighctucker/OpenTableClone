@@ -6,7 +6,6 @@ from .auth_routes import validation_errors_to_error_messages
 
 user_routes = Blueprint('users', __name__)
 
-
 @user_routes.route('/')
 @login_required
 def users():
@@ -29,13 +28,17 @@ def get_favs(id):
 def create_favs(id):
     form = FavoriteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    # form.data['restaurantId'] = int(form.data['restaurantId'])
+    # form.data['userId'] = int(form.data['userId'])
+    print(request.get_json(), '<-----')
     if form.validate_on_submit():
-        newFav = Favorite(userId=id, restaurantId=form.data['restaurantId'])
+        newFav = Favorite(userId=form['userId'].data, restaurantId=form['restaurantId'].data)
         db.session.add(newFav)
         db.session.commit()
         return newFav.to_dict()
     else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 500
+        print(form.errors, '<-------------')
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @user_routes.route('/<int:id>/favorites/<int:fav_id>', methods=['DELETE'])
 def delete_favs(id, fav_id):
