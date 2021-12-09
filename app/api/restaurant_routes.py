@@ -95,6 +95,8 @@ def customer_delete_reservation(reservation_id, id):
 ## Restaurant owner reservation routes below ##
 @restaurant_routes.route('/<int:id>/reservations/', methods=['POST'])
 def restaurant_owner_post_reservation(id):
+    #return {"message": "YAHHHHH"}
+
     reservation_form = RestaurantOwnerReservationForm()
     reservation_form['csrf_token'].data = request.cookies['csrf_token']
     if reservation_form.validate_on_submit():
