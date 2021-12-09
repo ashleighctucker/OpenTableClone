@@ -19,7 +19,7 @@ import { getCuisineTypes } from './store/cuisine_types';
 import { getRestaurants, createReview } from './store/restaurant';
 import CreateReview from './components/NewReview';
 import { getFavorite } from './store/favorites';
-
+import Footer from './components/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -85,6 +85,7 @@ function App() {
         </Route>
         {loaded ? <Routes /> : null}
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

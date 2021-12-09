@@ -8,6 +8,8 @@ const ADD_REVIEWS = 'reviews/addReviews';
 const UPDATE_REVIEWS = 'reviews/updateReviews';
 const REMOVE_REVIEWS = 'reviews/removeReviews';
 
+const ADD_CUSTOMER_RESERVATION = 'reservations/addCustomerReservation'
+
 export const addReview = (newReview) => ({
   type: ADD_REVIEWS,
   newReview,
@@ -213,6 +215,39 @@ export const deleteReview = (id) => async (dispatch) => {
   return res;
 };
 
+export const addCustomerReservation = (newCustomerReservation, idxOfReservationSlotInState) => ({
+  type: ADD_CUSTOMER_RESERVATION,
+  newCustomerReservation,
+  idxOfReservationSlotInState
+});
+
+export const createCustomerReservation =
+  (restaurantId, reservationId, userId, partySize, notes, booked, idxOfReservationSlotInState) => async (dispatch) => {
+    const response = await fetch(`/api/restaurants/${restaurantId}/reservations/${reservationId}/`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id:userId,
+        party_size:partySize,
+        notes,
+        booked,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log('this is the response', data);
+      dispatch(addCustomerReservation(data, idxOfReservationSlotInState));
+      return data.id;
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ['An error occurred.'];
+    }
+  };
+
 const initialState = {};
 
 export default function restaurantReducer(state = initialState, action) {
@@ -250,6 +285,12 @@ export default function restaurantReducer(state = initialState, action) {
     case REMOVE: {
       const newState = { ...state };
       delete newState[action.restaurantId];
+      return newState;
+    }
+    case ADD_CUSTOMER_RESERVATION: { 
+      const restaurantId = action.newCustomerReservation.restaurant_id
+      const newState = { ...state };
+      newState[restaurantId].reservations[action.idxOfReservationSlotInState] = action.newCustomerReservation;
       return newState;
     }
     default: {

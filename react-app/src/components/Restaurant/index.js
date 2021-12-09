@@ -1,23 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteReview } from '../../store/restaurant';
-import favoriteReducer, { makeFavorite, getFavorite, deleteFavorite } from '../../store/favorites';
+import { makeFavorite, getFavorite, deleteFavorite } from '../../store/favorites';
 import { useParams } from 'react-router';
 import EditReviewModal from '../EditReview/EditReviewModal';
 import './restaurant.css'
+import { deleteReview, getRestaurants } from '../../store/restaurant';
+import CustomerBookReservationModal from '../CustomerBookReservation';
 
 const Restaurant = () => {
   const { restaurantId } = useParams();
+  const [date, setDate] = useState('');
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const favorites = useSelector(state => state.favorites)
   const userId = useSelector(state => state.session.user.id)
   const dispatch = useDispatch();
-
-  console.log(favorites , '<-----------')
-
-  //Xclose_time, Xopen_time, contact_email, phone_number, Xlocation, Xcover_photo
-  //Xdescription, Xcuisine_type, Xname, Xprice_point
-  //reservations [], Xreviews {}
 
   useEffect(() => {
     const asyncLoad = async () => {
@@ -72,8 +68,31 @@ const Restaurant = () => {
     } return reviewStars
   }
 
+  const { reviews: rawReviews } = useSelector(
+    (state) => state.restaurants[restaurantId]
+  );
+
+  let allReservations = useSelector(
+    (state) => state.restaurants?.[restaurantId]?.reservations
+  );
+  let availableReservationsArray = allReservations
+    .filter((res) => res.booked === false)
+    .sort(function (a, b) {
+      //                 // Turn your strings into dates, and then subtract them
+      //                 // to get a value that is either negative, positive, or zero.
+      return new Date(a.date) - new Date(b.date);
+    });
+  console.log(availableReservationsArray);
+  let reservationsByDate = availableReservationsArray.filter(
+    (reservation) => reservation.date == date
+  );
+  let arrayOfAvailableDates = availableReservationsArray.map(
+    (reservation) => reservation.date
+  );
+
   const deleteOneReview = (id) => {
     dispatch(deleteReview(id));
+    dispatch(getRestaurants());
   };
 
   const makeFav = (restaurantId) => {
@@ -137,13 +156,19 @@ const Restaurant = () => {
 
         </div>
 
-        <h2>MAKE A RESERVATION!!!</h2>
+        <CustomerBookReservationModal
+          arrayOfAvailableDates={arrayOfAvailableDates}
+          availableReservationsArray={availableReservationsArray}
+        />        
         <p>{restaurant.description}</p>
-
       </div>
+             
       <div className='reviewsContainer'>
         <h2 className='reviewsHeader'>Reviews</h2>
         {reviews?.map((review) => {
+
+      <div>
+        {Object.values(rawReviews)?.map((review) => {
           return (
             <div className='review'>
               <div className='reviewContent'>
@@ -165,5 +190,4 @@ const Restaurant = () => {
     </div>
   );
 };
-
 export default Restaurant;
