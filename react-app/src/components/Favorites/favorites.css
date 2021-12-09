@@ -19,7 +19,6 @@
 
 .restaurantCard {
     margin: 15px;
-    padding: 15px;
     text-decoration: none;
     color: black;
     border: solid 1px black;
@@ -29,12 +28,17 @@
 }
 
 .restaurantName {
+    margin: 10px;
     font-size: 20px;
     font-weight: 600;
     border-bottom: solid 1px black;
 }
 
+.restaurantLocation, .restaurantNumber {
+    margin: 15px;
+}
+
 .restaurantImage {
-    max-width: 250px;
-    max-height: 140px;
+    width: 300px;
+    border-radius: 5px;
 }

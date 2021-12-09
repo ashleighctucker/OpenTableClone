@@ -22,9 +22,6 @@ const Favorites = () => {
     }
   }
 
-  console.log(favRestaurants, '!!!!!////')
-
-
   useEffect(() => {
     const asyncLoad = async () => {
       await dispatch(getFavorite(userId));
@@ -40,8 +37,8 @@ const Favorites = () => {
       <div className='cardContainer'>
       {favRestaurants.map(res => (
         <NavLink to={`/restaurants/${res.id}`} className='restaurantCard'>
-          <p className='restaurantName'>{res.name}</p>
           <img className='restaurantImage' src={res.cover_photo}></img>
+          <p className='restaurantName'>{res.name}</p>
           <p className='restaurantLocation'><strong>Visit: </strong>{res.location}</p>
           <p className='restaurantNumber'><strong>Call: </strong>{res.phone_number}</p>
         </NavLink>
