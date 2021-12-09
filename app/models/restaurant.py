@@ -52,6 +52,7 @@ class Restaurant(db.Model):
                                 "available_size": obj.available_size,
                                 "notes": obj.notes,
                                 "id": obj.id,
+                                "date": obj.date,
                                 "booked": obj.booked}
                                 for obj in self.reservation],
             'reviews': {obj.id: {"rating": obj.rating,
