@@ -16,7 +16,7 @@ import Favorites from './components/Favorites';
 import Profile from './components/UserProfile';
 import EditRestaurant from './components/EditRestaurant';
 import { getCuisineTypes } from './store/cuisine_types';
-import { getRestaurants, createReview } from './store/restaurant';
+import { getRestaurants } from './store/restaurant';
 import CreateReview from './components/NewReview';
 import { getFavorite } from './store/favorites';
 import Footer from './components/Footer';

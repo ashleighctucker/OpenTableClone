@@ -1,0 +1,64 @@
+.main-container {
+  grid-area: a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#restaurant-form-container {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3%;
+}
+
+#reservation-form-container {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3%;
+}
+
+.input-div {
+  width: 25em;
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+
+#edit-page-container {
+  display: grid;
+  grid-template-areas: 'a b';
+  grid-template-columns: 1fr 1fr;
+}
+
+#reservation-card-container {
+  height: 100vw;
+  grid-area: b;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+}
+
+.reservation-div {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 2%;
+  border: 1px black solid;
+  margin: 1%;
+}
+
+.booked-res {
+  background-color: rgba(220, 20, 60, 0.322);
+}
+
+.available-res {
+  background-color: rgb(207, 223, 207);
+}

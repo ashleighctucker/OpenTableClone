@@ -13,7 +13,7 @@ const CreateReservations = () => {
   const [time_slot, setTimeSlot] = useState(TIMES[0]);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [available_size, setAvailableSize] = useState(0);
+  const [available_size, setAvailableSize] = useState(1);
 
   const loopThroughRange = async (start_date, end_date) => {
     const start = new Date(start_date);
@@ -47,7 +47,7 @@ const CreateReservations = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-div">
           <label htmlFor="time_slot">Time Slot:</label>
           <select
             name="time_slot"
@@ -61,7 +61,7 @@ const CreateReservations = () => {
             ))}
           </select>
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="start_date">Start Date:</label>
           <input
             type="date"
@@ -72,18 +72,18 @@ const CreateReservations = () => {
             onChange={(e) => setStartDate(e.target.value)}
           ></input>
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="end_date">End Date:</label>
           <input
             type="date"
             name="end-date"
-            min="2021-12-09"
+            min={startDate}
             max="2022-12-31"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           ></input>
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="avaiable_size">Available Size (1-10):</label>
           <input
             type="number"
@@ -94,7 +94,7 @@ const CreateReservations = () => {
             onChange={(e) => setAvailableSize(e.target.value)}
           />
         </div>
-        <div>
+        <div className="input-div">
           <button type="submit">Create Reservation Slots</button>
         </div>
       </form>
