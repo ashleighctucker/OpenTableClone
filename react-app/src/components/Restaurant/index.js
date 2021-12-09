@@ -6,14 +6,7 @@ const Restaurant = () => {
   const { restaurantId } = useParams();
   const [date, setDate]= useState("");
 
-
-
-
-
-  //let allReservations = useSelector((state) =>state.restaurants?.restaurantId?.reservations)
-  let allReservations = useSelector((state) => state.restaurants[restaurantId]).reservations
-  console.log(allReservations, "<--------")
-  console.log(restaurantId, "*********************")
+  let allReservations = useSelector((state) =>state.restaurants?.[restaurantId]?.reservations)
   let availableReservationsArray = allReservations.filter(res => res.booked === false).sort(function(a,b){
 //                 // Turn your strings into dates, and then subtract them
 //                 // to get a value that is either negative, positive, or zero.
@@ -22,19 +15,9 @@ const Restaurant = () => {
   console.log(availableReservationsArray)
   let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date) 
   let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
-  console.log(arrayOfAvailableDates, "HIIII")
-  console.log(date)
-
-
-
-
-
-
-
 
   const rawReviews = useSelector(
     (state) =>
-      // Object.values(state.restaurants[restaurantId]?.reviews)
       state.restaurants[restaurantId]?.reviews
   );
   let reviews;
