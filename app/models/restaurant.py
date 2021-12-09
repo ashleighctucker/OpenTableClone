@@ -45,7 +45,7 @@ class Restaurant(db.Model):
             'close_time': self.close_time,
             'contact_email': self.contact_email,
             'description': self.description,
-            'reservations': [{"time_slot": obj.time_slot, "user_id": obj.user_id, "party_size": obj.party_size, "available_size": obj.available_size, "notes": obj.notes, "booked": obj.booked, "date": obj.date} for obj in self.reservation],
+            'reservations': [{"time_slot": obj.time_slot, "user_id": obj.user_id, "party_size": obj.party_size, "available_size": obj.available_size, "notes": obj.notes, "booked": obj.booked, "date": obj.date, "id":obj.id} for obj in self.reservation],
             'reviews': {obj.id: {"rating": obj.rating, "comment": obj.comment, "restaurantId": obj.restaurantId, "userId": obj.userId, "id": obj.id} for obj in self.restaurant_review},
             'cover_photo': self.cover_photo,
             'cuisine_type': type
