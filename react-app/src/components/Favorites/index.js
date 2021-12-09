@@ -35,12 +35,14 @@ const Favorites = () => {
       </div>
       <div className='cardContainer'>
       {favRestaurants.map(res => (
-        <NavLink to={`/restaurants/${res.id}`} className='restaurantCard'>
-          <img className='restaurantImage' src={res.cover_photo}></img>
-          <p className='restaurantName'>{res.name}</p>
-          <p className='restaurantLocation'><strong>Visit: </strong>{res.location}</p>
-          <p className='restaurantNumber'><strong>Call: </strong>{res.phone_number}</p>
-        </NavLink>
+        <div className='restaurantCard'>
+          <NavLink to={`/restaurants/${res.id}`}>
+            <img className='restaurantImage' src={res.cover_photo}></img>
+          </NavLink>
+            <p className='restaurantName'>{res.name}</p>
+            <p className='restaurantLocation'><strong>Visit: </strong>{res.location}</p>
+            <p className='restaurantNumber'><strong>Call: </strong>{res.phone_number}</p>
+        </div>
       ))}
       </div>
     </div>
