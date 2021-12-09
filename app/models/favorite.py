@@ -15,5 +15,5 @@ class Favorite(db.Model):
             'id': self.id,
             'userId': self.userId,
             'restaurantId': self.restaurantId,
-            # 'restaurants': [{"name": obj.name} for obj in self.restaurant_fav]
+            # 'restaurants': {obj.id: {"name": obj.name} for obj in self.restaurant_fav},
         }
