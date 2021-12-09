@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { editReview } from '../../store/restaurant';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { getRestaurants } from '../../store/restaurant';
 
 const EditReview = ({ id, setShowModal }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const EditReview = ({ id, setShowModal }) => {
     e.preventDefault();
     dispatch(editReview(rating, comment, id));
     setShowModal(false);
+    dispatch(getRestaurants());
   };
 
   return (
