@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import EditReviewModal from '../EditReview/EditReviewModal';
 const Restaurant = () => {
   const { restaurantId } = useParams();
+  const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const dispatch = useDispatch();
   let reviews;
   const rawReviews = useSelector(
@@ -15,13 +16,14 @@ const Restaurant = () => {
     reviews = Object.values(rawReviews);
   }
 
+
   const deleteOneReview = (id) => {
     dispatch(deleteReview(id));
   };
 
   return (
     <div className="restaurant-container">
-      <h1>Single Restaurant Page</h1>
+      <h1>{restaurant?.name}</h1>
       <div>
         {reviews?.map((review) => {
           return (

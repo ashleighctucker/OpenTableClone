@@ -7,10 +7,8 @@ const CreateReview = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const { restaurantId } = useParams();
-  console.log(restaurantId);
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState('');
-  const [userId, setUserId] = useState(sessionUser.id);
   const [errors, setErrors] = useState([]);
 
   const reset = () => {
@@ -22,7 +20,7 @@ const CreateReview = () => {
     e.preventDefault();
     setErrors([]);
     const data = await dispatch(
-      createReview(rating, comment, restaurantId, userId)
+      createReview(rating, comment, restaurantId, sesstionUser.id)
     );
     if (data) {
       setErrors([]);
