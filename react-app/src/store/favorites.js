@@ -17,17 +17,26 @@ const delFav = () => ({
 })
 
 export const getFavorite = (userId) => async(dispatch) => {
-    const response = await fetch(`api/users/${userId}/favorites`)
+    console.log(userId, "<======")
+    const response = await fetch(`api/users/${userId}/favorites`, {
+        headers: {
+            'Content-Type': 'application/json',
+          },
+    })
+    console.log(response, "!!!!!!!---")
     if (response.ok) {
+        console.log('ok')
         const favorites = await response.json()
         dispatch(getFav(favorites))
         return favorites
     } else if (response.status < 500) {
+        console.log('nope')
         const data = await response.json();
         if (data.errors) {
           return data.errors;
         }
       } else {
+          console.log('extra nope')
         return ['An error occurred.'];
       }
 }
@@ -62,10 +71,11 @@ export const deleteFavorite = (id, userId) => async(dispatch) => {
 }
 
 
-const favoriteReducer = (state={favorites:null}, action) => {
+const favoriteReducer = (state={favorites: null}, action) => {
     let newState
     switch(action.type){
         case GET_FAV:
+            console.log(newState, '<-----------------------------')
             newState = Object.assign({}, state)
             const normalFavs = {...action.payload}
             newState = {...normalFavs.favorites}

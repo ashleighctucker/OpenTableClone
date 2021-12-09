@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteReview } from '../../store/restaurant';
-import favoriteReducer, { makeFavorite, getFavorite, deleteFavorite } from '../../store/favorites';
+import { makeFavorite, getFavorite, deleteFavorite } from '../../store/favorites';
 import { useParams } from 'react-router';
 import EditReviewModal from '../EditReview/EditReviewModal';
 import './restaurant.css'
@@ -10,22 +10,21 @@ const Restaurant = () => {
   const { restaurantId } = useParams();
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const favorites = useSelector(state => state.favorites)
-  const userId = useSelector(state => state.session.user.id)
+  const userId = useSelector(state => state.session?.user?.id)
   const dispatch = useDispatch();
 
-  console.log(favorites , '<-----------')
 
   //Xclose_time, Xopen_time, contact_email, phone_number, Xlocation, Xcover_photo
   //Xdescription, Xcuisine_type, Xname, Xprice_point
   //reservations [], Xreviews {}
 
-  useEffect(() => {
-    const asyncLoad = async () => {
-      await dispatch(getFavorite(userId));
-      console.log('dispatching favorite', '<---')
-    };
-    asyncLoad();
-  }, [dispatch, userId]);
+  dispatch(getFavorite(userId));
+  console.log(favorites, "!!!!!!")
+  // useEffect(() => {
+  //   dispatch(getFavorite(userId));
+  //   console.log('dispatching favorite', '<---')
+  // }, [dispatch]);
+  // console.log(favorites , '<-----------')
 
   let dollars = ''
   for (let i=0; i<restaurant.price_point; i++) {
@@ -92,11 +91,11 @@ const Restaurant = () => {
           <h1 className='restName'>{restaurant?.name}</h1>
 
           <button className='favButton' type='button' onClick={()=>makeFav(restaurant.id)}>
-            <i class="far fa-heart"></i>
+            <i className="far fa-heart"></i>
           </button>
 
           <button className='favButton' type='button' onClick={()=>delFav(restaurant.id)}>
-            <i class="fas fa-heart"></i>
+            <i className="fas fa-heart"></i>
           </button>
           {userId == restaurant.user_id ? (
             <button type='button'>edit restaurant</button>
@@ -118,16 +117,16 @@ const Restaurant = () => {
         </div>
 
         <div className='contactContainer'>
-          <div className='hours'> <i class="far fa-clock" id='icon'></i> Daily Hours:
+          <div className='hours'> <i className="far fa-clock" id='icon'></i> Daily Hours:
             <div className='openTime'>{restaurant.open_time} - </div>
             <div className='closeTime'>{restaurant.close_time}</div>
           </div>
 
-          <div className='location'> <i class="fas fa-map-marker" id='icon'></i> Location:
+          <div className='location'> <i className="fas fa-map-marker" id='icon'></i> Location:
             <div className='locationText'> {restaurant.location}</div>
           </div>
 
-          <div className='contactUs'> <i class="far fa-address-book" id='icon'></i> Contact Us:
+          <div className='contactUs'> <i className="far fa-address-book" id='icon'></i> Contact Us:
             {restaurant.phone_number !== null ? (
               <div className='phone'>{restaurant.phone_number}</div>
             ): null}
