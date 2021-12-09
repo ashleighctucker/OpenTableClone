@@ -41,3 +41,8 @@
     width: 300px;
     border-radius: 5px;
 }
+
+.noFavs {
+    margin: 30px;
+    font-size: 20px;
+}

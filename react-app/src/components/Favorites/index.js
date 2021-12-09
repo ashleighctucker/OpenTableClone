@@ -21,6 +21,26 @@ const Favorites = () => {
     }
   }
 
+  let sessionLinks
+  if (favRestaurants.length) {
+    sessionLinks = (
+      <div className='cardContainer'>
+        {favRestaurants.map(res => (
+          <div className='restaurantCard'>
+            <NavLink to={`/restaurants/${res.id}`}>
+              <img className='restaurantImage' src={res.cover_photo}></img>
+            </NavLink>
+              <p className='restaurantName'>{res.name}</p>
+              <p className='restaurantLocation'><strong>Visit: </strong>{res.location}</p>
+              <p className='restaurantNumber'><strong>Call: </strong>{res.phone_number}</p>
+          </div>))}
+      </div>)
+    } else {
+      sessionLinks = (
+        <p className='noFavs'>You don't have any favorites. Keep exploring!</p>
+      )
+    }
+
   useEffect(() => {
     const asyncLoad = async () => {
       await dispatch(getFavorite(userId));
@@ -33,18 +53,7 @@ const Favorites = () => {
       <div className='favoritesSidebar'>
         <h1 className='favoritesHeader'>My Restaurants</h1>
       </div>
-      <div className='cardContainer'>
-      {favRestaurants.map(res => (
-        <div className='restaurantCard'>
-          <NavLink to={`/restaurants/${res.id}`}>
-            <img className='restaurantImage' src={res.cover_photo}></img>
-          </NavLink>
-            <p className='restaurantName'>{res.name}</p>
-            <p className='restaurantLocation'><strong>Visit: </strong>{res.location}</p>
-            <p className='restaurantNumber'><strong>Call: </strong>{res.phone_number}</p>
-        </div>
-      ))}
-      </div>
+      {sessionLinks}
     </div>
   );
 };
