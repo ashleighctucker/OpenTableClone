@@ -20,7 +20,7 @@ const CreateReview = () => {
     e.preventDefault();
     setErrors([]);
     const data = await dispatch(
-      createReview(rating, comment, restaurantId, sesstionUser.id)
+      createReview(rating, comment, restaurantId, sessionUser.id)
     );
     if (data) {
       setErrors([]);
