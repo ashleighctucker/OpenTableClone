@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { createReview } from '../../store/restaurant';
+import { createReview, getRestaurants } from '../../store/restaurant';
 
 const CreateReview = () => {
   const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const CreateReview = () => {
     if (data) {
       setErrors([]);
     }
+    dispatch(getRestaurants());
     reset();
     console.log(data);
   };

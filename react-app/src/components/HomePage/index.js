@@ -24,8 +24,12 @@ const HomePage = () => {
           <h1>Find your table for any occasion</h1>
         </div>
       </header>
-      <div className="card-container">
-        {restaurants ? createCards(restaurants) : null}
+      <div className="info-container">
+        <h2 className="title">Book your restaurant today</h2>
+        <hr></hr>
+        <div className="card-container">
+          {restaurants ? createCards(restaurants) : null}
+        </div>
       </div>
     </div>
   );

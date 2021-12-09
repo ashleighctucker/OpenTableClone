@@ -45,11 +45,13 @@ class Restaurant(db.Model):
             'close_time': self.close_time,
             'contact_email': self.contact_email,
             'description': self.description,
+
             'reservations': [{"time_slot": obj.time_slot,
                                 "user_id": obj.user_id,
                                 "party_size": obj.party_size,
                                 "available_size": obj.available_size,
                                 "notes": obj.notes,
+                                "id": obj.id,
                                 "booked": obj.booked}
                                 for obj in self.reservation],
             'reviews': {obj.id: {"rating": obj.rating,

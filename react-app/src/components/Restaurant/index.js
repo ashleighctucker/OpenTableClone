@@ -1,31 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteReview } from '../../store/restaurant';
 import { makeFavorite, getFavorite, deleteFavorite } from '../../store/favorites';
 import { useParams } from 'react-router';
 import EditReviewModal from '../EditReview/EditReviewModal';
-import CustomerBookReservationModal from
 import './restaurant.css'
+import { deleteReview, getRestaurants } from '../../store/restaurant';
+import CustomerBookReservationModal from '../CustomerBookReservation';
 
 const Restaurant = () => {
   const { restaurantId } = useParams();
+  const [date, setDate] = useState('');
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const favorites = useSelector(state => state.favorites)
   const userId = useSelector(state => state.session?.user?.id)
   const dispatch = useDispatch();
 
-
-  //Xclose_time, Xopen_time, contact_email, phone_number, Xlocation, Xcover_photo
-  //Xdescription, Xcuisine_type, Xname, Xprice_point
-  //reservations [], Xreviews {}
-
   dispatch(getFavorite(userId));
   console.log(favorites, "!!!!!!")
   // useEffect(() => {
-  //   dispatch(getFavorite(userId));
-  //   console.log('dispatching favorite', '<---')
+  //   const asyncLoad = async () => {
+  //     await dispatch(getFavorite(userId));
+  //     console.log('dispatching favorite', '<---')
+  //   };
+  //   asyncLoad();
   // }, [dispatch]);
-  // console.log(favorites , '<-----------')
 
   let dollars = ''
   for (let i=0; i<restaurant.price_point; i++) {
@@ -72,9 +70,9 @@ const Restaurant = () => {
     } return reviewStars
   }
 
-  const { reviews: theseReviews } = useSelector(
-    (state) => state.restaurants[restaurantId]
-  );
+  // const { reviews: theseReviews } = useSelector(
+  //   (state) => state.restaurants[restaurantId]
+  // );
 
   let allReservations = useSelector(
     (state) => state.restaurants?.[restaurantId]?.reservations
@@ -96,6 +94,7 @@ const Restaurant = () => {
 
   const deleteOneReview = (id) => {
     dispatch(deleteReview(id));
+    dispatch(getRestaurants());
   };
 
   const makeFav = (restaurantId) => {
@@ -129,14 +128,16 @@ const Restaurant = () => {
           <div className='stars'>{stars} <span className='rating'>{rating}</span></div>
           <div className='dots'>●</div>
           <p>
-            <i className="far fa-comments" id='icon' ></i>
-            {Object.keys(restaurant.reviews).length} reviews</p>
+              <i className="far fa-comments" id='icon' ></i>
+            {Object.keys(restaurant.reviews).length} reviews
+          </p>
           <div className='dots'>●</div>
           <p className='pricePoint'>{dollars}</p>
           <div className='dots'>●</div>
           <p className='cuisineType'>
             <i className="fas fa-utensils" id='icon'></i>
-            {restaurant.cuisine_type}</p>
+            {restaurant.cuisine_type}
+          </p>
         </div>
 
         <div className='contactContainer'>
@@ -162,32 +163,33 @@ const Restaurant = () => {
         <CustomerBookReservationModal
           arrayOfAvailableDates={arrayOfAvailableDates}
           availableReservationsArray={availableReservationsArray}
-        />
+          />
         <p>{restaurant.description}</p>
-
       </div>
+
+    {/* --- */}
       <div className='reviewsContainer'>
         <h2 className='reviewsHeader'>Reviews</h2>
-        {reviews?.map((review) => {
+        {Object.values(rawReviews)?.map((review) => {
           return (
-            <div className='review'>
-              <div className='reviewContent'>
-                <div className='reviewRating'>{makeStars(review)}</div>
-                <div className='reviewComment'>{review.comment}</div>
-              </div>
+          <div className='review'>
 
-              {userId == review.userId? (
-              <div className='ratingButtons'>
-                <EditReviewModal id={review.id} className='ratingEdit'/>
-                <button onClick={() => deleteOneReview(review.id)} className='ratingDelete'>
-                  Delete
-                </button>
-              </div> ): null }
-          )
-        </div>)})})
+            <div className='reviewContent'>
+              <div className='reviewRating'>{makeStars(review)}</div>
+              <div className='reviewComment'>{review.comment}</div>
+            </div>
+
+            {userId == review.userId? (
+            <div className='ratingButtons'>
+              <EditReviewModal id={review.id} className='ratingEdit'/>
+              <button onClick={() => deleteOneReview(review.id)} className='ratingDelete'>
+                Delete
+              </button>
+            </div> ): null }
+
+          </div> )})}
       </div>
-    </div>
-  );
-};
+  </div> );
+  }
 
 export default Restaurant;
