@@ -1,53 +1,100 @@
 import React, { useState, useEffect } from "react";
-//import {editQuestionById} from "../../store/currentQuestion" //Ask where we will put this thunk
+import {createCustomerReservation} from "../../store/restaurant" 
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-
+import { useParams, useHistory } from 'react-router-dom';
 
 function CustomerReservationForm({arrayOfAvailableDates, availableReservationsArray}) {
   const dispatch = useDispatch();
-  const [partySize, setPartySize] = useState("");
-  const [notes, setNotes] = useState("");
+  const history = useHistory();
+  const [partySize, setPartySize] = useState(1);
+  const [availableSize, setAvailableSize] = useState("");
+  const [notes, setNotes] = useState("Leave a note for your server...");
   const [errors, setErrors] = useState([]);
-  const [date, setDate]= useState("");
-  const userId = useSelector((state) => state.session.user);
-  console.log(arrayOfAvailableDates, "YOOOOOOOOOOOOOOOOOOOOOOO")
-//   const {restaurantId} = useParams();
-//   //let allReservations = useSelector((state) =>state.restaurants?.restaurantId?.reservations)
-//   let allReservations = useSelector((state) => state.restaurants[restaurantId]).reservations
-//   console.log(allReservations, "<--------")
-//   console.log(restaurantId, "*********************")
-//   let availableReservationsArray = allReservations.filter(res => res.booked === false).sort(function(a,b){
-// //                 // Turn your strings into dates, and then subtract them
-// //                 // to get a value that is either negative, positive, or zero.
-//                 return new Date(a.date) - new Date(b.date);
-//              })
-//   console.log(availableReservationsArray)
-//   let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date) 
-//   let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
-//   console.log(arrayOfAvailableDates, "HIIII")
-console.log(date)
+  const [date, setDate]= useState(arrayOfAvailableDates[0] || null);
+  const [time, setTime]= useState("");
+  const [reservationId, setReservationId]= useState("");
+  const[idxOfReservationSlotInState, setIdxOfReservationSlotInState] = useState("")
+  const { restaurantId }  = useParams();
+  const userId = useSelector((state) => state.session?.user?.id);
+  let selectedReservation;
 
 
+  const handleTimeSelect = (e) =>{
+    e.preventDefault();
+    setTime(e.target.value)}
 
-// const getArrayOfAvailableDays = (arrayOfAvailableReservations) =>{
-    
-//     arrayOfAvailableReservations.forEach(reservation => {
-//         arrayOfAvailableDates.push(reservation.date)
-//     });
-//     return arrayOfAvailableDates
-// }
+  const getAvailableSizeForTimeSlot = (availableReservationsArray, date, time) =>{
+    selectedReservation=availableReservationsArray.filter((reservation) =>reservation.date == date && reservation.time_slot == time)
+    let idxforResSlot = null;
+    for (let index = 0; index < availableReservationsArray.length; index++) {
+       const reservation = availableReservationsArray[index];
+       if (reservation.date == date && reservation.time_slot == time) {
+         idxforResSlot = index
+        
+        
+       }
+     }
+    setAvailableSize(selectedReservation[0]?.available_size)
+    setReservationId(selectedReservation[0]?.id)
+    setIdxOfReservationSlotInState(idxforResSlot)
+    return selectedReservation
+
+  }
+
+  useEffect(()=>{
+    getAvailableSizeForTimeSlot(availableReservationsArray, date, time)}, [time])
+
+
 let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date)
+
+const handleSubmit = async e =>{
+  e.preventDefault();
+  setErrors([]);
+  let booked = true;
+  const newCustomerReservation = await dispatch(
+      createCustomerReservation(
+        restaurantId,
+        reservationId,
+        userId,
+        partySize,
+        notes,
+        booked,
+        idxOfReservationSlotInState
+      ) 
+  )
+  history.push(`/restaurants/${restaurantId}`);
+  }
+
+
+// }
 return(
 <div>
     <h1>reservation</h1>
-    <form method="post" action="/">
-<select  onChange={(e)=>setDate(e.target.value)} name="date" id="date">
-    {arrayOfAvailableDates.map(dateString => {return <option value={dateString} >{dateString}</option>})}
-</select>
-</form>
-{reservationsByDate.map(res => {return <button>{res.time_slot}</button>})}
-</div>)
+    <form onSubmit={handleSubmit}>
+      <div className="error-div">
+          {errors.map((error, i) => (
+            <p key={i}>{error}</p>
+          ))}
+      </div>
+        <label>
+          Reservation date
+        </label>
+        <select  onChange={(e)=>setDate(e.target.value)} name="date" id="date">
+            {arrayOfAvailableDates.map(dateString => {return <option value={dateString} >{dateString}</option>})}
+        </select>
+        <br />
+        <label>
+          Reservation notes
+        </label>
+        <textarea onChange={(e)=>setNotes(e.target.value)} value={notes}></textarea>
+        <br/>
+        {reservationsByDate.map(res => {return <button onClick={handleTimeSelect} value={res.time_slot}>{res.time_slot}</button>})}
+        <br/>
+        <input type="number" min="1" max={availableSize} name="party_size" id="party_size" onChange={(e)=>setPartySize(e.target.value)} value={partySize}/>
+        <button type="submit">Book reservation</button>
+        </form>
+        </div>
+)
 }
 
 export default CustomerReservationForm;
