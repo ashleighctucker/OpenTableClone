@@ -4,6 +4,7 @@ import { deleteReview } from '../../store/restaurant';
 import { makeFavorite, getFavorite, deleteFavorite } from '../../store/favorites';
 import { useParams } from 'react-router';
 import EditReviewModal from '../EditReview/EditReviewModal';
+import CustomerBookReservationModal from
 import './restaurant.css'
 
 const Restaurant = () => {
@@ -71,6 +72,28 @@ const Restaurant = () => {
     } return reviewStars
   }
 
+  const { reviews: theseReviews } = useSelector(
+    (state) => state.restaurants[restaurantId]
+  );
+
+  let allReservations = useSelector(
+    (state) => state.restaurants?.[restaurantId]?.reservations
+  );
+  let availableReservationsArray = allReservations
+    .filter((res) => res.booked === false)
+    .sort(function (a, b) {
+      //                 // Turn your strings into dates, and then subtract them
+      //                 // to get a value that is either negative, positive, or zero.
+      return new Date(a.date) - new Date(b.date);
+    });
+  console.log(availableReservationsArray);
+  let reservationsByDate = availableReservationsArray.filter(
+    (reservation) => reservation.date == date
+  );
+  let arrayOfAvailableDates = availableReservationsArray.map(
+    (reservation) => reservation.date
+  );
+
   const deleteOneReview = (id) => {
     dispatch(deleteReview(id));
   };
@@ -136,7 +159,10 @@ const Restaurant = () => {
 
         </div>
 
-        <h2>MAKE A RESERVATION!!!</h2>
+        <CustomerBookReservationModal
+          arrayOfAvailableDates={arrayOfAvailableDates}
+          availableReservationsArray={availableReservationsArray}
+        />
         <p>{restaurant.description}</p>
 
       </div>
@@ -149,17 +175,16 @@ const Restaurant = () => {
                 <div className='reviewRating'>{makeStars(review)}</div>
                 <div className='reviewComment'>{review.comment}</div>
               </div>
+
               {userId == review.userId? (
               <div className='ratingButtons'>
                 <EditReviewModal id={review.id} className='ratingEdit'/>
                 <button onClick={() => deleteOneReview(review.id)} className='ratingDelete'>
                   Delete
                 </button>
-              </div>
-              ): null}
-            </div>
-          );
-        })}
+              </div> ): null }
+          )
+        </div>)})})
       </div>
     </div>
   );
