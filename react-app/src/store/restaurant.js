@@ -355,10 +355,10 @@ export default function restaurantReducer(state = initialState, action) {
     }
     case ADD_RESERVATION: {
       newState = { ...state };
-      newState[action.reservation.restaurantId].reservations = {
-        [action.reservation.id]: action.reservation,
-        ...newState[action.reservation.restaurantId].reservations,
-      };
+      newState[action.reservation.restaurant_id].reservations = [
+        action.reservation,
+        ...newState[action.reservation.restaurant_id].reservations,
+      ];
       return newState;
     }
     default: {

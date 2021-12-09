@@ -28,7 +28,6 @@ const CreateReview = () => {
     }
     dispatch(getRestaurants());
     reset();
-    console.log(data);
   };
 
   return (
