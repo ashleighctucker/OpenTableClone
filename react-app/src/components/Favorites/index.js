@@ -28,7 +28,7 @@ const Favorites = () => {
         {favRestaurants.map(res => (
           <div className='restaurantCard'>
             <NavLink to={`/restaurants/${res.id}`}>
-              <img className='restaurantImage' src={res.cover_photo}></img>
+              <img className='restaurantImage' alt='restaurant'src={res.cover_photo}></img>
             </NavLink>
               <p className='restaurantName'>{res.name}</p>
               <p className='restaurantLocation'><strong>Visit: </strong>{res.location}</p>

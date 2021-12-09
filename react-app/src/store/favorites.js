@@ -32,13 +32,13 @@ export const getFavorite = (userId) => async(dispatch) => {
       }
 }
 
-export const makeFavorite = (content) => async(dispatch) => {
-    const {userId, restaurantId} = content
-    const response = await fetch(`api/users/${userId}/favorites`, {
+export const makeFavorite = (userId, restaurantId) => async(dispatch) => {
+    const response = await fetch(`/api/users/${userId}/favorites`, {
         method: 'POST',
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ userId, restaurantId })
     })
-
+    console.log(typeof userId, typeof restaurantId, '<-------THUNK')
 
     if (response.ok) {
         const data = await response.json()
@@ -47,6 +47,7 @@ export const makeFavorite = (content) => async(dispatch) => {
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
+          console.log(data.errors, '<<<<<<ERRORS')
           return data.errors;
         }
     } else return ['An error occurred. Please try again.']
