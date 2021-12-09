@@ -181,7 +181,7 @@ export const createReview =
       const data = await response.json();
       console.log('this is the response', data);
       dispatch(addReview(data));
-      return data.id;
+      return data;
     } else if (response.status < 500) {
       const data = await response.json();
       if (data.errors) {
@@ -235,12 +235,11 @@ export default function restaurantReducer(state = initialState, action) {
     }
     case REMOVE_REVIEWS: {
       newState = { ...state };
-      console.log(newState);
     }
     case ADD: {
       return {
         ...state,
-        [action.restaurant.id]: action.restaurant,
+        [action.restaurant?.id]: action.restaurant,
       };
     }
     case UPDATE: {

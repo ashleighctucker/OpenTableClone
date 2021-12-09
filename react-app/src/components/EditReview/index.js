@@ -1,45 +1,29 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { editReview } from '../../store/restaurant';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { createReview } from '../../store/restaurant';
 
-const CreateReview = () => {
+const EditReview = ({ id, setShowModal }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const { restaurantId } = useParams();
-  console.log(restaurantId);
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState('');
-  const [userId, setUserId] = useState(sessionUser.id);
-  const [errors, setErrors] = useState([]);
 
   const reset = () => {
     setRating(1);
     setComment('');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
-    const data = await dispatch(
-      createReview(rating, comment, restaurantId, userId)
-    );
-    if (data) {
-      setErrors([]);
-    }
-    reset();
-    console.log(data);
+    dispatch(editReview(rating, comment, id));
+    setShowModal(false);
   };
 
   return (
     <div className="createReview">
-      <form onSubmit={handleSubmit} className="createReviewForm">
-        <div className="errors">
-          {errors &&
-            errors.map((error, i) => {
-              return <p key={i}>{error}</p>;
-            })}
-        </div>
+      <form onSubmit={handleSubmit} className="editReviewForm">
         <select
           onChange={(e) => setRating(Number(e.target.value))}
           value={rating}
@@ -64,4 +48,4 @@ const CreateReview = () => {
   );
 };
 
-export default CreateReview;
+export default EditReview;
