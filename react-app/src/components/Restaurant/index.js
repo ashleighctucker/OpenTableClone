@@ -7,15 +7,13 @@ const Restaurant = () => {
   const { restaurantId } = useParams();
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const dispatch = useDispatch();
-  let reviews;
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
   );
 
-  if (rawReviews) {
-    reviews = Object.values(rawReviews);
-  }
-
+  // if (rawReviews) {
+  //   reviews = Object.values(rawReviews);
+  // }
 
   const deleteOneReview = (id) => {
     dispatch(deleteReview(id));
@@ -25,7 +23,7 @@ const Restaurant = () => {
     <div className="restaurant-container">
       <h1>{restaurant?.name}</h1>
       <div>
-        {reviews?.map((review) => {
+        {Object.values(rawReviews)?.map((review) => {
           return (
             <div>
               {review.rating}

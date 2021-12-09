@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './RestaurantCards.css';
 
 const RestaurantCard = ({ restaurant }) => {
@@ -9,18 +10,17 @@ const RestaurantCard = ({ restaurant }) => {
   };
 
   return (
-    <div className="restaurant-card" onClick={redirectOnClick}>
-      <div>{restaurant.name}</div>
-      <div>
-        <img
+    <Link to={`/restaurants/${restaurant.id}`} className="wrapper-link">
+      <div className="restaurant-card">
+        <div
+          style={{ backgroundImage: `url(${restaurant.cover_photo})` }}
           className="restaurant-card-image"
-          src={restaurant.cover_photo}
-          alt={restaurant.name}
-        />
+        ></div>
+        <p className="restaurant-name">{restaurant.name}</p>
+        <div className="restaurant-description">{restaurant.location}</div>
+        <div className="restaurant-description">{restaurant.phone_number}</div>
       </div>
-      <div>{restaurant.location}</div>
-      <div>{restaurant.phone_number}</div>
-    </div>
+    </Link>
   );
 };
 
