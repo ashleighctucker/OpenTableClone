@@ -23,7 +23,6 @@ def user(id):
 @user_routes.route('/<int:id>/favorites')
 def get_favs(id):
     favorites = Favorite.query.filter(Favorite.userId == id)
-    # favorites = Favorite.query.all()
     return {'favorites': [fav.to_dict() for fav in favorites]}
 
 @user_routes.route('/<int:id>/favorites', methods=['POST'])
