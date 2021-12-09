@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteReview, getRestaurants } from '../../store/restaurant';
 
 import { useParams } from 'react-router';
-import { deleteReview } from '../../store/restaurant';
 import EditReviewModal from '../EditReview/EditReviewModal';
 import CustomerBookReservationModal from '../CustomerBookReservation';
 const Restaurant = () => {
@@ -32,10 +31,6 @@ const Restaurant = () => {
   );
   let arrayOfAvailableDates = availableReservationsArray.map(
     (reservation) => reservation.date
-  );
-  let reviews;
-  const rawReviews = useSelector(
-    (state) => state.restaurants[restaurantId]?.reviews
   );
 
   const deleteOneReview = (id) => {
