@@ -18,6 +18,7 @@ import EditRestaurant from './components/EditRestaurant';
 import { getCuisineTypes } from './store/cuisine_types';
 import { getRestaurants, createReview } from './store/restaurant';
 import CreateReview from './components/NewReview';
+import { getFavorite } from './store/favorites';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       await dispatch(authenticate());
       await dispatch(getRestaurants());
       await dispatch(getCuisineTypes()).then(() => setLoaded(true));
+      await dispatch(getFavorite());
     })();
   }, [dispatch]);
 

@@ -66,6 +66,12 @@
     width: 70%;
 }
 
+.reviewsHeader {
+    border-bottom: solid 1px lightgrey;
+    margin: 30px 0px 20px 0px;
+    padding: 10px 20px;
+}
+
 .ratingButtons {
     display: flex;
     flex-direction: row;

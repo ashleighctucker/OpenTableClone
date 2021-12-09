@@ -18,14 +18,21 @@ const Restaurant = () => {
   //Xdescription, Xcuisine_type, Xname, Xprice_point
   //reservations [], Xreviews {}
 
+  useEffect(() => {
+    const asyncLoad = async () => {
+      await dispatch(getFavorite(userId));
+    };
+    asyncLoad();
+  }, [dispatch, userId]);
+
   let dollars = ''
   for (let i=0; i<restaurant.price_point; i++) {
     dollars += '$ '
   }
 
   let stars = ''
-  let ratings = []
   let rating = 0
+  let ratings = []
   if (restaurant.reviews) {
     for(let id in restaurant?.reviews){
       ratings.push(restaurant?.reviews[id].rating)
@@ -43,17 +50,30 @@ const Restaurant = () => {
   }
 
 
-  let description = restaurant.description
-  // console.log(restaurant.id)
-
-
   let reviews;
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
-  );
+    );
 
-  if (rawReviews) {
-    reviews = Object.values(rawReviews);
+    if (rawReviews) {
+      reviews = Object.values(rawReviews);
+    }
+
+  console.log(reviews, '<----')
+  let reviewStars = ''
+  const makeStars = (obj) => {
+    const thisObj = {...obj}
+    console.log(thisObj, obj, '<<<<----')
+    for (let i=0; i<5; i++) {
+      if (thisObj.rating >= 1) {
+        reviewStars += '★'
+        thisObj.rating -= 1
+      }
+      // else if (thisObj.rating > 0.25 && thisObj.rating < .75) reviewStars += '1/2'
+      else reviewStars += '☆'
+    }
+    console.log(thisObj, obj, '<<<<----')
+    return reviewStars
   }
 
 
@@ -65,16 +85,9 @@ const Restaurant = () => {
     dispatch(makeFavorite(userId, restaurantId))
   }
 
-  useEffect(() => {
-    const asyncLoad = async () => {
-      await dispatch(getFavorite(userId));
-    };
-    asyncLoad();
-  }, [dispatch]);
-
   return (
     <div>
-      <img src={restaurant.cover_photo} className='coverPhoto'/>
+      <img src={restaurant.cover_photo} alt='restaurant cover'className='coverPhoto'/>
       <div  className="restaurant-container">
         <div className='header'>
           <h1 className='restName'>{restaurant?.name}</h1>
@@ -121,10 +134,11 @@ const Restaurant = () => {
 
       </div>
       <div className='reviews'>
+        <h2 className='reviewsHeader'>Reviews</h2>
         {reviews?.map((review) => {
           return (
             <div>
-              <div className='reviewRating'>{review.rating}</div>
+              <div className='reviewRating'>{makeStars(review)}</div>
               <div className='reviewComment'>{review.comment}</div>
               <div className='ratingButtons'>
                 <EditReviewModal id={review.id} className='ratingEdit'/>
