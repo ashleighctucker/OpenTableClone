@@ -37,15 +37,12 @@ def create_favs(id):
         db.session.commit()
         return newFav.to_dict()
     else:
-        print(form.errors, '<-------------')
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @user_routes.route('/<int:id>/favorites/<int:fav_id>', methods=['DELETE'])
 def delete_favs(id, fav_id):
-    print('getting there')
     favorite = Favorite.query.get(fav_id)
     if(favorite):
-        print('DELETING!!!')
         db.session.delete(favorite)
         db.session.commit()
         return {'message': 'Successfully deleted Fav'}
