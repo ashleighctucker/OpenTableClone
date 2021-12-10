@@ -15,15 +15,15 @@ const Restaurant = () => {
   const userId = useSelector(state => state.session?.user?.id)
   const dispatch = useDispatch();
 
-  dispatch(getFavorite(userId));
+  // dispatch(getFavorite(userId));
   console.log(favorites, "!!!!!!")
-  // useEffect(() => {
-  //   const asyncLoad = async () => {
-  //     await dispatch(getFavorite(userId));
-  //     console.log('dispatching favorite', '<---')
-  //   };
-  //   asyncLoad();
-  // }, [dispatch]);
+  useEffect(() => {
+    const asyncLoad = async () => {
+      await dispatch(getFavorite(userId));
+      console.log('dispatching favorite', '<---')
+    };
+    asyncLoad();
+  }, [dispatch]);
 
   let dollars = ''
   for (let i=0; i<restaurant.price_point; i++) {
@@ -49,15 +49,6 @@ const Restaurant = () => {
     } else stars = '☆☆☆☆☆'
   }
 
-  let reviews;
-  const rawReviews = useSelector(
-    (state) => state.restaurants[restaurantId]?.reviews
-    );
-
-    if (rawReviews) {
-      reviews = Object.values(rawReviews);
-    }
-
   let reviewStars = ''
   const makeStars = (obj) => {
     reviewStars = ''
@@ -70,9 +61,14 @@ const Restaurant = () => {
     } return reviewStars
   }
 
-  // const { reviews: theseReviews } = useSelector(
-  //   (state) => state.restaurants[restaurantId]
-  // );
+  let reviews;
+  const rawReviews = useSelector(
+    (state) => state.restaurants[restaurantId]?.reviews
+    );
+
+    if (rawReviews) {
+      reviews = Object.values(rawReviews);
+    }
 
   let allReservations = useSelector(
     (state) => state.restaurants?.[restaurantId]?.reservations
@@ -84,7 +80,7 @@ const Restaurant = () => {
       //                 // to get a value that is either negative, positive, or zero.
       return new Date(a.date) - new Date(b.date);
     });
-  console.log(availableReservationsArray);
+
   let reservationsByDate = availableReservationsArray.filter(
     (reservation) => reservation.date == date
   );

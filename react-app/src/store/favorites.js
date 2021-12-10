@@ -75,10 +75,10 @@ const favoriteReducer = (state={favorites: null}, action) => {
     let newState
     switch(action.type){
         case GET_FAV:
-            console.log(newState, '<-----------------------------')
             newState = Object.assign({}, state)
             const normalFavs = {...action.payload}
             newState = {...normalFavs.favorites}
+            console.log(newState, '<-----------------------------')
             return newState
         case MAKE_FAV:
             newState = Object.assign({}, state)
