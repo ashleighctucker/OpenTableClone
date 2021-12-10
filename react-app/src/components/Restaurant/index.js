@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { makeFavorite, deleteFavorite } from '../../store/favorites';
 import { useParams, NavLink } from 'react-router-dom';
 import EditReviewModal from '../EditReview/EditReviewModal';
-import './restaurant.css';
 import { deleteReview, getRestaurants } from '../../store/restaurant';
 import CustomerBookReservationModal from '../CustomerBookReservation';
+import {authenticate} from '../../store/session'
+import './restaurant.css';
 
 const Restaurant = () => {
   const { restaurantId } = useParams();
@@ -84,23 +85,28 @@ const Restaurant = () => {
 
   const makeFav = (restaurantId) => {
     dispatch(makeFavorite(+userId, +restaurantId));
+    dispatch(authenticate())
+    window.location.reload();
   };
 
   const delFav = (restId) => {
     let favId;
-    for (let id in favorites) {
-      console.log(favorites[id], restId, 'favorites');
-      if (favorites[id].restaurantId === restId) {
+    for (let id in restaurant.favorites) {
+      console.log(restaurant.favorites[id], restId, 'favorites');
+      if (restaurant.favorites[id].restaurantId === restId) {
         favId = id;
         console.log(favId, '<<<<<---');
       }
     }
     dispatch(deleteFavorite(favId, userId));
+    dispatch(authenticate())
+    window.location.reload();
   };
 
+
   const checkFavs = (restId) => {
-    for (let id in favorites) {
-      if (favorites[id]?.restaurantId === restId) return 'true';
+    for (let id in restaurant.favorites) {
+      if (restaurant.favorites[id]?.restaurantId === restId) return 'true';
       return 'false';
     }
   };
