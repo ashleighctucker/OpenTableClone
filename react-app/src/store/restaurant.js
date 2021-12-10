@@ -336,10 +336,9 @@ export default function restaurantReducer(state = initialState, action) {
       };
     }
     case UPDATE: {
-      return {
-        ...state,
-        [action.restaurant.id]: action.notebook,
-      };
+      newState = { ...state };
+      newState[action.restaurant.id] = action.restaurant;
+      return newState;
     }
     case REMOVE: {
       const newState = { ...state };

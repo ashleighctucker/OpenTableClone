@@ -45,7 +45,8 @@ const CreateReservations = () => {
   };
 
   return (
-    <div>
+    <>
+      <h2>Create Reservations</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-div">
           <label htmlFor="time_slot">Time Slot:</label>
@@ -98,7 +99,7 @@ const CreateReservations = () => {
           <button type="submit">Create Reservation Slots</button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

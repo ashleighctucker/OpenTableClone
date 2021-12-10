@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ReservationCards = ({ reservation }) => {
-  console.log(reservation.booked);
   const resDate = new Date(reservation.date);
   const dateString =
     resDate.getFullYear() +
@@ -18,9 +17,8 @@ const ReservationCards = ({ reservation }) => {
     >
       <span>Time: {reservation.time_slot}</span>
       <span>Date: {dateString}</span>
-      <span>
-        {reservation.booked ? 'Reservation Booked' : 'Reservation Available'}
-      </span>
+      <span>Table Size: {reservation.available_size}</span>
+      <span>{reservation.booked ? 'Booked' : 'Available'}</span>
     </div>
   );
 };

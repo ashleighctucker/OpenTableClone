@@ -58,7 +58,8 @@ const EditRestaurantForm = () => {
   return (
     <>
       <div id="restaurant-form-container">
-        <form id="new-restaurant-form" onSubmit={handleSubmit}>
+        <h2>Edit Restaurant Infomation</h2>
+        <form onSubmit={handleSubmit}>
           <div className="error-div">
             {errors.map((error, i) => (
               <p key={i}>{error}</p>
@@ -142,6 +143,7 @@ const EditRestaurantForm = () => {
             <textarea
               name="description"
               value={description}
+              className="description-field"
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>

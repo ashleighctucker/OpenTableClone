@@ -9,17 +9,18 @@ import './EditRestaurant.css';
 
 const EditRestaurant = () => {
   const { restaurantId } = useParams();
+  const restaurant = useSelector((state) => state.restaurants[restaurantId]);
   const reservations = useSelector(
-    (state) => state.restaurants[restaurantId].reservations
+    (state) => state.restaurants[restaurantId]?.reservations
   );
-  reservations.sort(function (a, b) {
+  reservations?.sort(function (a, b) {
     return new Date(a.date) - new Date(b.date);
   });
-  console.log(reservations);
 
   return (
     <>
       <div id="edit-page-container">
+        <h1>{restaurant?.name}</h1>
         <div className="main-container">
           <>
             <EditRestaurantForm />
@@ -28,8 +29,9 @@ const EditRestaurant = () => {
             <CreateReservations />
           </div>
         </div>
+        <h2>Current Reservations:</h2>
         <div id="reservation-card-container">
-          {reservations.map((reservation, i) => (
+          {reservations?.map((reservation, i) => (
             <ReservationCards reservation={reservation} key={i} />
           ))}
         </div>
