@@ -15,7 +15,7 @@ const Favorites = () => {
     const favObj = favorites[fav]
     const favId = favObj?.restaurantId
     for (const id in restaurants) {
-      if(id == favId) {
+      if(Number(id) === Number(favId)) {
         favRestaurants.push(restaurants[id])
   }}}
 
