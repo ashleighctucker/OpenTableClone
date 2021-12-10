@@ -129,6 +129,7 @@ const Restaurant = () => {
 
           {checkFavs(restaurant.id) ? (
             <button
+              id="red"
               className="favButton"
               type="button"
               onClick={() => delFav(restaurant.id)}
