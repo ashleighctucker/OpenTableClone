@@ -14,6 +14,15 @@
   align-items: center;
 }
 
+.form-container {
+  width: 30em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4% 0;
+}
+
 #restaurant-delete-modal {
   flex-direction: column;
   justify-content: center;
@@ -86,6 +95,7 @@
 .description-field {
   height: 10em;
 }
+
 
 @media screen and (max-width: 800px) {
 

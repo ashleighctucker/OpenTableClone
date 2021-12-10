@@ -76,7 +76,7 @@ function ProfileButton() {
         </div>
       ) : (
         <button className="MenuButton" onClick={closeMenu}>
-          <i class="far fa-window-close fa-2x"></i>
+          <i className="far fa-window-close fa-2x"></i>
         </button>
       )}
 

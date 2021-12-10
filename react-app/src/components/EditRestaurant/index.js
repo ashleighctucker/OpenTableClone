@@ -27,7 +27,8 @@ const EditRestaurant = () => {
     <>
       <div id="edit-page-container">
         <div className="main-container">
-          <h1>{restaurant?.name}</h1>
+          <h1>{restaurant?.name} Admin Page</h1>
+          <h3>Welcome back, {restaurant.ownerName}!</h3>
           <button
             className="edit-page-buttons"
             onClick={() => setShowEditModal(true)}
@@ -54,7 +55,7 @@ const EditRestaurant = () => {
             </Modal>
           )}
           <div id="reservation-form-container">
-            <CreateReservations />
+            <CreateReservations restaurant={restaurant} />
           </div>
         </div>
         <h2>Current Reservations:</h2>

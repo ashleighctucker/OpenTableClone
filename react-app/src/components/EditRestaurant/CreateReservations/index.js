@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { createReservation } from '../../../store/restaurant';
 import TIMES from '../../NewRestaurant/times';
 
-const CreateReservations = () => {
+const CreateReservations = ({ restaurant }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -47,6 +47,7 @@ const CreateReservations = () => {
   return (
     <>
       <h2>Create Reservations</h2>
+      <h3>for {restaurant.name}</h3>
       <form onSubmit={handleSubmit}>
         <div className="input-div">
           <label htmlFor="time_slot">Time Slot:</label>

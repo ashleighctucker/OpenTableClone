@@ -311,6 +311,33 @@ export const createReservation =
     }
   };
 
+export const updateReservation =
+  (reservationId, time_slot, date, available_size) => async (dispatch) => {
+    const response = await fetch(`/api/reservations/${reservationId}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        time_slot,
+        date,
+        available_size,
+      }),
+    });
+    if (response.ok) {
+      const reservation = await response.json();
+      dispatch(editReservationAsOwner(reservation));
+      return null;
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ['An error occurred.'];
+    }
+  };
+
 const initialState = {};
 
 export default function restaurantReducer(state = initialState, action) {
