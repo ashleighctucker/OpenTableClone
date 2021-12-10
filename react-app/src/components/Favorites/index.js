@@ -42,10 +42,12 @@ const Favorites = () => {
             <NavLink to={`/restaurants/${res.id}`}>
               <img className='restaurantImage' alt='restaurant'src={res.cover_photo}></img>
             </NavLink>
-              <p className='restaurantName'>{res.name}</p>
+              <div className='nameContainer'>
+                <p className='restaurantName'>{res.name}</p>
+                <button type='button' onClick={()=> deleteFav(res.id)} className='deleteFav'>Remove</button>
+              </div>
               <p className='restaurantLocation'><strong>Visit: </strong>{res.location}</p>
               <p className='restaurantNumber'><strong>Call: </strong>{res.phone_number}</p>
-              <button type='button' onClick={()=> deleteFav(res.id)}>Remove</button>
           </div>))}
       </div>)
     } else {

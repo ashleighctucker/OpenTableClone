@@ -117,17 +117,10 @@ const Restaurant = () => {
           {checkFavs(restaurant.id) ? (
             <button className='favButton' type='button' onClick={()=>delFav(restaurant.id)}>
               <i className="fas fa-heart"></i>
-              <p>{restaurant.id}</p>
-              <p>{checkFavs(restaurant.id)} </p>
-            </button>
-          ):
+            </button> ):
             <button className='favButton' type='button' onClick={()=>makeFav(restaurant.id)}>
               <i className="far fa-heart"></i>
-              <p>{restaurant.id}</p>
-              <p>{checkFavs(restaurant.id)} </p>
-            </button>
-          }
-
+            </button> }
 
           {userId == restaurant.user_id ? (
             <button type='button'>edit restaurant</button>
