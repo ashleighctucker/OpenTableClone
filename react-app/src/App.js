@@ -27,11 +27,13 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate()).then((id) => {
-        if (id) dispatch(getFavorite(id));
-      });
-      await dispatch(getRestaurants());
-      await dispatch(getCuisineTypes()).then(() => setLoaded(true));
+      await dispatch(authenticate())
+        .then((id) => {
+          if (id) dispatch(getFavorite(id));
+        })
+        .then(() => dispatch(getRestaurants()))
+        .then(() => dispatch(getCuisineTypes()))
+        .then(() => setLoaded(true));
     })();
   }, [dispatch]);
 
