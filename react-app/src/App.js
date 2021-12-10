@@ -30,6 +30,7 @@ function App() {
       await dispatch(authenticate()).then((id) => dispatch(getFavorite(id)));
       await dispatch(getRestaurants());
       await dispatch(getCuisineTypes()).then(() => setLoaded(true));
+      await dispatch(getFavorite())
     })();
   }, [dispatch]);
 
