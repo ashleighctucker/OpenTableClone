@@ -15,11 +15,9 @@ const Favorites = () => {
     const favObj = favorites[fav];
     const favId = favObj?.restaurantId;
     for (const id in restaurants) {
-      if (id === favId) {
-        favRestaurants.push(restaurants[id]);
-      }
-    }
-  }
+      if(Number(id) === Number(favId)) {
+        favRestaurants.push(restaurants[id])
+  }}}
 
   console.log(favorites, '<---');
 
