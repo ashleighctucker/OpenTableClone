@@ -79,7 +79,7 @@ def customer_create_and_edit_reservation(reservation_id, id):
     return reservation_to_edit.to_dict()
 
 
-@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>', methods=['DELETE'])
+@restaurant_routes.route('/<int:id>/reservations/<int:reservation_id>/', methods=['DELETE'])
 def customer_delete_reservation(reservation_id, id):
     reservation = db.session.query(Reservation).filter(
         Reservation.id == reservation_id).first()

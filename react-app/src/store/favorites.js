@@ -12,8 +12,9 @@ const makeFav = (content) => ({
     payload: content
 })
 
-const delFav = () => ({
-    type: DEL_FAV
+const delFav = (id) => ({
+    type: DEL_FAV,
+    payload: id
 })
 
 export const getFavorite = (userId) => async(dispatch) => {

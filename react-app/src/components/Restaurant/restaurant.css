@@ -28,6 +28,10 @@
     background-color: rgba(0,0,0,0);
 }
 
+#red {
+    color: crimson;
+}
+
 .restDescriptionContainer {
     display: flex;
     flex-direction: row;
