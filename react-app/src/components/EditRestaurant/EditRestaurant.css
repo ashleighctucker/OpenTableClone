@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.booked {
+  text-align: center;
+  color: crimson;
+}
+
 #restaurant-form-container {
   width: 30em;
   height: 50em;
@@ -15,6 +20,7 @@
 }
 
 .form-container {
+  text-align: center;
   width: 30em;
   display: flex;
   flex-direction: column;

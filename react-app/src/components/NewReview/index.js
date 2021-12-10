@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { createReview, getRestaurants } from '../../store/restaurant';
-import './review.css'
+import './review.css';
 
 const CreateReview = () => {
   const dispatch = useDispatch();
@@ -40,24 +40,64 @@ const CreateReview = () => {
               return <p key={i}>{error}</p>;
             })}
         </div>
-        <div class="rate">
-          <input type="radio" id="star5" name="rate" value={5} onClick={(e) => setRating(Number(e.target.value))}/>
-          <label for="star5" title="text">5 stars</label>
-          <input type="radio" id="star4" name="rate" value={4} onClick={(e) => setRating(Number(e.target.value))}/>
-          <label for="star4" title="text">4 stars</label>
-          <input type="radio" id="star3" name="rate" value={3} onClick={(e) => setRating(Number(e.target.value))}/>
-          <label for="star3" title="text">3 stars</label>
-          <input type="radio" id="star2" name="rate" value={2} onClick={(e) => setRating(Number(e.target.value))}/>
-          <label for="star2" title="text">2 stars</label>
-          <input type="radio" id="star1" name="rate" value={1} onClick={(e) => setRating(Number(e.target.value))}/>
-          <label for="star1" title="text">1 star</label>
+        <div className="rate">
+          <input
+            type="radio"
+            id="star5"
+            name="rate"
+            value={5}
+            onClick={(e) => setRating(Number(e.target.value))}
+          />
+          <label htmlFor="star5" title="text">
+            5 stars
+          </label>
+          <input
+            type="radio"
+            id="star4"
+            name="rate"
+            value={4}
+            onClick={(e) => setRating(Number(e.target.value))}
+          />
+          <label htmlFor="star4" title="text">
+            4 stars
+          </label>
+          <input
+            type="radio"
+            id="star3"
+            name="rate"
+            value={3}
+            onClick={(e) => setRating(Number(e.target.value))}
+          />
+          <label htmlFor="star3" title="text">
+            3 stars
+          </label>
+          <input
+            type="radio"
+            id="star2"
+            name="rate"
+            value={2}
+            onClick={(e) => setRating(Number(e.target.value))}
+          />
+          <label htmlFor="star2" title="text">
+            2 stars
+          </label>
+          <input
+            type="radio"
+            id="star1"
+            name="rate"
+            value={1}
+            onClick={(e) => setRating(Number(e.target.value))}
+          />
+          <label htmlFor="star1" title="text">
+            1 star
+          </label>
         </div>
         <textarea
           onChange={(e) => setComment(e.target.value)}
           value={comment}
           placeholder="Comment..."
           name="comment"
-          className='commentInput'
+          className="commentInput"
         />
         <button type="submit" className="submitBtn">
           Submit

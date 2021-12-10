@@ -33,7 +33,10 @@ const ReservationCards = ({ reservation }) => {
       </span>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <EditReservationEntryForm reservation={reservation} />
+          <EditReservationEntryForm
+            reservation={reservation}
+            close={() => setShowModal(false)}
+          />
         </Modal>
       )}
     </div>

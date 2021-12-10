@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import EditRestaurantForm from './EditRestuarantForm';
 import CreateReservations from './CreateReservations';
 import ReservationCards from './ReservationCards';
@@ -29,6 +29,11 @@ const EditRestaurant = () => {
         <div className="main-container">
           <h1>{restaurant?.name} Admin Page</h1>
           <h3>Welcome back, {restaurant.ownerName}!</h3>
+          <NavLink to={`/restaurants/${restaurant.id}`}>
+            <button className="edit-page-buttons">
+              Return to {restaurant.name} Main Page
+            </button>
+          </NavLink>
           <button
             className="edit-page-buttons"
             onClick={() => setShowEditModal(true)}
@@ -58,7 +63,10 @@ const EditRestaurant = () => {
             <CreateReservations restaurant={restaurant} />
           </div>
         </div>
-        <h2>Current Reservations:</h2>
+        <h2>Current Reservations: ({reservations?.length})</h2>
+        {reservations.length === 0
+          ? 'Add reservations to your restaurant!'
+          : null}
         <div id="reservation-card-container">
           {reservations?.map((reservation, i) => (
             <ReservationCards reservation={reservation} key={i} />

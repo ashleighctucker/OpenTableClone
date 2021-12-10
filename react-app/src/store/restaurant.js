@@ -11,6 +11,7 @@ const REMOVE_REVIEWS = 'reviews/removeReviews';
 const ADD_CUSTOMER_RESERVATION = 'reservations/addCustomerReservation';
 const ADD_RESERVATION = 'reservations/ADD_RESERVATION';
 const EDIT_RESERVATION_OWNER = 'reservations/EDIT_RESERVATION_OWNER';
+const DELETE_RESERVATION_OWNER = 'reservations/DELETE_RESERVATION_OWNER';
 
 export const addReview = (newReview) => ({
   type: ADD_REVIEWS,
@@ -55,6 +56,12 @@ const addReservation = (reservation) => ({
 const editReservationAsOwner = (reservation) => ({
   type: EDIT_RESERVATION_OWNER,
   reservation,
+});
+
+const deleteReservationAsOwner = (reservationId, restaurantId) => ({
+  type: DELETE_RESERVATION_OWNER,
+  reservationId,
+  restaurantId,
 });
 
 // gets all restaurants with reservations and reviews eager loaded
@@ -338,6 +345,17 @@ export const updateReservation =
     }
   };
 
+export const deleteReservationEntry =
+  (reservationId, restaurantId) => async (dispatch) => {
+    const response = await fetch(`/api/reservations/${reservationId}/`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const message = await response.json();
+    dispatch(deleteReservationAsOwner(reservationId, restaurantId));
+    return message;
+  };
+
 const initialState = {};
 
 export default function restaurantReducer(state = initialState, action) {
@@ -392,6 +410,15 @@ export default function restaurantReducer(state = initialState, action) {
         action.reservation,
         ...newState[action.reservation.restaurant_id].reservations,
       ];
+      return newState;
+    }
+    case DELETE_RESERVATION_OWNER: {
+      newState = { ...state };
+      let filterArray = [...newState[action.restaurantId].reservations];
+
+      newState[action.restaurantId].reservations = filterArray.filter(
+        (reservation) => reservation.id !== action.reservationId
+      );
       return newState;
     }
     default: {

@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateReservation } from '../../../store/restaurant';
+import { useParams } from 'react-router-dom';
+import {
+  updateReservation,
+  deleteReservationEntry,
+} from '../../../store/restaurant';
 import TIMES from '../../NewRestaurant/times';
 
-function EditReservationEntryForm({ reservation}) {
+function EditReservationEntryForm({ reservation, close }) {
   const dispatch = useDispatch();
+  const { restaurantId } = useParams();
 
   const resDate = new Date(reservation.date);
   const resDateString =
@@ -31,8 +36,13 @@ function EditReservationEntryForm({ reservation}) {
     window.location.reload();
   };
 
+  const handleDelete = async () => {
+    await dispatch(deleteReservationEntry(reservation.id, restaurantId));
+    close();
+  };
+
   return (
-    <>
+    <div className="main-container">
       <form className="form-container" onSubmit={handleSubmit}>
         <h3>
           Edit Reservation for {reservation.available_size} on {resDateString}{' '}
@@ -86,7 +96,20 @@ function EditReservationEntryForm({ reservation}) {
           </button>
         </div>
       </form>
-    </>
+      <div className="input-div">
+        <button className="edit-page-buttons" onClick={handleDelete}>
+          Delete Reservation
+        </button>
+        <span className="booked">
+          {reservation.booked ? 'CAUTION: Booked' : null}
+        </span>
+        <span>
+          {reservation.booked
+            ? `Email ${reservation.email} to notify if cancelling reservation`
+            : null}
+        </span>
+      </div>
+    </div>
   );
 }
 export default EditReservationEntryForm;
