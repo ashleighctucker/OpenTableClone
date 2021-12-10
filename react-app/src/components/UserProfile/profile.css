@@ -29,6 +29,13 @@
     font-size: 20px;
 }
 
+#side-contain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .profileEditButton {
     width: 30px;
     height: 30px;
@@ -74,4 +81,15 @@
     background-color: rgb(167, 191, 243);
     border-radius: 5px;
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+}
+
+.single-link {
+    padding: 2%;
+    white-space: nowrap;
 }

@@ -27,10 +27,13 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate()).then((id) => dispatch(getFavorite(id)));
-      await dispatch(getRestaurants());
-      await dispatch(getCuisineTypes()).then(() => setLoaded(true));
-      await dispatch(getFavorite())
+      await dispatch(authenticate())
+        .then((id) => {
+          if (id) dispatch(getFavorite(id));
+        })
+        .then(() => dispatch(getRestaurants()))
+        .then(() => dispatch(getCuisineTypes()))
+        .then(() => setLoaded(true));
     })();
   }, [dispatch]);
 
@@ -44,7 +47,7 @@ function App() {
         <Route path="/home">
           <HomePage />
         </Route>
-        <ProtectedRoute exact path="/restaurants/new">
+        <ProtectedRoute exact path="/new-restaurant">
           <NewRestaurant />
         </ProtectedRoute>
         <Route exact path="/restaurants/:restaurantId/edit">
