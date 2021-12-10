@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { editRestaurant } from '../../../store/restaurant';
 import TIMES from '../../NewRestaurant/times';
 import '../EditRestaurant.css';
 import '../../NewRestaurant/restaurant.css';
 
-const EditRestaurantForm = () => {
+const EditRestaurantForm = ({ close }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const { restaurantId } = useParams();
   const restaurant = useSelector((state) => state.restaurants[restaurantId]);
@@ -52,13 +51,13 @@ const EditRestaurantForm = () => {
     if (typeof data != 'number') {
       return setErrors(data);
     }
-    history.push(`/home`);
+    close();
   };
 
   return (
     <>
       <div id="restaurant-form-container">
-        <h2>Edit Restaurant Infomation</h2>
+        <h2>Edit {name}'s Infomation</h2>
         <form onSubmit={handleSubmit}>
           <div className="error-div">
             {errors.map((error, i) => (
@@ -170,7 +169,7 @@ const EditRestaurantForm = () => {
             </select>
           </div>
           <div className="input-div">
-            <button type="submit">Edit Restaurant</button>
+            <button type="submit">Apply Edits</button>
           </div>
         </form>
       </div>

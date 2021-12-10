@@ -10,6 +10,7 @@ const REMOVE_REVIEWS = 'reviews/removeReviews';
 
 const ADD_CUSTOMER_RESERVATION = 'reservations/addCustomerReservation';
 const ADD_RESERVATION = 'reservations/ADD_RESERVATION';
+const EDIT_RESERVATION_OWNER = 'reservations/EDIT_RESERVATION_OWNER';
 
 export const addReview = (newReview) => ({
   type: ADD_REVIEWS,
@@ -48,6 +49,11 @@ const remove = (restaurantId) => ({
 
 const addReservation = (reservation) => ({
   type: ADD_RESERVATION,
+  reservation,
+});
+
+const editReservationAsOwner = (reservation) => ({
+  type: EDIT_RESERVATION_OWNER,
   reservation,
 });
 

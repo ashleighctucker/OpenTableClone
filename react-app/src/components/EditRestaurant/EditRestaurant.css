@@ -1,20 +1,29 @@
 .main-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 #restaurant-form-container {
   width: 30em;
+  height: 50em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3%;
-  border: 1px black solid;
-  border-radius: 5px;
-  margin: 1%;
+}
 
+#restaurant-delete-modal {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.delete-modal-div {
+  padding: 2%;
+  margin: 2%;
 }
 
 #reservation-form-container {
@@ -24,13 +33,11 @@
   justify-content: center;
   align-items: center;
   padding: 3%;
-  border: 1px black solid;
-  border-radius: 5px;
   margin: 1%;
 }
 
 .input-div {
-  width: 30em;
+  width: 20em;
   display: flex;
   flex-direction: column;
   padding: 2%;

@@ -1,16 +1,16 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import EditRestaurantForm from './EditRestuarantForm';
 import CreateReservations from './CreateReservations';
 import ReservationCards from './ReservationCards';
-import { deleteRestaurant } from '../../store/restaurant';
+import DeleteRestaurantConfirm from './DeleteRestaurantConfirm';
 import '../NewRestaurant/restaurant.css';
 import './EditRestaurant.css';
 
+import { Modal } from '../../context/Modal';
+
 const EditRestaurant = () => {
-  const dispatch = useDispatch();
-   const history = useHistory();
   const { restaurantId } = useParams();
   const restaurant = useSelector((state) => state.restaurants[restaurantId]);
   const reservations = useSelector(
@@ -20,27 +20,39 @@ const EditRestaurant = () => {
     return new Date(a.date) - new Date(b.date);
   });
 
-  const handleDelete = async () => {
-    await dispatch(deleteRestaurant(restaurant.id));
-    history.push('/home');
-  };
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
     <>
       <div id="edit-page-container">
-        <h1>{restaurant?.name}</h1>
         <div className="main-container">
-          <>
-            <EditRestaurantForm />
-          </>
+          <h1>{restaurant?.name}</h1>
+          <button onClick={() => setShowEditModal(true)}>
+            Edit Restuarant Information
+          </button>
+          {showEditModal && (
+            <Modal onClose={() => setShowEditModal(false)}>
+              <EditRestaurantForm close={() => setShowEditModal(false)} />
+            </Modal>
+          )}
+          <button
+            onClick={() => setShowDeleteModal(true)}
+            className="delete-button"
+          >
+            Delete Restaurant
+          </button>
+          {showDeleteModal && (
+            <Modal onClose={() => setShowDeleteModal(false)}>
+              <DeleteRestaurantConfirm
+                close={() => setShowDeleteModal(false)}
+                restaurant={restaurant}
+              />
+            </Modal>
+          )}
           <div id="reservation-form-container">
             <CreateReservations />
           </div>
-        </div>
-        <div className="input-div">
-          <button onClick={handleDelete} className="delete-button">
-            Delete Restaurant
-          </button>
         </div>
         <h2>Current Reservations:</h2>
         <div id="reservation-card-container">
