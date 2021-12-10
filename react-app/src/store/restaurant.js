@@ -170,6 +170,7 @@ export const editRestaurant =
 export const deleteRestaurant = (restaurantId) => async (dispatch) => {
   const response = await fetch(`/api/restaurants/${restaurantId}/`, {
     method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
   });
   const message = await response.json();
   dispatch(remove(restaurantId));

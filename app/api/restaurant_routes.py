@@ -55,7 +55,7 @@ def edit_restaurant(id):
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@restaurant_routes.route('/<int:id>', methods=["DELETE"])
+@restaurant_routes.route('/<int:id>/', methods=["DELETE"])
 def delete_restaurant(id):
     restaurantToDelete = Restaurant.query.get(int(id))
     db.session.delete(restaurantToDelete)
@@ -99,9 +99,6 @@ def restaurant_owner_post_reservation(id):
 
     reservation_form = RestaurantOwnerReservationForm()
     reservation_form['csrf_token'].data = request.cookies['csrf_token']
-    print(reservation_form.data['date'])
-    print(reservation_form.data['time_slot'])
-    print(reservation_form.data['available_size'])
     if reservation_form.validate_on_submit():
         new_reservation = Reservation(restaurant_id=id,
                                       time_slot=reservation_form.data['time_slot'],
