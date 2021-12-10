@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { createCustomerReservation } from '../../store/restaurant';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import {createCustomerReservation} from "../../store/restaurant" 
+import { authenticate } from '../../store/session'
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
 
 function CustomerReservationForm({
@@ -22,7 +23,15 @@ function CustomerReservationForm({
   const userId = useSelector((state) => state.session?.user?.id);
   let selectedReservation;
 
-  const handleTimeSelect = (e) => {
+  const checkStatesArentNull = () => {
+    if (!restaurantId || !reservationId || !userId || !partySize || !idxOfReservationSlotInState) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const handleTimeSelect = (e) =>{
     e.preventDefault();
     setTime(e.target.value);
   };
@@ -70,10 +79,12 @@ function CustomerReservationForm({
         notes,
         booked,
         idxOfReservationSlotInState
-      )
-    );
-    history.push(`/restaurants/${restaurantId}`);
-  };
+      ) 
+  )
+  await dispatch(authenticate())
+  window.location.reload();
+  }
+
 
   // }
   return (
@@ -96,37 +107,18 @@ function CustomerReservationForm({
           })}
         </select>
         <br />
-        <label>Reservation notes</label>
-        <textarea
-          onChange={(e) => setNotes(e.target.value)}
-          value={notes}
-        ></textarea>
-        <br />
-        {reservationsByDate.map((res) => {
-          return (
-            <button
-              key={res.id}
-              onClick={handleTimeSelect}
-              value={res.time_slot}
-            >
-              {res.time_slot}
-            </button>
-          );
-        })}
-        <br />
-        <input
-          type="number"
-          min="1"
-          max={availableSize}
-          name="party_size"
-          id="party_size"
-          onChange={(e) => setPartySize(e.target.value)}
-          value={partySize}
-        />
-        <button type="submit">Book reservation</button>
-      </form>
-    </div>
-  );
+        <label>
+          Reservation notes
+        </label>
+        <textarea onChange={(e)=>setNotes(e.target.value)} value={notes}></textarea>
+        <br/>
+        {reservationsByDate.map(res => {return <button onClick={handleTimeSelect} value={res.time_slot}>{res.time_slot}</button>})}
+        <br/>
+        <input type="number" min="1" max={availableSize} name="party_size" id="party_size" onChange={(e)=>setPartySize(e.target.value)} value={partySize}/>
+        <button type="submit" disabled={checkStatesArentNull}>Book reservation</button>
+        </form>
+        </div>
+)
 }
 
 export default CustomerReservationForm;
