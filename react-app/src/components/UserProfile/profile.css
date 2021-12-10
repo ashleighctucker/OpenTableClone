@@ -1,6 +1,7 @@
 .profileContainer {
     display: flex;
     flex-direction: row;
+    width: 95vw;
 }
 
 .profileHeader {
@@ -10,7 +11,7 @@
     background-color: rgb(45, 105, 236);
 }
 
-.profileReservations  {
+.profileReservations {
     margin: 10px;
     margin-top: 25px;
     padding: 10px;
@@ -38,7 +39,7 @@
 
 .profileEditButton:hover {
     background-color: rgb(186, 203, 240);
-    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
 .profileSidebarContainer {
@@ -47,10 +48,10 @@
     border-radius: 5px;
     margin: 25px;
     padding: 10px 10px 20px 10px;
-    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
-.profileAboutContainer{
+.profileAboutContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -72,5 +73,5 @@
 .profileFavorites:hover {
     background-color: rgb(167, 191, 243);
     border-radius: 5px;
-    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.5);
 }
