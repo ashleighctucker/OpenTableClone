@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Modal } from '../../../context/Modal';
+import EditReservationEntryForm from '../EditReservationEntryForm';
 
 const ReservationCards = ({ reservation }) => {
+  const [showModal, setShowModal] = useState(false);
+
   const resDate = new Date(reservation.date);
   const dateString =
     resDate.getFullYear() +
@@ -24,6 +28,14 @@ const ReservationCards = ({ reservation }) => {
           ? `${reservation.name} (${reservation.party_size})`
           : null}
       </span>
+      <span onClick={() => setShowModal(true)}>
+        <i className="far fa-edit"></i> Edit Booking
+      </span>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <EditReservationEntryForm reservation={reservation} />
+        </Modal>
+      )}
     </div>
   );
 };
