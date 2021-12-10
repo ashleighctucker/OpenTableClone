@@ -21,6 +21,7 @@ function CustomerReservationForm({
   const { restaurantId } = useParams();
   const userId = useSelector((state) => state.session?.user?.id);
   let selectedReservation;
+  console.log(arrayOfAvailableDates, "<------ LOOK")
 
   const handleTimeSelect = (e) => {
     e.preventDefault();

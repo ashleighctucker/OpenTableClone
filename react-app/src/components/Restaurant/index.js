@@ -55,6 +55,17 @@ const Restaurant = () => {
     return reviewStars;
   };
 
+  //let allReservations = useSelector((state) =>state.restaurants?.[restaurantId]?.reservations)
+  //let availableReservationsArray = allReservations.filter(res => res.booked === false).sort(function(a,b){
+//                 // Turn your strings into dates, and then subtract them
+//                 // to get a value that is either negative, positive, or zero.
+          //      return new Date(a.date) - new Date(b.date);
+  //           })
+  //console.log(availableReservationsArray)
+  //let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date) 
+  //let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
+  //console.log(date, "<----- DATE")
+  //console.log(arrayOfAvailableDates,' <----- idx')
   let reviews;
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
