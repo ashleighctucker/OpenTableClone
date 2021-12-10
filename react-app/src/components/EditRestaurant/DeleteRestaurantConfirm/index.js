@@ -17,10 +17,14 @@ const DeleteRestaurantConfirm = ({ restaurant, close }) => {
       <div className="delete-modal-div">
         <p>Are you sure you want to delete {restaurant.name}?</p>
         <p> This action cannot be reversed.</p>
-        <button onClick={handleDelete}>Confim Delete</button>
+        <button className="edit-page-buttons" onClick={handleDelete}>
+          Confim Delete
+        </button>
       </div>
       <div className="delete-modal-div">
-        <button onClick={() => close()}>Cancel</button>
+        <button className="edit-page-buttons" onClick={() => close()}>
+          Cancel
+        </button>
       </div>
     </div>
   );

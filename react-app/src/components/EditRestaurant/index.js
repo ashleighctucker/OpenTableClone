@@ -28,7 +28,10 @@ const EditRestaurant = () => {
       <div id="edit-page-container">
         <div className="main-container">
           <h1>{restaurant?.name}</h1>
-          <button onClick={() => setShowEditModal(true)}>
+          <button
+            className="edit-page-buttons"
+            onClick={() => setShowEditModal(true)}
+          >
             Edit Restuarant Information
           </button>
           {showEditModal && (
@@ -38,7 +41,7 @@ const EditRestaurant = () => {
           )}
           <button
             onClick={() => setShowDeleteModal(true)}
-            className="delete-button"
+            className="edit-page-buttons"
           >
             Delete Restaurant
           </button>

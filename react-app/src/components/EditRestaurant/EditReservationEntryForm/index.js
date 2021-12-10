@@ -51,7 +51,9 @@ function EditReservationEntryForm({ reservation }) {
           />
         </div>
         <div>
-          <button type="submit">Edit Reservation</button>
+          <button className="edit-page-buttons" type="submit">
+            Edit Reservation
+          </button>
         </div>
       </form>
     </>

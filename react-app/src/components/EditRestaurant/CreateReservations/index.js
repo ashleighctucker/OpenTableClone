@@ -96,7 +96,9 @@ const CreateReservations = () => {
           />
         </div>
         <div className="input-div">
-          <button type="submit">Create Reservation Slots</button>
+          <button className="edit-page-buttons" type="submit">
+            Create Reservation Slots
+          </button>
         </div>
       </form>
     </>

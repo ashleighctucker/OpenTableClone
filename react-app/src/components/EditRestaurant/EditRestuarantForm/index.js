@@ -169,7 +169,9 @@ const EditRestaurantForm = ({ close }) => {
             </select>
           </div>
           <div className="input-div">
-            <button type="submit">Apply Edits</button>
+            <button className="edit-page-buttons" type="submit">
+              Apply Edits
+            </button>
           </div>
         </form>
       </div>
