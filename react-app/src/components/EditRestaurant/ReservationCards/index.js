@@ -21,7 +21,7 @@ const ReservationCards = ({ reservation }) => {
       <span>
         {reservation.booked ? 'Booked: ' : 'Available'}
         {reservation.booked
-          ? reservation.name + ' ' + `(${reservation.party_size})`
+          ? `${reservation.name} (${reservation.party_size})`
           : null}
       </span>
     </div>

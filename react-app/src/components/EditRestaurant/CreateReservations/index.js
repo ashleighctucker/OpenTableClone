@@ -27,7 +27,7 @@ const CreateReservations = () => {
         (loopDate.getMonth() + 1) +
         '-' +
         loopDate.getDate();
-      const reservation = await dispatch(
+      await dispatch(
         createReservation(restaurantId, time_slot, dateString, available_size)
       );
 

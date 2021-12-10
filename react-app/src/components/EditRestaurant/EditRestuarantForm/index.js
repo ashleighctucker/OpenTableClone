@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { editRestaurant, deleteRestaurant } from '../../../store/restaurant';
+import { editRestaurant } from '../../../store/restaurant';
 import TIMES from '../../NewRestaurant/times';
 import '../EditRestaurant.css';
 import '../../NewRestaurant/restaurant.css';
@@ -53,11 +53,6 @@ const EditRestaurantForm = () => {
       return setErrors(data);
     }
     history.push(`/home`);
-  };
-
-  const handleDelete = async () => {
-    await dispatch(deleteRestaurant(restaurant.id));
-    history.push('/home');
   };
 
   return (
