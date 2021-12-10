@@ -64,13 +64,16 @@ const Restaurant = () => {
   let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date) 
   let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
   let reviews;
+
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
   );
 
+
   if (rawReviews) {
     reviews = Object.values(rawReviews);
   }
+
 
 
   const deleteOneReview = (id) => {

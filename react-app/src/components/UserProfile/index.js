@@ -12,6 +12,7 @@ const Profile = () => {
   let sessionUser = useSelector(state => state.session.user)
   const dispatch = useDispatch();
   const history = useHistory();
+
   const [showModal, setShowModal] = useState(false);
   const [reservationToEditOrDelete, setReservationToEditOrDelete] = useState("");
   const [restaurantIdOfReservationToEditOrDelete, setRestaurantIdOfReservationToEditOrDelete] = useState("");
@@ -52,30 +53,35 @@ const Profile = () => {
   }
 
   return (
-    <div className='profileContainer'>
-      <div className='profileSidebarContainer'>
-        <div className='profileAboutContainer'>
-          <h2 className='profileAbout'>About Me</h2>
-            <button type='button' className='profileEditButton' onClick={() => {setShowModal(true)}}>
-              <i className="far fa-edit"></i>
-              {showModal && (
-                      <Modal onClose={()=> setShowModal(false)}>
-                          <UserEditForm setShowModal={setShowModal} user={sessionUser}/>
-                      </Modal>
-                  )}
-            </button>
+    <div className="profileContainer">
+      <div className="profileSidebarContainer">
+        <div className="profileAboutContainer">
+          <h2 className="profileAbout">About Me</h2>
         </div>
-        <p className='profileInfoText' id='name'> {sessionUser.firstName} {sessionUser.lastName}</p>
-        <p className='profileInfoText' id='username'> {sessionUser.username}</p>
-        <p className='profileInfoText' id='email'> {sessionUser.email}</p>
-        <NavLink to='/favorites' className='profileFavorites'>My Favorites</NavLink>
+        <p className="profileInfoText" id="name">
+          {' '}
+          {sessionUser.firstName} {sessionUser.lastName}
+        </p>
+        <p className="profileInfoText" id="username">
+          {' '}
+          {sessionUser.username}
+        </p>
+        <p className="profileInfoText" id="email">
+          {' '}
+          {sessionUser.email}
+        </p>
+        <NavLink to="/favorites" className="profileFavorites">
+          My Favorites
+        </NavLink>
       </div>
+
 
       <h2 className='profileReservations'>My Reservations</h2>
       {sessionUser?.reservations.map(reservation => {return <form onSubmit={handleCancelReservation}><button  onClick={getReservationandRestaurantId} value={reservation.reservation_id}  id={reservation.restaurant_id} type="submit" data-typeOfThunktoCall="delete" data-partysize={reservation.party_size} data-notes={reservation.notes} reservationAvailableSize={reservation.available_size} >Cancel Reservation</button></form>})}
 
 
       {sessionUser?.reservations.map(reservation => {return <CustomerEditReservationModal onClick={getReservationandRestaurantId} reservationToEditOrDelete={reservation.reservation_id} reservationPartySize={reservation.party_size} reservationNotes={reservation.notes} reservationAvailableSize={reservation.available_size}reservationRestaurantId={reservation.restaurant_id}/>})}
+
 
     </div>
   );
