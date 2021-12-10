@@ -15,15 +15,7 @@ const Restaurant = () => {
   const userId = useSelector(state => state.session?.user?.id)
   const dispatch = useDispatch();
 
-  // dispatch(getFavorite(userId));
   console.log(favorites, "!!!!!!")
-  useEffect(() => {
-    const asyncLoad = async () => {
-      await dispatch(getFavorite(userId));
-      console.log('dispatching favorite', '<---')
-    };
-    asyncLoad();
-  }, [dispatch]);
 
   let dollars = ''
   for (let i=0; i<restaurant.price_point; i++) {
@@ -97,8 +89,22 @@ const Restaurant = () => {
     dispatch(makeFavorite(+userId, +restaurantId))
   }
 
-  const delFav = (restaurantId) => {
-    dispatch(deleteFavorite(restaurantId))
+  const delFav = (restId) => {
+    let favId
+    for (let id in favorites) {
+      console.log(favorites[id], restId, 'favorites')
+      if (favorites[id].restaurantId == restId){
+        favId = id
+        console.log(favId, '<<<<<---')
+      }}
+    dispatch(deleteFavorite(favId, userId))
+  }
+
+  const checkFavs = (restId) => {
+    for (let id in favorites) {
+      if (favorites[id]?.restaurantId == restId) return 'true'
+      return 'false'
+    }
   }
 
   return (
@@ -108,13 +114,21 @@ const Restaurant = () => {
         <div className='header'>
           <h1 className='restName'>{restaurant?.name}</h1>
 
-          <button className='favButton' type='button' onClick={()=>makeFav(restaurant.id)}>
-            <i className="far fa-heart"></i>
-          </button>
+          {checkFavs(restaurant.id) ? (
+            <button className='favButton' type='button' onClick={()=>delFav(restaurant.id)}>
+              <i className="fas fa-heart"></i>
+              <p>{restaurant.id}</p>
+              <p>{checkFavs(restaurant.id)} </p>
+            </button>
+          ):
+            <button className='favButton' type='button' onClick={()=>makeFav(restaurant.id)}>
+              <i className="far fa-heart"></i>
+              <p>{restaurant.id}</p>
+              <p>{checkFavs(restaurant.id)} </p>
+            </button>
+          }
 
-          <button className='favButton' type='button' onClick={()=>delFav(restaurant.id)}>
-            <i className="fas fa-heart"></i>
-          </button>
+
           {userId == restaurant.user_id ? (
             <button type='button'>edit restaurant</button>
           ): null}
@@ -157,6 +171,7 @@ const Restaurant = () => {
         </div>
 
         <CustomerBookReservationModal
+          className='reserve'
           arrayOfAvailableDates={arrayOfAvailableDates}
           availableReservationsArray={availableReservationsArray}
           />

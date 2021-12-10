@@ -11,10 +11,10 @@ const Footer = () => {
               <div className="name">Israel Romero</div>
               <ul className="link-list">
                 <li className="link">
-                  <i class="fab fa-github fa-2x"></i>
+                  <i className="fab fa-github fa-2x"></i>
                 </li>
                 <li className="link">
-                  <i class="fab fa-linkedin fa-2x"></i>
+                  <i className="fab fa-linkedin fa-2x"></i>
                 </li>
               </ul>
             </div>
@@ -22,10 +22,10 @@ const Footer = () => {
               <div className="name">Ash Tucker</div>
               <ul className="link-list">
                 <li className="link">
-                  <i class="fab fa-github fa-2x"></i>
+                  <i className="fab fa-github fa-2x"></i>
                 </li>
                 <li className="link">
-                  <i class="fab fa-linkedin fa-2x"></i>
+                  <i className="fab fa-linkedin fa-2x"></i>
                 </li>
               </ul>
             </div>
@@ -33,10 +33,10 @@ const Footer = () => {
               <div className="name">Jay Spencer</div>
               <ul className="link-list">
                 <li className="link">
-                  <i class="fab fa-github fa-2x"></i>
+                  <i className="fab fa-github fa-2x"></i>
                 </li>
                 <li className="link">
-                  <i class="fab fa-linkedin fa-2x"></i>
+                  <i className="fab fa-linkedin fa-2x"></i>
                 </li>
               </ul>
             </div>
@@ -44,10 +44,10 @@ const Footer = () => {
               <div className="name">Cam Tangalakis</div>
               <ul className="link-list">
                 <li className="link">
-                  <i class="fab fa-github fa-2x"></i>
+                  <i className="fab fa-github fa-2x"></i>
                 </li>
                 <li className="link">
-                  <i class="fab fa-linkedin fa-2x"></i>
+                  <i className="fab fa-linkedin fa-2x"></i>
                 </li>
               </ul>
             </div>

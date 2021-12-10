@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFavorite } from '../../store/favorites';
+import { deleteFavorite, getFavorite } from '../../store/favorites';
 import { NavLink } from 'react-router-dom';
 import './favorites.css'
 
@@ -19,6 +19,20 @@ const Favorites = () => {
         favRestaurants.push(restaurants[id])
   }}}
 
+  console.log(favorites, '<---')
+
+  let favId
+  const deleteFav = async (restId) => {
+    for (let id in favorites) {
+      console.log(favorites[id], restId, 'favorites')
+      if (favorites[id].restaurantId == restId){
+        favId = id
+        console.log(favId, '<<<<<---')
+      }
+    }
+    await dispatch(deleteFavorite(favId, userId))
+  }
+
   let sessionLinks
   if (favRestaurants.length) {
     sessionLinks = (
@@ -31,6 +45,7 @@ const Favorites = () => {
               <p className='restaurantName'>{res.name}</p>
               <p className='restaurantLocation'><strong>Visit: </strong>{res.location}</p>
               <p className='restaurantNumber'><strong>Call: </strong>{res.phone_number}</p>
+              <button type='button' onClick={()=> deleteFav(res.id)}>Remove</button>
           </div>))}
       </div>)
     } else {

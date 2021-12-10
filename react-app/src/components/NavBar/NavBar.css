@@ -37,6 +37,7 @@
 }
 
 .profile-dropdown {
+  z-index: 1;
   display: flex;
   color: rgb(0, 0, 0);
   background-color: rgba(226, 226, 226, 0.7);
