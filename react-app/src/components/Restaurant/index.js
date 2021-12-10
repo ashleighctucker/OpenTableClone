@@ -16,14 +16,14 @@ const Restaurant = () => {
   const dispatch = useDispatch();
 
   let dollars = '';
-  for (let i = 0; i < restaurant?.price_point; i++) {
+  for (let i = 0; i < restaurant.price_point; i++) {
     dollars += '$ ';
   }
 
   let stars = '';
   let rating = 0;
   let ratings = [];
-  if (restaurant?.reviews) {
+  if (restaurant.reviews) {
     for (let id in restaurant?.reviews) {
       ratings.push(restaurant?.reviews[id].rating);
       rating = (
@@ -55,29 +55,25 @@ const Restaurant = () => {
     return reviewStars;
   };
 
-  let reviews;
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
   );
 
-  if (rawReviews) {
-    reviews = Object.values(rawReviews);
-  }
-
   let allReservations = useSelector(
     (state) => state.restaurants?.[restaurantId]?.reservations
   );
-  let availableReservationsArray = allReservations?.filter((res) => res.booked === false)
+  let availableReservationsArray = allReservations
+    .filter((res) => res.booked === false)
     .sort(function (a, b) {
       //                 // Turn your strings into dates, and then subtract them
       //                 // to get a value that is either negative, positive, or zero.
       return new Date(a.date) - new Date(b.date);
     });
 
-  let reservationsByDate = availableReservationsArray?.filter(
+  let reservationsByDate = availableReservationsArray.filter(
     (reservation) => reservation.date === date
   );
-  let arrayOfAvailableDates = availableReservationsArray?.map(
+  let arrayOfAvailableDates = availableReservationsArray.map(
     (reservation) => reservation.date
   );
 
@@ -87,24 +83,25 @@ const Restaurant = () => {
   };
 
   const makeFav = (restaurantId) => {
-    dispatch(makeFavorite(userId, restaurantId))
-  }
+    dispatch(makeFavorite(+userId, +restaurantId));
+  };
 
-  const delFav = async (restId) => {
-    let favId = null
-    for (let id in restaurant.favorites) {
-      console.log(restaurant.favorites[id].restaurantId, restId, id, 'favorites')
-      if (restaurant.favorites[id].restaurantId == restId){
-        favId = id
-        console.log(favId, 'HERERERERERRE')
-        await dispatch(deleteFavorite(favId, userId))
-      }}
-  }
+  const delFav = (restId) => {
+    let favId;
+    for (let id in favorites) {
+      console.log(favorites[id], restId, 'favorites');
+      if (favorites[id].restaurantId === restId) {
+        favId = id;
+        console.log(favId, '<<<<<---');
+      }
+    }
+    dispatch(deleteFavorite(favId, userId));
+  };
 
   const checkFavs = (restId) => {
-    for (let id in restaurant?.favorites) {
-      if (restaurant.favorites[id]?.restaurantId == restId) return true
-      return false
+    for (let id in favorites) {
+      if (favorites[id]?.restaurantId === restId) return 'true';
+      return 'false';
     }
   };
 
@@ -121,7 +118,7 @@ const Restaurant = () => {
   return (
     <div>
       <img
-        src={restaurant?.cover_photo}
+        src={restaurant.cover_photo}
         alt="restaurant cover"
         className="coverPhoto"
       />
@@ -129,20 +126,25 @@ const Restaurant = () => {
         <div className="header">
           <h1 className="restName">{restaurant?.name}</h1>
 
-          {checkFavs(restaurant?.id) ? (
-            <button className='favButton'
-              type='button'
-              onClick={()=>delFav(restaurant?.id)}>
-              <i className="fas fa-heart" id="red"></i>
-            </button> ):
-            <button className='favButton'
-              type='button'
-              onClick={()=>makeFav(restaurant?.id)}>
+          {checkFavs(restaurant.id) ? (
+            <button
+              className="favButton"
+              type="button"
+              onClick={() => delFav(restaurant.id)}
+            >
+              <i className="fas fa-heart"></i>
+            </button>
+          ) : (
+            <button
+              className="favButton"
+              type="button"
+              onClick={() => makeFav(restaurant.id)}
+            >
               <i className="far fa-heart"></i>
             </button>
-          }
+          )}
 
-          {userId === restaurant?.ownerId ? editOptions() : null}
+          {userId === restaurant.ownerId ? editOptions() : null}
         </div>
 
         <div className="restDescriptionContainer">
@@ -152,17 +154,14 @@ const Restaurant = () => {
           <div className="dots">●</div>
           <p>
             <i className="far fa-comments" id="icon"></i>
-            {/* {Object.keys(restaurant?.reviews).length ? (
-              {Object.keys(restaurant?.reviews).length}
-            ): 0}
-             reviews */}
+            {Object.keys(restaurant.reviews).length} reviews
           </p>
           <div className="dots">●</div>
           <p className="pricePoint">{dollars}</p>
           <div className="dots">●</div>
           <p className="cuisineType">
             <i className="fas fa-utensils" id="icon"></i>
-            {restaurant?.cuisine_type}
+            {restaurant.cuisine_type}
           </p>
         </div>
 
@@ -170,24 +169,24 @@ const Restaurant = () => {
           <div className="hours">
             {' '}
             <i className="far fa-clock" id="icon"></i> Daily Hours:
-            <div className="openTime">{restaurant?.open_time} - </div>
-            <div className="closeTime">{restaurant?.close_time}</div>
+            <div className="openTime">{restaurant.open_time} - </div>
+            <div className="closeTime">{restaurant.close_time}</div>
           </div>
 
           <div className="location">
             {' '}
             <i className="fas fa-map-marker" id="icon"></i> Location:
-            <div className="locationText"> {restaurant?.location}</div>
+            <div className="locationText"> {restaurant.location}</div>
           </div>
 
           <div className="contactUs">
             {' '}
             <i className="far fa-address-book" id="icon"></i> Contact Us:
-            {restaurant?.phone_number !== null ? (
-              <div className="phone">{restaurant?.phone_number}</div>
+            {restaurant.phone_number !== null ? (
+              <div className="phone">{restaurant.phone_number}</div>
             ) : null}
-            {restaurant?.contact_email !== null ? (
-              <div className="email">{restaurant?.contact_email}</div>
+            {restaurant.contact_email !== null ? (
+              <div className="email">{restaurant.contact_email}</div>
             ) : null}
           </div>
         </div>
@@ -197,7 +196,7 @@ const Restaurant = () => {
           arrayOfAvailableDates={arrayOfAvailableDates}
           availableReservationsArray={availableReservationsArray}
         />
-        <p>{restaurant?.description}</p>
+        <p>{restaurant.description}</p>
       </div>
 
       {/* --- */}
