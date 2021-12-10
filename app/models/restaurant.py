@@ -1,3 +1,4 @@
+from werkzeug.datastructures import ContentSecurityPolicy
 from .db import db
 from sqlalchemy.sql import func
 import datetime
@@ -33,8 +34,7 @@ class Restaurant(db.Model):
 
     def to_dict(self):
         type = str(self.cuisine)
-        first_and_last_name = str(self.owner.firstName) + \
-            str(" ") + str(self.owner.lastName)
+
         return {
             'id': self.id,
             'name': self.name,
@@ -45,24 +45,37 @@ class Restaurant(db.Model):
             'close_time': self.close_time,
             'contact_email': self.contact_email,
             'description': self.description,
-
+            'ownerId': self.owner.id,
+            'ownerName': self.owner.firstName + " " + self.owner.lastName,
             'reservations': [{"time_slot": obj.time_slot,
-                                "user_id": obj.user_id,
-                                "party_size": obj.party_size,
-                                "available_size": obj.available_size,
-                                "notes": obj.notes,
-                                "id": obj.id,
-                                "date": obj.date,
-                                "booked": obj.booked}
-                                for obj in self.reservation],
+                              "user_id": obj.user_id,
+                              "party_size": obj.party_size,
+                              "available_size": obj.available_size,
+                              "date": obj.date,
+                              "notes": obj.notes,
+                              "booked": obj.booked,
+                              "id": obj.id,
+                              "name": obj.name,
+                              "email": obj.email
+                              }
+                             for obj in self.reservation],
             'reviews': {obj.id: {"rating": obj.rating,
+<<<<<<< HEAD
                                 "comment": obj.comment,
                                 "restaurantId": obj.restaurantId,
                                 "userId": obj.userId,
                                 "id": obj.id}
                                 for obj in self.restaurant_review},
             'favorites': {obj.id: {'restaurantId': obj.restaurantId, 'userId': obj.userId} for obj in self.restaurant_favorites},
+=======
+                                 "comment": obj.comment,
+                                 "restaurantId": obj.restaurantId,
+                                 "userId": obj.userId,
+                                 "id": obj.id}
+                        for obj in self.restaurant_review},
+>>>>>>> 44bbbed86acb4c7d3b014473467bef6542aa7e06
             'cover_photo': self.cover_photo,
             'cuisine_type': type,
-            'user_id':self.user_id
+            'user_id': self.user_id,
+            'cuisine_type_id': self.cuisine_type
         }
