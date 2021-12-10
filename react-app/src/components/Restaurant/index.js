@@ -55,14 +55,9 @@ const Restaurant = () => {
     return reviewStars;
   };
 
-  let reviews;
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
   );
-
-  if (rawReviews) {
-    reviews = Object.values(rawReviews);
-  }
 
   let allReservations = useSelector(
     (state) => state.restaurants?.[restaurantId]?.reservations

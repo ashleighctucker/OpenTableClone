@@ -4,6 +4,7 @@
   justify-content: space-between;
   border-bottom: solid 1px black;
   height: 3.7rem;
+  width: 100vw;
 }
 
 .MenuButton {
@@ -11,14 +12,14 @@
   height: 26px;
   border: none;
   background-color: rgba(0, 0, 0, 0);
-  /* font-style: 50px;
-    font-weight: 600; */
+
 }
 
 .SearchMenu {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-right: 2%;
 }
 
 .NavProfileDropdown {
@@ -124,6 +125,7 @@
 .NavProfile {
   margin: 10px;
 }
+
 .NavFavorites {
   margin: 10px;
 }
