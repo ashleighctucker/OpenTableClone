@@ -5,9 +5,9 @@ import { NavLink } from 'react-router-dom';
 import './favorites.css'
 
 const Favorites = () => {
-  const favorites = useSelector(state => state.favorites)
   const restaurants = useSelector(state => state.restaurants)
-  const userId = useSelector(state=>state.session?.user?.id)
+  const favorites = useSelector(state => state.favorites)
+  const userId = useSelector(state => state.session?.user?.id)
   const dispatch = useDispatch();
 
   let favRestaurants = []
@@ -17,9 +17,7 @@ const Favorites = () => {
     for (const id in restaurants) {
       if(id == favId) {
         favRestaurants.push(restaurants[id])
-      }
-    }
-  }
+  }}}
 
   let sessionLinks
   if (favRestaurants.length) {
@@ -38,12 +36,12 @@ const Favorites = () => {
     } else {
       sessionLinks = (
         <p className='noFavs'>You don't have any favorites. Keep exploring!</p>
-      )
-    }
+    )}
 
   useEffect(() => {
     const asyncLoad = async () => {
       await dispatch(getFavorite(userId));
+      console.log('dispatching favorite', '<---')
     };
     asyncLoad();
   }, [dispatch]);

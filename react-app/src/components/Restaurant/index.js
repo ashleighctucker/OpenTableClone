@@ -12,16 +12,18 @@ const Restaurant = () => {
   const [date, setDate] = useState('');
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const favorites = useSelector(state => state.favorites)
-  const userId = useSelector(state => state.session.user.id)
+  const userId = useSelector(state => state.session?.user?.id)
   const dispatch = useDispatch();
 
+  // dispatch(getFavorite(userId));
+  console.log(favorites, "!!!!!!")
   useEffect(() => {
     const asyncLoad = async () => {
       await dispatch(getFavorite(userId));
       console.log('dispatching favorite', '<---')
     };
     asyncLoad();
-  }, [dispatch, userId]);
+  }, [dispatch]);
 
   let dollars = ''
   for (let i=0; i<restaurant.price_point; i++) {
@@ -47,15 +49,6 @@ const Restaurant = () => {
     } else stars = '☆☆☆☆☆'
   }
 
-  let reviews;
-  const rawReviews = useSelector(
-    (state) => state.restaurants[restaurantId]?.reviews
-    );
-
-    if (rawReviews) {
-      reviews = Object.values(rawReviews);
-    }
-
   let reviewStars = ''
   const makeStars = (obj) => {
     reviewStars = ''
@@ -68,9 +61,14 @@ const Restaurant = () => {
     } return reviewStars
   }
 
-  const { reviews: rawReviews } = useSelector(
-    (state) => state.restaurants[restaurantId]
-  );
+  let reviews;
+  const rawReviews = useSelector(
+    (state) => state.restaurants[restaurantId]?.reviews
+    );
+
+    if (rawReviews) {
+      reviews = Object.values(rawReviews);
+    }
 
   let allReservations = useSelector(
     (state) => state.restaurants?.[restaurantId]?.reservations
@@ -82,7 +80,7 @@ const Restaurant = () => {
       //                 // to get a value that is either negative, positive, or zero.
       return new Date(a.date) - new Date(b.date);
     });
-  console.log(availableReservationsArray);
+
   let reservationsByDate = availableReservationsArray.filter(
     (reservation) => reservation.date == date
   );
@@ -111,11 +109,11 @@ const Restaurant = () => {
           <h1 className='restName'>{restaurant?.name}</h1>
 
           <button className='favButton' type='button' onClick={()=>makeFav(restaurant.id)}>
-            <i class="far fa-heart"></i>
+            <i className="far fa-heart"></i>
           </button>
 
           <button className='favButton' type='button' onClick={()=>delFav(restaurant.id)}>
-            <i class="fas fa-heart"></i>
+            <i className="fas fa-heart"></i>
           </button>
           {userId == restaurant.user_id ? (
             <button type='button'>edit restaurant</button>
@@ -126,27 +124,29 @@ const Restaurant = () => {
           <div className='stars'>{stars} <span className='rating'>{rating}</span></div>
           <div className='dots'>●</div>
           <p>
-            <i className="far fa-comments" id='icon' ></i>
-            {Object.keys(restaurant.reviews).length} reviews</p>
+              <i className="far fa-comments" id='icon' ></i>
+            {Object.keys(restaurant.reviews).length} reviews
+          </p>
           <div className='dots'>●</div>
           <p className='pricePoint'>{dollars}</p>
           <div className='dots'>●</div>
           <p className='cuisineType'>
             <i className="fas fa-utensils" id='icon'></i>
-            {restaurant.cuisine_type}</p>
+            {restaurant.cuisine_type}
+          </p>
         </div>
 
         <div className='contactContainer'>
-          <div className='hours'> <i class="far fa-clock" id='icon'></i> Daily Hours:
+          <div className='hours'> <i className="far fa-clock" id='icon'></i> Daily Hours:
             <div className='openTime'>{restaurant.open_time} - </div>
             <div className='closeTime'>{restaurant.close_time}</div>
           </div>
 
-          <div className='location'> <i class="fas fa-map-marker" id='icon'></i> Location:
+          <div className='location'> <i className="fas fa-map-marker" id='icon'></i> Location:
             <div className='locationText'> {restaurant.location}</div>
           </div>
 
-          <div className='contactUs'> <i class="far fa-address-book" id='icon'></i> Contact Us:
+          <div className='contactUs'> <i className="far fa-address-book" id='icon'></i> Contact Us:
             {restaurant.phone_number !== null ? (
               <div className='phone'>{restaurant.phone_number}</div>
             ): null}
@@ -159,35 +159,33 @@ const Restaurant = () => {
         <CustomerBookReservationModal
           arrayOfAvailableDates={arrayOfAvailableDates}
           availableReservationsArray={availableReservationsArray}
-        />        
+          />
         <p>{restaurant.description}</p>
       </div>
-             
+
+    {/* --- */}
       <div className='reviewsContainer'>
         <h2 className='reviewsHeader'>Reviews</h2>
-        {reviews?.map((review) => {
-
-      <div>
         {Object.values(rawReviews)?.map((review) => {
           return (
-            <div className='review'>
-              <div className='reviewContent'>
-                <div className='reviewRating'>{makeStars(review)}</div>
-                <div className='reviewComment'>{review.comment}</div>
-              </div>
-              {userId == review.userId? (
-              <div className='ratingButtons'>
-                <EditReviewModal id={review.id} className='ratingEdit'/>
-                <button onClick={() => deleteOneReview(review.id)} className='ratingDelete'>
-                  Delete
-                </button>
-              </div>
-              ): null}
+          <div className='review'>
+
+            <div className='reviewContent'>
+              <div className='reviewRating'>{makeStars(review)}</div>
+              <div className='reviewComment'>{review.comment}</div>
             </div>
-          );
-        })}
+
+            {userId == review.userId? (
+            <div className='ratingButtons'>
+              <EditReviewModal id={review.id} className='ratingEdit'/>
+              <button onClick={() => deleteOneReview(review.id)} className='ratingDelete'>
+                Delete
+              </button>
+            </div> ): null }
+
+          </div> )})}
       </div>
-    </div>
-  );
-};
+  </div> );
+  }
+
 export default Restaurant;
