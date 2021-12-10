@@ -27,7 +27,9 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate()).then((id) => dispatch(getFavorite(id)));
+      await dispatch(authenticate()).then((id) => {
+        if (id) dispatch(getFavorite(id));
+      });
       await dispatch(getRestaurants());
       await dispatch(getCuisineTypes()).then(() => setLoaded(true));
     })();
@@ -43,7 +45,7 @@ function App() {
         <Route path="/home">
           <HomePage />
         </Route>
-        <ProtectedRoute exact path="/restaurants/new">
+        <ProtectedRoute exact path="/new-restaurant">
           <NewRestaurant />
         </ProtectedRoute>
         <Route exact path="/restaurants/:restaurantId/edit">
