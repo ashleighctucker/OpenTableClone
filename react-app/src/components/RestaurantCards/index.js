@@ -4,7 +4,7 @@ import './RestaurantCards.css';
 
 const RestaurantCard = ({ restaurant }) => {
   return (
-    <NavLink to={`/restaurants/${restaurant.id}`} className="wrapper-link">
+    <NavLink to={`/restaurants/${restaurant?.id}`} className="wrapper-link">
       <div className="restaurant-card">
         <div
           style={{ backgroundImage: `url(${restaurant.cover_photo})` }}

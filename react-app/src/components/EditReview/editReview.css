@@ -3,9 +3,11 @@
   flex-direction: column;
   margin: 1rem;
 }
-.createReview {
-  border-radius: 15px;
+
+#modal-content {
+  border-radius: 5px;
 }
+
 .ratingDiv {
   display: flex;
   justify-content: space-between;
@@ -15,3 +17,4 @@
 .comment-box {
   height: 5rem;
 }
+
