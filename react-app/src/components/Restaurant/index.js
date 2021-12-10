@@ -15,7 +15,7 @@ const Restaurant = () => {
   const userId = useSelector(state => state.session?.user?.id)
   const dispatch = useDispatch();
 
-  console.log(favorites, "!!!!!!")
+  console.log(restaurant.favorites, "!!!!!!")
 
   let dollars = ''
   for (let i=0; i<restaurant.price_point; i++) {
@@ -86,24 +86,24 @@ const Restaurant = () => {
   };
 
   const makeFav = (restaurantId) => {
-    dispatch(makeFavorite(+userId, +restaurantId))
+    dispatch(makeFavorite(userId, restaurantId))
   }
 
-  const delFav = (restId) => {
-    let favId
-    for (let id in favorites) {
-      console.log(favorites[id], restId, 'favorites')
-      if (favorites[id].restaurantId == restId){
+  const delFav = async (restId) => {
+    let favId = null
+    for (let id in restaurant.favorites) {
+      console.log(restaurant.favorites[id].restaurantId, restId, id, 'favorites')
+      if (restaurant.favorites[id].restaurantId == restId){
         favId = id
-        console.log(favId, '<<<<<---')
+        console.log(favId, 'HERERERERERRE')
+        await dispatch(deleteFavorite(favId, userId))
       }}
-    dispatch(deleteFavorite(favId, userId))
   }
 
   const checkFavs = (restId) => {
-    for (let id in favorites) {
-      if (favorites[id]?.restaurantId == restId) return 'true'
-      return 'false'
+    for (let id in restaurant.favorites) {
+      if (restaurant.favorites[id]?.restaurantId == restId) return true
+      return false
     }
   }
 
@@ -116,7 +116,7 @@ const Restaurant = () => {
 
           {checkFavs(restaurant.id) ? (
             <button className='favButton' type='button' onClick={()=>delFav(restaurant.id)}>
-              <i className="fas fa-heart"></i>
+              <i className="fas fa-heart" id="red"></i>
             </button> ):
             <button className='favButton' type='button' onClick={()=>makeFav(restaurant.id)}>
               <i className="far fa-heart"></i>
