@@ -23,9 +23,6 @@ function CustomerReservationForm({
   const userId = useSelector((state) => state.session?.user?.id);
   let selectedReservation;
 
-<<<<<<< HEAD
-  const handleTimeSelect = (e) => {
-=======
   const checkStatesArentNull = () => {
     if (!restaurantId || !reservationId || !userId || !partySize || !idxOfReservationSlotInState) {
       return true;
@@ -35,7 +32,6 @@ function CustomerReservationForm({
   }
 
   const handleTimeSelect = (e) =>{
->>>>>>> WIP
     e.preventDefault();
     setTime(e.target.value);
   };
@@ -83,19 +79,12 @@ function CustomerReservationForm({
         notes,
         booked,
         idxOfReservationSlotInState
-<<<<<<< HEAD
-      )
-    );
-    history.push(`/restaurants/${restaurantId}`);
-  };
-=======
       ) 
   )
   await dispatch(authenticate())
   window.location.reload();
   }
 
->>>>>>> WIP
 
   // }
   return (
@@ -118,39 +107,6 @@ function CustomerReservationForm({
           })}
         </select>
         <br />
-<<<<<<< HEAD
-        <label>Reservation notes</label>
-        <textarea
-          onChange={(e) => setNotes(e.target.value)}
-          value={notes}
-        ></textarea>
-        <br />
-        {reservationsByDate.map((res) => {
-          return (
-            <button
-              key={res.id}
-              onClick={handleTimeSelect}
-              value={res.time_slot}
-            >
-              {res.time_slot}
-            </button>
-          );
-        })}
-        <br />
-        <input
-          type="number"
-          min="1"
-          max={availableSize}
-          name="party_size"
-          id="party_size"
-          onChange={(e) => setPartySize(e.target.value)}
-          value={partySize}
-        />
-        <button type="submit">Book reservation</button>
-      </form>
-    </div>
-  );
-=======
         <label>
           Reservation notes
         </label>
@@ -163,7 +119,6 @@ function CustomerReservationForm({
         </form>
         </div>
 )
->>>>>>> WIP
 }
 
 export default CustomerReservationForm;

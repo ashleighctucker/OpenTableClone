@@ -352,7 +352,7 @@ export const deleteCustomerReservation =(canceledReservation, restaurantIdOfCanc
 export const cancelCustomerReservation =
   (reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete ) => async (dispatch) => {
     console.log("THUNK", reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete );
-    const response = await fetch(`/api/restaurants/${restaurantIdOfReservationToEditOrDelete}`, {
+    const response = await fetch(`/api/restaurants/${restaurantIdOfReservationToEditOrDelete}/reservations/${reservationToEditOrDelete}/`, {
       method: 'DELETE'});
     if (response.ok) {
       const data = await response.json();

@@ -15,18 +15,35 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [reservationToEditOrDelete, setReservationToEditOrDelete] = useState("");
   const [restaurantIdOfReservationToEditOrDelete, setRestaurantIdOfReservationToEditOrDelete] = useState("");
+    const [typeOfThunktoCall, setTypeOfThunktoCall] = useState("");
   const [errors, setErrors] = useState([]);
-  let typeOfThunktoCall;
+  //let typeOfThunktoCall;
 
   const getReservationandRestaurantId = async (e) =>{
     e.preventDefault();
     console.log(e.target, "HELLO")
-    typeOfThunktoCall = await e.target.getAttribute('data-typeofthunktocall')
+    let stringTypeOfThunktoCall = await e.target.getAttribute('data-typeofthunktocall')
 
-    console.log(typeOfThunktoCall, "Look");
-    
+    console.log(stringTypeOfThunktoCall, "Look");
+    await setTypeOfThunktoCall(stringTypeOfThunktoCall)
     await setReservationToEditOrDelete(e.target.value)
+    console.log(reservationToEditOrDelete, "HELLO LINE 29");
+    console.log(e.target.value, "VALUE")
     await setRestaurantIdOfReservationToEditOrDelete(e.target.id)
+    // if (typeOfThunktoCall =="delete") {
+    //   console.log(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete, "LINE 31")
+    //   await handleCancelReservation()
+    // }
+    // else{
+    //   console.log("Other");
+    //   //handleEditReservation()
+    // }
+
+
+  }
+
+  useEffect(() => { 
+    console.log(typeOfThunktoCall, "LOOK")
     if (typeOfThunktoCall =="delete") {
       handleCancelReservation()
     }
@@ -34,19 +51,6 @@ const Profile = () => {
       console.log("Other");
       //handleEditReservation()
     }
-
-
-  }
-
-  useEffect(() => { 
-    console.log(typeOfThunktoCall, "LOOK")
-    // if (typeOfThunktoCall =="delete") {
-    //   handleCancelReservation()
-    // }
-    // else{
-    //   console.log("Other");
-    //   //handleEditReservation()
-    // }
 
   }, [restaurantIdOfReservationToEditOrDelete])
 
@@ -59,6 +63,7 @@ const Profile = () => {
 
   const handleCancelReservation = async e =>{
   //e.preventDefault();
+  console.log(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete, "<---- Line 62");
   setErrors([]);
   const cancelledCustomerReservation = await dispatch(
       cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete) 
