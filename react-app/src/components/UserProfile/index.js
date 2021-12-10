@@ -15,7 +15,7 @@ const Profile = () => {
         <div className='profileAboutContainer'>
           <h2 className='profileAbout'>About Me</h2>
             <button type='button' className='profileEditButton' onClick={() => {setShowModal(true)}}>
-              <i class="far fa-edit"></i>
+              <i className="far fa-edit"></i>
               {showModal && (
                       <Modal onClose={()=> setShowModal(false)}>
                           <UserEditForm setShowModal={setShowModal} user={sessionUser}/>

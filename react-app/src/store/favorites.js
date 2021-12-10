@@ -17,26 +17,21 @@ const delFav = () => ({
 })
 
 export const getFavorite = (userId) => async(dispatch) => {
-    console.log(userId, "<======")
-    const response = await fetch(`api/users/${userId}/favorites`, {
+    const response = await fetch(`/api/users/${userId}/favorites`, {
         headers: {
             'Content-Type': 'application/json',
           },
     })
-    console.log(response, "!!!!!!!---")
     if (response.ok) {
-        console.log('ok')
         const favorites = await response.json()
         dispatch(getFav(favorites))
         return favorites
     } else if (response.status < 500) {
-        console.log('nope')
         const data = await response.json();
         if (data.errors) {
           return data.errors;
         }
       } else {
-          console.log('extra nope')
         return ['An error occurred.'];
       }
 }
@@ -47,7 +42,6 @@ export const makeFavorite = (userId, restaurantId) => async(dispatch) => {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ userId, restaurantId })
     })
-    console.log(typeof userId, typeof restaurantId, '<-------THUNK')
 
     if (response.ok) {
         const data = await response.json()
@@ -67,6 +61,7 @@ export const deleteFavorite = (id, userId) => async(dispatch) => {
         method: 'DELETE'
     })
     dispatch(delFav(id))
+    // console.log('DELETING')
     return response
 }
 
@@ -78,7 +73,6 @@ const favoriteReducer = (state={favorites: null}, action) => {
             newState = Object.assign({}, state)
             const normalFavs = {...action.payload}
             newState = {...normalFavs.favorites}
-            console.log(newState, '<-----------------------------')
             return newState
         case MAKE_FAV:
             newState = Object.assign({}, state)

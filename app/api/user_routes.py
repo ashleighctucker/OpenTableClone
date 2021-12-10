@@ -37,7 +37,6 @@ def create_favs(id):
         db.session.commit()
         return newFav.to_dict()
     else:
-        print(form.errors, '<-------------')
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @user_routes.route('/<int:id>/favorites/<int:fav_id>', methods=['DELETE'])
