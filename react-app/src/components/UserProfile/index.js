@@ -5,6 +5,7 @@ import {cancelCustomerReservation} from "../../store/restaurant"
 import { authenticate } from '../../store/session'
 import UserEditForm from './UserEditForm'
 import './profile.css'
+import CustomerReservationForm from '../CustomerBookReservation/CustomerReservationForm';
 import { NavLink,  useHistory } from 'react-router-dom';
 
 const Profile = () => {
@@ -15,32 +16,56 @@ const Profile = () => {
   const [reservationToEditOrDelete, setReservationToEditOrDelete] = useState("");
   const [restaurantIdOfReservationToEditOrDelete, setRestaurantIdOfReservationToEditOrDelete] = useState("");
   const [errors, setErrors] = useState([]);
+  let typeOfThunktoCall;
 
-  const getReservationandRestaurantId = (e) =>{
+  const getReservationandRestaurantId = async (e) =>{
     e.preventDefault();
-    setReservationToEditOrDelete(e.target.value)
-    setRestaurantIdOfReservationToEditOrDelete(e.target.id)
+    console.log(e.target, "HELLO")
+    typeOfThunktoCall = await e.target.getAttribute('data-typeofthunktocall')
+
+    console.log(typeOfThunktoCall, "Look");
+    
+    await setReservationToEditOrDelete(e.target.value)
+    await setRestaurantIdOfReservationToEditOrDelete(e.target.id)
+    if (typeOfThunktoCall =="delete") {
+      handleCancelReservation()
+    }
+    else{
+      console.log("Other");
+      //handleEditReservation()
+    }
 
 
   }
 
-  useEffect(() => {
-    handleCancelReservation()
+  useEffect(() => { 
+    console.log(typeOfThunktoCall, "LOOK")
+    // if (typeOfThunktoCall =="delete") {
+    //   handleCancelReservation()
+    // }
+    // else{
+    //   console.log("Other");
+    //   //handleEditReservation()
+    // }
 
   }, [restaurantIdOfReservationToEditOrDelete])
-  console.log(reservationToEditOrDelete, "RESERVATION TO EDIT OR DELETE")
-  console.log(restaurantIdOfReservationToEditOrDelete, "ID OF RESTAURANT");
+
+  // const handleEditReservation = async e => {
+  //   <CustomerBookReservationModal
+  //         className='reserve'
+  //         arrayOfAvailableDates={arrayOfAvailableDates}
+  //         availableReservationsArray={availableReservationsArray}/>
+  // }
 
   const handleCancelReservation = async e =>{
   //e.preventDefault();
   setErrors([]);
-  console.log("YAHHHHHHHHHHHH");
   const cancelledCustomerReservation = await dispatch(
       cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete) 
   )
   //await reauthenticate of user to force-reload reservations
   await dispatch(authenticate());
-  history.push(`/profile/`);
+  window.location.reload();
   }
 
   return (
@@ -64,7 +89,9 @@ const Profile = () => {
       </div>
 
       <h2 className='profileReservations'>My Reservations</h2>
-      {sessionUser?.reservations.map(reservation => {return <form onSubmit={handleCancelReservation}><button  onClick={getReservationandRestaurantId} value={reservation.reservation_id}  id={reservation.restaurant_id} type="submit" >Cancel Reservation</button></form>})}
+      {sessionUser?.reservations.map(reservation => {return <form onSubmit={handleCancelReservation}><button  onClick={getReservationandRestaurantId} value={reservation.reservation_id}  id={reservation.restaurant_id} type="submit" data-typeOfThunktoCall="delete" >Cancel Reservation</button></form>})}
+
+      {sessionUser?.reservations.map(reservation => {return <form onSubmit={handleCancelReservation}><button  onClick={getReservationandRestaurantId} value={reservation.reservation_id}  id={reservation.restaurant_id} type="submit" data-typeOfThunktoCall="edit" >Edit Reservation</button></form>})}
 
     </div>
   );
