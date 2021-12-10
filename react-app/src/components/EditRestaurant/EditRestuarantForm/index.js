@@ -27,7 +27,7 @@ const EditRestaurantForm = () => {
   const [contact_email, setContactEmail] = useState(restaurant?.contact_email);
   const [description, setDescription] = useState(restaurant?.description);
   const [cover_photo, setCoverPhoto] = useState(restaurant?.cover_photo);
-  const [cuisine_type, setCuisineType] = useState(1);
+  const [cuisine_type, setCuisineType] = useState(restaurant?.cuisine_type_id);
   const [phone_number, setPhoneNumber] = useState(restaurant?.phone_number);
   const [errors, setErrors] = useState([]);
 
@@ -178,11 +178,6 @@ const EditRestaurantForm = () => {
             <button type="submit">Edit Restaurant</button>
           </div>
         </form>
-        <div className="input-div">
-          <button onClick={handleDelete} className="delete-button">
-            Delete Restaurant
-          </button>
-        </div>
       </div>
     </>
   );

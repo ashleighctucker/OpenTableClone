@@ -20,9 +20,10 @@ const ReservationCards = ({ reservation }) => {
       <span>Table Size: {reservation.available_size}</span>
       <span>
         {reservation.booked ? 'Booked: ' : 'Available'}
-        {reservation.booked ? reservation.name + ' ' + `(${reservation.party_size})` : null}
+        {reservation.booked
+          ? reservation.name + ' ' + `(${reservation.party_size})`
+          : null}
       </span>
-      <spam></spam>
     </div>
   );
 };
