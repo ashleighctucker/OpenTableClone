@@ -1,0 +1,118 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.booked {
+  text-align: center;
+  color: crimson;
+}
+
+#restaurant-form-container {
+  width: 30em;
+  height: 50em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  text-align: center;
+  width: 30em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4% 0;
+}
+
+#restaurant-delete-modal {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.delete-modal-div {
+  padding: 2%;
+  margin: 2%;
+}
+
+.edit-page-buttons {
+  padding: 1%;
+  margin: 2%;
+}
+
+#reservation-form-container {
+  width: 30em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3%;
+  margin: 1%;
+  border: 1px black solid;
+  border-radius: 5px;
+}
+
+.input-div {
+  width: 20em;
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+
+#edit-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#reservation-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 70vw;
+  justify-items: center;
+}
+
+.reservation-div {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 2%;
+  border: 1px black solid;
+  margin: 1%;
+  width: 12em;
+}
+
+.booked-res {
+  background-color: rgba(220, 20, 60, 0.322);
+}
+
+.available-res {
+  background-color: rgb(207, 223, 207);
+}
+
+.description-field {
+  height: 10em;
+}
+
+
+@media screen and (max-width: 800px) {
+
+  .main-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  #reservation-card-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}

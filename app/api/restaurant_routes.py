@@ -4,7 +4,7 @@ from flask_login import login_required
 
 
 from app.models import db, Restaurant, Reservation
-from app.forms import NewRestaurant, RestaurantOwnerReservationForm, CustomerReservationForm
+from app.forms import NewRestaurant, RestaurantOwnerReservationForm, CustomerReservationForm, EditRestaurant
 
 from .auth_routes import validation_errors_to_error_messages
 
@@ -55,7 +55,7 @@ def edit_restaurant(id):
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@restaurant_routes.route('/<int:id>', methods=["DELETE"])
+@restaurant_routes.route('/<int:id>/', methods=["DELETE"])
 def delete_restaurant(id):
     restaurantToDelete = Restaurant.query.get(int(id))
     db.session.delete(restaurantToDelete)
