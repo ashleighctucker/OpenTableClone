@@ -62,30 +62,12 @@ const Restaurant = () => {
                 return new Date(a.date) - new Date(b.date);
             })
   console.log(availableReservationsArray)
-  let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date) 
+  let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date)
   let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
   let reviews;
 
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
-  );
-
-  let allReservations = useSelector(
-    (state) => state.restaurants?.[restaurantId]?.reservations
-  );
-  let availableReservationsArray = allReservations
-    .filter((res) => res.booked === false)
-    .sort(function (a, b) {
-      //                 // Turn your strings into dates, and then subtract them
-      //                 // to get a value that is either negative, positive, or zero.
-      return new Date(a.date) - new Date(b.date);
-    });
-
-  let reservationsByDate = availableReservationsArray.filter(
-    (reservation) => reservation.date === date
-  );
-  let arrayOfAvailableDates = availableReservationsArray.map(
-    (reservation) => reservation.date
   );
 
   if (rawReviews) {
@@ -147,6 +129,7 @@ const Restaurant = () => {
 
           {checkFavs(restaurant.id) ? (
             <button
+              id="red"
               className="favButton"
               type="button"
               onClick={() => delFav(restaurant.id)}
