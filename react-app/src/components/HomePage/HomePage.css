@@ -1,15 +1,13 @@
 .headerContainer {
   display: flex;
-  width: 100%;
+  width: 100vw;
   min-height: 26rem;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-image: linear-gradient(
-      90deg,
+  background-image: linear-gradient(90deg,
       rgba(47, 45, 65, 0.7),
-      rgba(47, 45, 65, 0.7)
-    ),
+      rgba(47, 45, 65, 0.7)),
     url(https://images.squarespace-cdn.com/content/v1/608f857da9d4e22d317f0b05/1622691227228-LE5FO43CFJR5C7YFW3TQ/Poem%252Binterior%252B5.jpg?format=2500w);
   background-size: cover;
   background-position: 50%;
@@ -21,7 +19,7 @@
   /* width: calc(100% - 32px); */
 }
 
-.header-description > h1 {
+.header-description>h1 {
   margin: 0 0 16px;
   font-size: 48px;
   line-height: 56px;
@@ -39,11 +37,13 @@
 .info-container {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
+  width: 100vw;
 }
 
 hr {
   color: #d8d9db;
 }
+
 .title {
   font-weight: 600;
   color: rgb(43, 43, 43);
