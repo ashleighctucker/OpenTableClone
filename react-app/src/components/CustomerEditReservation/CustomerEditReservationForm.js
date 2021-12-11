@@ -3,6 +3,7 @@ import {
   editCustomerReservation,
   cancelCustomerReservation,
 } from '../../store/restaurant';
+import { authenticate } from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 
 function CustomerEditReservationForm({
@@ -28,11 +29,13 @@ function CustomerEditReservationForm({
         notes
       )
     );
+    await dispatch(authenticate());
     window.location.reload();
   };
 
   const handleDelete = async () => {
     await dispatch(cancelCustomerReservation(reservation.id, restaurantId));
+    await dispatch(authenticate());
     window.location.reload();
   };
 
