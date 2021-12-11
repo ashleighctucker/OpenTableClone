@@ -59,8 +59,12 @@ function App() {
         <Route path="/profile">
           <Profile />
         </Route>
+
         <Route path="/search-results">
           <SearchResults />
+        </Route>
+        <Route>
+            <h1>Page Not Found</h1>
         </Route>
       </>
     );
