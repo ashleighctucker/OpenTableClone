@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import RestaurantCard from '../RestaurantCards';
+import SearchBar from '../SearchBar';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -22,6 +23,7 @@ const HomePage = () => {
       <header className="headerContainer">
         <div className="header-description">
           <h1>Find your table for any occasion</h1>
+          <SearchBar />
         </div>
       </header>
       <div className="info-container">

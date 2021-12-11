@@ -1,0 +1,36 @@
+.searchh {
+  display: flex;
+}
+.icon-divv {
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border: none;
+}
+.icon-divv:hover {
+  cursor: pointer;
+}
+#splash-searchh {
+  height: 2rem;
+  width: 15rem;
+  border: black;
+  border-left: 1px;
+  border-top: 1px;
+  border-bottom: 1px;
+  border-right: 0px;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-style: solid;
+  padding: 5px;
+}
+
+.submitbtn {
+  background: None;
+}
