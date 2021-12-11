@@ -16,13 +16,14 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
 
+  const [showModal, setShowModal] = useState(false);
   const [reservationToEditOrDelete, setReservationToEditOrDelete] = useState("");
   const [restaurantIdOfReservationToEditOrDelete, setRestaurantIdOfReservationToEditOrDelete] = useState("");
   const [typeOfThunktoCall, setTypeOfThunktoCall] = useState("");
   const [reservationNotes, setReservationNotes] = useState("");
   const [reservationPartySize, setReservationPartySize] = useState("");
   const [errors, setErrors] = useState([]);
-  
+
 const getReservationandRestaurantId = async (e) =>{
     e.preventDefault();
     let stringTypeOfThunktoCall = await e.target.getAttribute('data-typeofthunktocall')
@@ -33,8 +34,17 @@ const getReservationandRestaurantId = async (e) =>{
     await setRestaurantIdOfReservationToEditOrDelete(e.target.id)
   }
 
-  useEffect(() => { 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  let myRestaurants = {};
 
+  for (let id in restaurants) {
+    if (restaurants[id].ownerId === sessionUser.id) {
+      myRestaurants[id] = restaurants[id];
+    }
+  }
+
+    useEffect(() => {
+    console.log(typeOfThunktoCall, "LOOK")
     if (typeOfThunktoCall =="delete") {
       handleCancelReservation()
     }
