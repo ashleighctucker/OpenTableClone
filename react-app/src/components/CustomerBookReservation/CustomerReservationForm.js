@@ -168,7 +168,7 @@ function CustomerReservationForm({
           type="submit"
           disabled={checkStatesArentNull()}
         >
-          Book reservation
+          {userId ? 'Book Reservation' : 'Log in to Book a Reservation'}
         </button>
       </form>
     </div>
