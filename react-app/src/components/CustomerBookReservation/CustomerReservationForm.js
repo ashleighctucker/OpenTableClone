@@ -15,7 +15,7 @@ function CustomerReservationForm({
   const [availableSize, setAvailableSize] = useState('');
   const [notes, setNotes] = useState('Leave a note for your server...');
   const [errors, setErrors] = useState([]);
-  const [date, setDate] = useState("Select a date");
+  const [date, setDate] = useState('Select a date');
   const [time, setTime] = useState('');
   const [reservationId, setReservationId] = useState('');
   const [idxOfReservationSlotInState, setIdxOfReservationSlotInState] =
@@ -42,10 +42,10 @@ function CustomerReservationForm({
     e.preventDefault();
 
     for (const button of e.currentTarget.children) {
-      if (e.target.textContent == button.textContent){
-        $(button).addClass("selected-btn")
-      }else{
-        $(button).removeClass("selected-btn")
+      if (e.target.textContent === button.textContent) {
+        $(button).addClass('selected-btn');
+      } else {
+        $(button).removeClass('selected-btn');
       }
     }
     setTime(e.target.value);
