@@ -63,7 +63,8 @@ class Restaurant(db.Model):
                                 "comment": obj.comment,
                                 "restaurantId": obj.restaurantId,
                                 "userId": obj.userId,
-                                "id": obj.id}
+                                "id": obj.id,
+                                "username": obj.username}
                                 for obj in self.restaurant_review},
             'favorites': {obj.id: {'restaurantId': obj.restaurantId, 'userId': obj.userId} for obj in self.restaurant_favorites},
             'cover_photo': self.cover_photo,

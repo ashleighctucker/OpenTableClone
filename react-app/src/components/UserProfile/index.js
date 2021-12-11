@@ -1,12 +1,9 @@
 
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {cancelCustomerReservation} from "../../store/restaurant" 
+import {cancelCustomerReservation} from "../../store/restaurant"
 import { authenticate } from '../../store/session'
-import { Modal } from '../../context/Modal';
-import './profile.css';
-import { NavLink, useHistory } from 'react-router-dom';
-import UserEditForm from './UserEditForm'
+import './profile.css'
 import CustomerEditReservationModal from '../CustomerEditReservation/'
 
 const Profile = () => {
@@ -14,8 +11,7 @@ const Profile = () => {
   let restaurants = useSelector((state) => state.restaurants);
   const dispatch = useDispatch();
   const history = useHistory();
-  
-  const [showModal, setShowModal] = useState(false);
+
   const [reservationToEditOrDelete, setReservationToEditOrDelete] = useState("");
   const [restaurantIdOfReservationToEditOrDelete, setRestaurantIdOfReservationToEditOrDelete] = useState("");
   const [typeOfThunktoCall, setTypeOfThunktoCall] = useState("");
@@ -33,18 +29,8 @@ const getReservationandRestaurantId = async (e) =>{
     await setReservationToEditOrDelete(e.target.value)
     await setRestaurantIdOfReservationToEditOrDelete(e.target.id)
   }
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  let myRestaurants = {};
 
-  for (let id in restaurants) {
-    if (restaurants[id].ownerId === sessionUser.id) {
-      console.log(restaurants[id].ownerId === sessionUser.id);
-      myRestaurants[id] = restaurants[id];
-    }
-  }
-  
-    useEffect(() => { 
+  useEffect(() => {
     console.log(typeOfThunktoCall, "LOOK")
     if (typeOfThunktoCall =="delete") {
       handleCancelReservation()
@@ -56,7 +42,7 @@ const getReservationandRestaurantId = async (e) =>{
   const handleCancelReservation = async e =>{
   setErrors([]);
   const cancelledCustomerReservation = await dispatch(
-      cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete) 
+      cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete)
   )
   //await reauthenticate of user to force-reload reservations
   await dispatch(authenticate());
