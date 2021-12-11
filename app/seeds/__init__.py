@@ -4,6 +4,7 @@ from .restaurants import seed_restaurants, undo_restaurants
 from .cuisines import seed_cuisines, undo_cuisines
 from .reviews import seed_reviews, undo_reviews
 from .favorites import seed_favorites, undo_favorites
+from .reservations import seed_reservations, undo_reservations
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
 seed_commands = AppGroup('seed')
@@ -17,6 +18,7 @@ def seed():
     seed_restaurants()
     seed_reviews()
     seed_favorites()
+    seed_reservations()
     # Add other seed functions here
 
 
@@ -28,4 +30,5 @@ def undo():
     undo_cuisines()
     undo_reviews()
     undo_favorites()
+    undo_reservations()
     # Add other undo functions here
