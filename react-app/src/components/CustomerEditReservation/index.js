@@ -5,13 +5,15 @@ import CustomerEditReservationForm from './CustomerEditReservationForm';
 function CustomerEditReservationCards({ reservation }) {
   const [showModal, setShowModal] = useState(false);
 
-  const resDate = new Date(reservation.date);
+  let resDate = new Date(reservation.date);
+  let realresDate = resDate.setDate(resDate.getDate() + 1);
+  realresDate = new Date(realresDate);
   const dateString =
-    resDate.getFullYear() +
+    realresDate.getFullYear() +
     '-' +
-    (resDate.getMonth() + 1) +
+    (realresDate.getMonth() + 1) +
     '-' +
-    (resDate.getDate() + 1);
+    realresDate.getDate();
 
   return (
     <div className="reservation-div">
