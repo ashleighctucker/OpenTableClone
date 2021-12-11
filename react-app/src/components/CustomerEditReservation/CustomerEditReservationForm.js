@@ -1,27 +1,20 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import {editCustomerReservation} from "../../store/restaurant" 
 import { authenticate } from '../../store/session'
 import { useDispatch, useSelector } from "react-redux";
+=======
+import React, { useState } from 'react';
+import { editCustomerReservation } from '../../store/restaurant';
+import { useDispatch, useSelector } from 'react-redux';
+>>>>>>> 0692c03 (refactorAZZ)
 
-function CustomerEditReservationForm({
-  reservationToEditOrDelete, reservationRestaurantId, reservationPartySize, reservationNotes, reservationAvailableSize}) {
+function CustomerEditReservationForm({ reservation, restaurantId, close }) {
   const dispatch = useDispatch();
-  const [partySize, setPartySize] = useState(reservationPartySize);
-  const [availableSize, setAvailableSize] = useState(reservationAvailableSize);
-  const [notes, setNotes] = useState(reservationNotes);
+  const [partySize, setPartySize] = useState(reservation.party_size);
+  const [notes, setNotes] = useState(reservation.notes);
   const [errors, setErrors] = useState([]);
-  const [restaurantId, setRestaurantId] = useState(reservationRestaurantId)
-  const [reservationId, setReservationId] = useState(reservationToEditOrDelete);
-  const userId = useSelector((state) => state.session?.user?.id);
-   
-
-  const checkStatesArentNull = () => {
-    if (!restaurantId || !reservationId || !userId || !partySize) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  const userId = useSelector((state) => state.session.user.id);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,15 +22,14 @@ function CustomerEditReservationForm({
     await dispatch(
       editCustomerReservation(
         restaurantId,
-        reservationId,
+        reservation.id,
         userId,
         partySize,
-        notes,
-      ) 
-  )
-  await dispatch(authenticate())
-  window.location.reload();
-  }
+        notes
+      )
+    );
+    close();
+  };
 
   return (
     <div>
@@ -49,19 +41,28 @@ function CustomerEditReservationForm({
           ))}
         </div>
         <br />
-        <label>
-          Reservation notes
-        </label>
-        <textarea onChange={(e)=>setNotes(e.target.value)} value={notes}></textarea>
-        <br/>
+        <label>Reservation notes</label>
+        <textarea
+          onChange={(e) => setNotes(e.target.value)}
+          value={notes}
+        ></textarea>
+        <br />
         <label>Party size</label>
-        <br/>
-        <input type="number" min="1" max={availableSize} name="party_size" id="party_size" onChange={(e)=>setPartySize(e.target.value)} value={partySize}/>
-        <br/>
-        <button type="submit" disabled={checkStatesArentNull}>Book reservation</button>
-        </form>
-        </div>
-)
+        <br />
+        <input
+          type="number"
+          min="1"
+          max={reservation.availabe_size}
+          name="party_size"
+          id="party_size"
+          onChange={(e) => setPartySize(e.target.value)}
+          value={partySize}
+        />
+        <br />
+        <button type="submit">Edit reservation</button>
+      </form>
+    </div>
+  );
 }
 
 export default CustomerEditReservationForm;

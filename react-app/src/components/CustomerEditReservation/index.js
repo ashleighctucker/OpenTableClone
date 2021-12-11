@@ -1,21 +1,39 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import CustomerEditReservationForm  from './CustomerEditReservationForm';
+import CustomerEditReservationForm from './CustomerEditReservationForm';
 
-function CustomerEditReservationModal({reservationToEditOrDelete, reservationPartySize, reservationNotes, reservationAvailableSize, reservationRestaurantId}) {
+function CustomerEditReservationCards({ reservation, restaurant }) {
   const [showModal, setShowModal] = useState(false);
 
-  const editAReservationButton = (<>
-      <button className="customerEditReservationButton" onClick={() => setShowModal(true)}  data-reservationid={reservationToEditOrDelete} data-partysize={reservationPartySize} data-notes={reservationNotes}>Edit Reservation</button>
+  const resDate = new Date(reservation.date);
+  const dateString =
+    resDate.getFullYear() +
+    '-' +
+    (resDate.getMonth() + 1) +
+    '-' +
+    resDate.getDate();
+
+  return (
+    <div className="reservation-div">
+      <span>
+        {restaurant.name} ({reservation.party_size})
+      </span>
+      <span>Time: {reservation.time_slot}</span>
+      <span>Date: {dateString}</span>
+      <span onClick={() => setShowModal(true)}>
+        <i className="far fa-edit"></i> Edit Booking
+      </span>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <CustomerEditReservationForm reservationToEditOrDelete= {reservationToEditOrDelete} reservationPartySize={reservationPartySize} reservationNotes={reservationNotes} reservationAvailableSize={reservationAvailableSize} reservationRestaurantId={reservationRestaurantId} />
+          <CustomerEditReservationForm
+            reservation={reservation}
+            close={() => setShowModal(false)}
+            restaurantId={restaurant.id}
+          />
         </Modal>
       )}
-    </>
+    </div>
   );
-
-  return (editAReservationButton);
 }
 
-export default CustomerEditReservationModal;
+export default CustomerEditReservationCards;

@@ -42,6 +42,10 @@ class Reservation(db.Model):
         else:
             return None
 
+    @property
+    def restaurant_name(self):
+        return self.restaurant_reservations.name
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -53,5 +57,6 @@ class Reservation(db.Model):
             'user_id': self.user_id,
             'booked': self.booked,
             'notes': self.notes,
+            'restaurant_name': self.restaurant_name,
             'createdat': self.createdat,
             'updatedat': self.updatedat}

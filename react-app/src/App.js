@@ -19,6 +19,7 @@ import { getCuisineTypes } from './store/cuisine_types';
 import { getRestaurants } from './store/restaurant';
 // import CreateReview from './components/NewReview';
 import { getFavorite } from './store/favorites';
+import { getMyReservations } from './store/my_reservations';
 import Footer from './components/Footer';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       await dispatch(authenticate())
         .then((id) => {
           if (id) dispatch(getFavorite(id));
+          if (id) dispatch(getMyReservations(id));
         })
         .then(() => dispatch(getRestaurants()))
         .then(() => dispatch(getCuisineTypes()))

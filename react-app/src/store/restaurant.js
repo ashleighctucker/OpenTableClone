@@ -464,7 +464,7 @@ export default function restaurantReducer(state = initialState, action) {
       const newState = { ...state };
       const canceledReservationId = action.canceledReservation.id
       const canceledRestartId = action.restaurantIdOfCancelledReservation
-      
+
       const allReservationsForRestaurant = newState[canceledRestartId].reservations
       const idxToReassign = allReservationsForRestaurant.findIndex(reservation => reservation.id == canceledReservationId)
       newState[canceledRestartId].reservations[idxToReassign] = action.canceledReservation
