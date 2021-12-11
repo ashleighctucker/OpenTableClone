@@ -32,6 +32,26 @@ class Restaurant(db.Model):
     restaurant_review = db.relationship(
         "Review", back_populates="restaurant", cascade="all, delete-orphan")
 
+    def simple_dict(self):
+        type = str(self.cuisine)
+        return {
+            'id': self.id,
+            'name': self.name,
+            'location': self.location,
+            'price_point': self.price_point,
+            'phone_number': self.phone_number,
+            'open_time': self.open_time,
+            'close_time': self.close_time,
+            'contact_email': self.contact_email,
+            'description': self.description,
+            'ownerId': self.owner.id,
+            'ownerName': self.owner.firstName + " " + self.owner.lastName,
+            'cover_photo': self.cover_photo,
+            'cuisine_type': type,
+            'user_id': self.user_id,
+            'cuisine_type_id': self.cuisine_type
+        }
+
     def to_dict(self):
         type = str(self.cuisine)
 
@@ -60,12 +80,12 @@ class Restaurant(db.Model):
                               }
                              for obj in self.reservation],
             'reviews': {obj.id: {"rating": obj.rating,
-                                "comment": obj.comment,
-                                "restaurantId": obj.restaurantId,
-                                "userId": obj.userId,
-                                "id": obj.id,
-                                "username": obj.username}
-                                for obj in self.restaurant_review},
+                                 "comment": obj.comment,
+                                 "restaurantId": obj.restaurantId,
+                                 "userId": obj.userId,
+                                 "id": obj.id,
+                                 "username": obj.username}
+                        for obj in self.restaurant_review},
             'favorites': {obj.id: {'restaurantId': obj.restaurantId, 'userId': obj.userId} for obj in self.restaurant_favorites},
             'cover_photo': self.cover_photo,
             'cuisine_type': type,
