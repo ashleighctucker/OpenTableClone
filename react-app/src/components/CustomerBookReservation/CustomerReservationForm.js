@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {createCustomerReservation} from "../../store/restaurant"
-import { authenticate } from '../../store/session'
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { createCustomerReservation } from '../../store/restaurant';
+import { authenticate } from '../../store/session';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import './reservations.css'
+import './reservations.css';
 
 function CustomerReservationForm({
   arrayOfAvailableDates,
@@ -24,18 +24,25 @@ function CustomerReservationForm({
   let selectedReservation;
 
   const checkStatesArentNull = () => {
-    if (!restaurantId || !reservationId || !userId || !partySize || !idxOfReservationSlotInState) {
+    if (
+      !restaurantId ||
+      !reservationId ||
+      !userId ||
+      !partySize ||
+      !idxOfReservationSlotInState
+    ) {
       return true;
     } else {
       return false;
     }
-  }
+  };
 
-  const handleTimeSelect = (e) =>{
+  const handleTimeSelect = (e) => {
     e.preventDefault();
     setTime(e.target.value);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getAvailableSizeForTimeSlot = (
     availableReservationsArray,
     date,
@@ -60,7 +67,7 @@ function CustomerReservationForm({
 
   useEffect(() => {
     getAvailableSizeForTimeSlot(availableReservationsArray, date, time);
-  }, [time]);
+  }, [time, date, availableReservationsArray, getAvailableSizeForTimeSlot]);
 
   let reservationsByDate = availableReservationsArray.filter(
     (reservation) => reservation.date === date
@@ -80,11 +87,10 @@ function CustomerReservationForm({
         booked,
         idxOfReservationSlotInState
       )
-  )
-  await dispatch(authenticate())
-  window.location.reload();
-  }
-
+    );
+    await dispatch(authenticate());
+    window.location.reload();
+  };
 
   // }
   return (
@@ -97,8 +103,15 @@ function CustomerReservationForm({
           ))}
         </div>
         <label className="resDateLabel">Reservation date:</label>
-        <select className="resDateSelect" onChange={(e) => setDate(e.target.value)} name="date" id="date">
-          <option value="" disabled selected>Select a date</option>
+        <select
+          className="resDateSelect"
+          onChange={(e) => setDate(e.target.value)}
+          name="date"
+          id="date"
+        >
+          <option value="" disabled selected>
+            Select a date
+          </option>
           {arrayOfAvailableDates.map((dateString, i) => {
             return (
               <option key={i} value={dateString}>
@@ -110,29 +123,56 @@ function CustomerReservationForm({
         <br />
 
         <div className="notesContainer">
-          <label className="resNotesHeader">
-            Reservation notes:
-          </label>
-          <textarea className="resNotes" onChange={(e)=>setNotes(e.target.value)} value={notes}></textarea>
+          <label className="resNotesHeader">Reservation notes:</label>
+          <textarea
+            className="resNotes"
+            onChange={(e) => setNotes(e.target.value)}
+            value={notes}
+          ></textarea>
         </div>
         <br />
 
         <div className="timesLabel">Available Times: </div>
         <div className="resDateButtons">
-          {reservationsByDate.map(res => {return <button className="confirmResButton" onClick={handleTimeSelect} value={res.time_slot}>{res.time_slot}</button>})}
-        </div>
-        <br/>
-
-        <div className="partySizeContainer">
-          <div className="partySizeLabel">Select Party Size:</div>
-          <input className="partySizeInput" type="number" min="1" max={availableSize} name="party_size" id="party_size" onChange={(e)=>setPartySize(e.target.value)} value={partySize}/>
+          {reservationsByDate.map((res) => {
+            return (
+              <button
+                className="confirmResButton"
+                onClick={handleTimeSelect}
+                value={res.time_slot}
+              >
+                {res.time_slot}
+              </button>
+            );
+          })}
         </div>
         <br />
 
-        <button className="submitButton" type="submit" disabled={checkStatesArentNull}>Book reservation</button>
+        <div className="partySizeContainer">
+          <div className="partySizeLabel">Select Party Size:</div>
+          <input
+            className="partySizeInput"
+            type="number"
+            min="1"
+            max={availableSize}
+            name="party_size"
+            id="party_size"
+            onChange={(e) => setPartySize(e.target.value)}
+            value={partySize}
+          />
+        </div>
+        <br />
+
+        <button
+          className="submitButton"
+          type="submit"
+          disabled={checkStatesArentNull}
+        >
+          Book reservation
+        </button>
       </form>
     </div>
-)
+  );
 }
 
 export default CustomerReservationForm;

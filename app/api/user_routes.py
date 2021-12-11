@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import db, User, Favorite
+from app.models import db, User, Favorite, Reservation
 from app.forms import FavoriteForm
 from .auth_routes import validation_errors_to_error_messages
 
 user_routes = Blueprint('users', __name__)
+
 
 @user_routes.route('/')
 @login_required
@@ -19,22 +20,26 @@ def user(id):
     user = User.query.get(id)
     return user.to_dict()
 
+
 @user_routes.route('/<int:id>/favorites')
 def get_favs(id):
     favorites = Favorite.query.filter(Favorite.userId == id)
     return {'favorites': [fav.to_dict() for fav in favorites]}
+
 
 @user_routes.route('/<int:id>/favorites', methods=['POST'])
 def create_favs(id):
     form = FavoriteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        newFav = Favorite(userId=form['userId'].data, restaurantId=form['restaurantId'].data)
+        newFav = Favorite(userId=form['userId'].data,
+                          restaurantId=form['restaurantId'].data)
         db.session.add(newFav)
         db.session.commit()
         return newFav.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
 
 @user_routes.route('/<int:id>/favorites/<int:fav_id>', methods=['DELETE'])
 def delete_favs(id, fav_id):
@@ -44,4 +49,11 @@ def delete_favs(id, fav_id):
         db.session.commit()
         return {'message': 'Successfully deleted Fav'}
     else:
-        return {'message':'Nothing to delete.'}
+        return {'message': 'Nothing to delete.'}
+
+
+@user_routes.route('/<int:id>/reservations/')
+def get_my_reservations(id):
+    reservations = db.session.query(Reservation).filter(
+        Reservation.user_id == id).all()
+    return {'reservations': [reservation.to_dict() for reservation in reservations]}
