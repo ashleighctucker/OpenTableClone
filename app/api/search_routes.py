@@ -26,7 +26,7 @@ def searchRestaurants(term):
     return list(searchSet)
 
 
-@search_routes.route('/<term>')
+@search_routes.route('/<term>/')
 def get_search(term):
     searchResults = searchRestaurants(term)
     for i in searchResults:
