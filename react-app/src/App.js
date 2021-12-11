@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar/NavBar';
@@ -17,7 +17,6 @@ import Profile from './components/UserProfile';
 import EditRestaurant from './components/EditRestaurant';
 import { getCuisineTypes } from './store/cuisine_types';
 import { getRestaurants } from './store/restaurant';
-// import CreateReview from './components/NewReview';
 import { getFavorite } from './store/favorites';
 import { getMyReservations } from './store/my_reservations';
 import Footer from './components/Footer';
@@ -49,15 +48,14 @@ function App() {
         <Route path="/home">
           <HomePage />
         </Route>
-        <ProtectedRoute exact path="/new-restaurant">
+        <ProtectedRoute path="/new-restaurant" exact={true}>
           <NewRestaurant />
         </ProtectedRoute>
-        <Route exact path="/restaurants/:restaurantId/edit">
+        <Route path="/restaurants/:restaurantId/edit" exact={true}>
           <EditRestaurant />
         </Route>
-        <Route exact path="/restaurants/:restaurantId">
+        <Route path="/restaurants/:restaurantId" exact={true}>
           <Restaurant />
-          {/* <CreateReview /> */}
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
