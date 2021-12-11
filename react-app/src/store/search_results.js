@@ -1,6 +1,6 @@
 const LOAD = 'search/LOAD';
 
-const load = (list) => ({
+const load = (list, term) => ({
   type: LOAD,
   list,
 });
@@ -13,10 +13,11 @@ export const getSearch = (term) => async (dispatch) => {
   });
   if (response.ok) {
     const results = await response.json();
-    dispatch(load(results['search']));
+    await dispatch(load(results['search']));
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
+    console.log(data.errors);
     if (data.errors) {
       return data.errors;
     }

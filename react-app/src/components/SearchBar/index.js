@@ -7,14 +7,13 @@ import './searchBar.css';
 const SearchBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [search, setSearch] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(search);
-    const data = await dispatch(getSearch(search));
-    console.log(data);
-    // history.push('/search-results');
+    console.log(searchTerm);
+    await dispatch(getSearch(searchTerm));
+    history.push('/search-results');
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -22,11 +21,12 @@ const SearchBar = () => {
         <input
           type="text"
           id="splash-search"
+          value={searchTerm}
           placeholder="Find my next experience"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}
         ></input>
         <div className="icon-div">
-          <button type Submit>
+          <button type="submit">
             <i className="fas fa-search"></i>
           </button>
         </div>
