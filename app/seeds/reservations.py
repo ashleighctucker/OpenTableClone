@@ -51,9 +51,13 @@ def seed_reservations():
     
     for restaurant_id_no in range(1,16):
         counter = 1
+        set_of_dates= set()
         while counter <20:
             available_size = randrange(1,11)
             date = random_date("2022-01-01", "2022-1-30", random.random())
+            while date in set_of_dates:
+                date = random_date("2022-01-01", "2022-1-30", random.random())
+            set_of_dates.add(date)
             restaurant_id =restaurant_id_no
             time_slot= random.choice(TIMES)
             seed_reservation = Reservation(available_size=available_size, date=date, time_slot=time_slot, restaurant_id=restaurant_id)

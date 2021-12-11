@@ -3,6 +3,7 @@ import { createCustomerReservation } from '../../store/restaurant';
 import { authenticate } from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import $ from 'jquery';
 import './reservations.css';
 
 function CustomerReservationForm({
@@ -14,7 +15,7 @@ function CustomerReservationForm({
   const [availableSize, setAvailableSize] = useState('');
   const [notes, setNotes] = useState('Leave a note for your server...');
   const [errors, setErrors] = useState([]);
-  const [date, setDate] = useState(arrayOfAvailableDates[0] || null);
+  const [date, setDate] = useState("Select a date");
   const [time, setTime] = useState('');
   const [reservationId, setReservationId] = useState('');
   const [idxOfReservationSlotInState, setIdxOfReservationSlotInState] =
@@ -39,6 +40,14 @@ function CustomerReservationForm({
 
   const handleTimeSelect = (e) => {
     e.preventDefault();
+
+    for (const button of e.currentTarget.children) {
+      if (e.target.textContent == button.textContent){
+        $(button).addClass("selected-btn")
+      }else{
+        $(button).removeClass("selected-btn")
+      }
+    }
     setTime(e.target.value);
   };
 
@@ -110,11 +119,11 @@ function CustomerReservationForm({
           id="date"
           value={date}
         >
-          <option value="----">Select a date</option>
+          <option value="Select a date">Select a date</option>
           {arrayOfAvailableDates.map((dateString, i) => {
             return (
               <option key={i} value={dateString}>
-                {dateString}
+                {dateString.split('00:')[0]}
               </option>
             );
           })}
@@ -132,12 +141,11 @@ function CustomerReservationForm({
         <br />
 
         <div className="timesLabel">Available Times: </div>
-        <div className="resDateButtons">
+        <div className="resDateButtons" onClick={handleTimeSelect}>
           {reservationsByDate.map((res) => {
             return (
               <button
                 className="confirmResButton"
-                onClick={handleTimeSelect}
                 value={res.time_slot}
                 key={res.id}
               >
