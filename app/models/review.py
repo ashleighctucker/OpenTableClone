@@ -4,6 +4,7 @@ import datetime
 
 class Review(db.Model):
     __tablename__ = 'reviews'
+
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text)
@@ -17,11 +18,16 @@ class Review(db.Model):
     restaurant = db.relationship(
         'Restaurant', back_populates="restaurant_review")
 
+    @property
+    def username(self):
+        return self.owner.username
+
     def to_dict(self):
         return {
-            'rating': self.rating,
-            'comment': self.comment,
+            "rating": self.rating,
+            "comment": self.comment,
             "restaurantId": self.restaurantId,
             "userId": self.userId,
-            "id": self.id
+            "id": self.id,
+            "username": self.username
         }

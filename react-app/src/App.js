@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar/NavBar';
@@ -17,7 +17,7 @@ import Profile from './components/UserProfile';
 import EditRestaurant from './components/EditRestaurant';
 import { getCuisineTypes } from './store/cuisine_types';
 import { getRestaurants } from './store/restaurant';
-import CreateReview from './components/NewReview';
+// import CreateReview from './components/NewReview';
 import { getFavorite } from './store/favorites';
 import Footer from './components/Footer';
 
@@ -27,9 +27,13 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate()).then((id) => dispatch(getFavorite(id)));
-      await dispatch(getRestaurants());
-      await dispatch(getCuisineTypes()).then(() => setLoaded(true));
+      await dispatch(authenticate())
+        .then((id) => {
+          if (id) dispatch(getFavorite(id));
+        })
+        .then(() => dispatch(getRestaurants()))
+        .then(() => dispatch(getCuisineTypes()))
+        .then(() => setLoaded(true));
     })();
   }, [dispatch]);
 
@@ -43,7 +47,7 @@ function App() {
         <Route path="/home">
           <HomePage />
         </Route>
-        <ProtectedRoute exact path="/restaurants/new">
+        <ProtectedRoute exact path="/new-restaurant">
           <NewRestaurant />
         </ProtectedRoute>
         <Route exact path="/restaurants/:restaurantId/edit">
@@ -51,7 +55,7 @@ function App() {
         </Route>
         <Route exact path="/restaurants/:restaurantId">
           <Restaurant />
-          <CreateReview />
+          {/* <CreateReview /> */}
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
@@ -77,13 +81,15 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route exact path="/">
-          <SplashPage />
-        </Route>
-        {loaded ? <Routes /> : null}
-      </Switch>
+      <div className="content">
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <SplashPage />
+          </Route>
+          {loaded ? <Routes /> : null}
+        </Switch>
+      </div>
       <Footer />
     </BrowserRouter>
   );

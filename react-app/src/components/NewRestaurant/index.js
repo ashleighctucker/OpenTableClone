@@ -5,8 +5,6 @@ import { addRestaurant } from '../../store/restaurant';
 import TIMES from './times';
 import './restaurant.css';
 
-
-
 const NewRestaurant = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -57,13 +55,14 @@ const NewRestaurant = () => {
 
   return (
     <div className="restaurant-form">
+      <h1>Add a Restaurant to La Table</h1>
       <form id="new-restaurant-form" onSubmit={handleSubmit}>
         <div className="error-div">
           {errors.map((error, i) => (
             <p key={i}>{error}</p>
           ))}
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="name">Restaurant Name</label>
           <input
             name="name"
@@ -71,7 +70,7 @@ const NewRestaurant = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="location">Location</label>
           <input
             name="location"
@@ -79,7 +78,7 @@ const NewRestaurant = () => {
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="price_point">Price Point</label>
           <select
             name="price_point"
@@ -92,7 +91,7 @@ const NewRestaurant = () => {
             <option value="4"> $$$$ </option>
           </select>
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="open_time">Open Time</label>
           <select
             name="open_time"
@@ -106,7 +105,7 @@ const NewRestaurant = () => {
             ))}
           </select>
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="close_time">Close Time</label>
           <select
             name="close_time"
@@ -120,7 +119,7 @@ const NewRestaurant = () => {
             ))}
           </select>
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="contact_email">Contact Email</label>
           <input
             name="contact_email"
@@ -128,7 +127,7 @@ const NewRestaurant = () => {
             onChange={(e) => setContactEmail(e.target.value)}
           ></input>
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="phone_number">Phone Number</label>
           <input
             name="phone_number"
@@ -137,14 +136,17 @@ const NewRestaurant = () => {
           ></input>
         </div>
         <div>
-          <label htmlFor="description">Description</label>
+          <label className="input-div" htmlFor="description">
+            Description
+          </label>
           <textarea
+            id="new-description"
             name="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="cover_photo">Cover Photo URL</label>
           <input
             name="cover_photo"
@@ -152,7 +154,7 @@ const NewRestaurant = () => {
             onChange={(e) => setCoverPhoto(e.target.value)}
           />
         </div>
-        <div>
+        <div className="input-div">
           <label htmlFor="cuisine_type">Cusine Type</label>
           <select
             name="cuisine_type"
@@ -166,7 +168,7 @@ const NewRestaurant = () => {
             ))}
           </select>
         </div>
-        <div>
+        <div className="input-div">
           <button type="submit">Add Restaurant</button>
         </div>
       </form>

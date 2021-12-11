@@ -1,6 +1,7 @@
 .favoritesContainer {
     display: flex;
     flex-direction: column;
+    width: 95vw;
 }
 
 .favoritesHeader {

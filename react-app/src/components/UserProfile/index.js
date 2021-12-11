@@ -1,26 +1,29 @@
+
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal } from '../../context/Modal';
-import {cancelCustomerReservation} from "../../store/restaurant" 
+import {cancelCustomerReservation} from "../../store/restaurant"
 import { authenticate } from '../../store/session'
-import UserEditForm from './UserEditForm'
 import './profile.css'
 import CustomerEditReservationModal from '../CustomerEditReservation/'
+
 import { NavLink } from 'react-router-dom';
 
+
 const Profile = () => {
-  let sessionUser = useSelector(state => state.session.user)
+  let sessionUser = useSelector((state) => state.session.user);
+  let restaurants = useSelector((state) => state.restaurants);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const history = useHistory();
+
   const [reservationToEditOrDelete, setReservationToEditOrDelete] = useState("");
   const [restaurantIdOfReservationToEditOrDelete, setRestaurantIdOfReservationToEditOrDelete] = useState("");
   const [typeOfThunktoCall, setTypeOfThunktoCall] = useState("");
   const [reservationNotes, setReservationNotes] = useState("");
   const [reservationPartySize, setReservationPartySize] = useState("");
   const [errors, setErrors] = useState([]);
-
-
-  const getReservationandRestaurantId = async (e) =>{
+  
+const getReservationandRestaurantId = async (e) =>{
     e.preventDefault();
     let stringTypeOfThunktoCall = await e.target.getAttribute('data-typeofthunktocall')
     await setReservationNotes(await e.target.getAttribute("data-notes"))
@@ -31,6 +34,7 @@ const Profile = () => {
   }
 
   useEffect(() => { 
+
     if (typeOfThunktoCall =="delete") {
       handleCancelReservation()
     }
@@ -41,37 +45,64 @@ const Profile = () => {
   const handleCancelReservation = async e =>{
   setErrors([]);
   const cancelledCustomerReservation = await dispatch(
-      cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete) 
+      cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete)
   )
   await dispatch(authenticate());
   window.location.reload();
   }
 
+  const myLinks = () => {
+    const links = [];
+    for (let id in myRestaurants) {
+      links.push(
+        <NavLink
+          className="single-link"
+          key={id}
+          to={`/restaurants/${id}/edit`}
+        >
+          {myRestaurants[id].name}
+        </NavLink>
+      );
+    }
+    return links;
+  };
+
   return (
-    <div className='profileContainer'>
-      <div className='profileSidebarContainer'>
-        <div className='profileAboutContainer'>
-          <h2 className='profileAbout'>About Me</h2>
-            <button type='button' className='profileEditButton' onClick={() => {setShowModal(true)}}>
-              <i className="far fa-edit"></i>
-              {showModal && (
-                      <Modal onClose={()=> setShowModal(false)}>
-                          <UserEditForm setShowModal={setShowModal} user={sessionUser}/>
-                      </Modal>
-                  )}
-            </button>
+    <div className="profileContainer">
+      <div id="side-contain">
+        <div className="profileSidebarContainer">
+          <div className="profileAboutContainer">
+            <h2 className="profileAbout">About Me</h2>
+          </div>
+          <p className="profileInfoText" id="name">
+            {sessionUser.firstName} {sessionUser.lastName}
+          </p>
+          <p className="profileInfoText" id="username">
+            {sessionUser.username}
+          </p>
+          <p className="profileInfoText" id="email">
+            {sessionUser.email}
+          </p>
+          <NavLink to="/favorites" className="profileFavorites">
+            My Favorites
+          </NavLink>
         </div>
-        <p className='profileInfoText' id='name'> {sessionUser.firstName} {sessionUser.lastName}</p>
-        <p className='profileInfoText' id='username'> {sessionUser.username}</p>
-        <p className='profileInfoText' id='email'> {sessionUser.email}</p>
-        <NavLink to='/favorites' className='profileFavorites'>My Favorites</NavLink>
+        <NavLink to="/new-restaurant">
+          <button>
+            <i className="fas fa-plus"></i> Add New Restaurant
+          </button>
+        </NavLink>
+        <h3>My Restaurants:</h3>
+        <div className="links">{myRestaurants ? myLinks() : null}</div>
       </div>
+
 
       <h2 className='profileReservations'>My Reservations</h2>
       {sessionUser?.reservations.map(reservation => {return <form onSubmit={handleCancelReservation}><button  onClick={getReservationandRestaurantId} value={reservation.reservation_id}  id={reservation.restaurant_id} type="submit" data-typeOfThunktoCall="delete" data-partysize={reservation.party_size} data-notes={reservation.notes} reservationAvailableSize={reservation.available_size} >Cancel Reservation</button></form>})}
 
 
       {sessionUser?.reservations.map(reservation => {return <CustomerEditReservationModal onClick={getReservationandRestaurantId} reservationToEditOrDelete={reservation.reservation_id} reservationPartySize={reservation.party_size} reservationNotes={reservation.notes} reservationAvailableSize={reservation.available_size}reservationRestaurantId={reservation.restaurant_id}/>})}
+
 
     </div>
   );

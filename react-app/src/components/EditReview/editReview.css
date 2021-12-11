@@ -1,0 +1,17 @@
+.editReviewForm {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+.createReview {
+  border-radius: 15px;
+}
+.ratingDiv {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.comment-box {
+  height: 5rem;
+}

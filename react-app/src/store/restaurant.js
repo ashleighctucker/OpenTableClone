@@ -419,7 +419,6 @@ export default function restaurantReducer(state = initialState, action) {
     }
     case REMOVE_REVIEWS: {
       newState = { ...state };
-      break;
     }
     case ADD: {
       return {
