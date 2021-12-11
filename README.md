@@ -15,14 +15,22 @@ https://github.com/ashleighctucker/OpenTableClone/wiki/Redux-State
 
 --- Tech Stack --- 
 
-Javascript 
+Javascript  
+
 node.js
+
 Express.js
+
 React JS
+
 Redux
+
 Python
+
 SQL Alchemy
+
 Alembic
+
 Faker API
 
 ---- Want to try it out locally? La Table requires Postgres. ----
