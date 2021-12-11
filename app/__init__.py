@@ -1,5 +1,4 @@
 import os
-from re import S
 from flask import Flask, render_template, request, session, redirect
 from flask.helpers import url_for
 from flask_cors import CORS

@@ -14,8 +14,6 @@ def searchRestaurants(term):
         Restaurant.description.ilike(f"%{term}%")).all()
     cuisineTypeSearchResult = Cuisine.query.filter(
         Cuisine.type.ilike(f"%{term}%")).first()
-
-    print(cuisineTypeSearchResult)
     if (cuisineTypeSearchResult):
         restaurantCuisineTypeResults = Restaurant.query.filter(
             Restaurant.cuisine_type == cuisineTypeSearchResult.id)
