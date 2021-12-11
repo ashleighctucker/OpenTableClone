@@ -36,7 +36,7 @@ const Favorites = () => {
     sessionLinks = (
       <div className="cardContainer">
         {favRestaurants.map((res) => (
-          <div className="restaurantCard">
+          <div key={res.id} className="restaurantCard">
             <NavLink to={`/restaurants/${res.id}`}>
               <img
                 className="restaurantImage"
@@ -77,7 +77,7 @@ const Favorites = () => {
       await dispatch(getFavorite(userId));
     };
     asyncLoad();
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <div className="favoritesContainer">

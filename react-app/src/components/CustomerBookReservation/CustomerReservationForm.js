@@ -140,6 +140,7 @@ function CustomerReservationForm({
                 className="confirmResButton"
                 onClick={handleTimeSelect}
                 value={res.time_slot}
+                key={res.id}
               >
                 {res.time_slot}
               </button>

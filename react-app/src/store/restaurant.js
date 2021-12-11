@@ -29,9 +29,10 @@ export const updateReview = (newReview) => ({
   newReview,
 });
 
-export const removeReview = (reviewId) => ({
+export const removeReview = (reviewId, restaurantId) => ({
   type: REMOVE_REVIEWS,
   reviewId,
+  restaurantId,
 });
 
 const load = (list) => ({
@@ -239,11 +240,11 @@ export const editReview = (rating, comment, id) => async (dispatch) => {
 };
 
 // deletes a single review
-export const deleteReview = (id) => async (dispatch) => {
+export const deleteReview = (id, restaurantId) => async (dispatch) => {
   const res = await fetch(`/api/reviews/${id}`, {
     method: 'DELETE',
   });
-  dispatch(removeReview(id));
+  dispatch(removeReview(id, restaurantId));
   return res;
 };
 
@@ -362,6 +363,7 @@ export const editCustomerReservation =
     dispatch(editCustReservation(updatedReservation));
     return null;
   };
+
 export const deleteCustomerReservation = (
   canceledReservation,
   restaurantIdOfCancelledReservation
@@ -420,7 +422,11 @@ export default function restaurantReducer(state = initialState, action) {
       return { ...state, ...normalRestaurants };
     }
     case UPDATE_REVIEWS: {
-      break;
+      newState = { ...state };
+      const reviews = { ...newState[action.newReview.restaurantId].reviews };
+      reviews[action.newReview.id] = action.newReview;
+      newState[action.newReview.restaurantId].reviews = reviews;
+      return newState;
     }
     case ADD_REVIEWS: {
       const restaurantId = action.newReview.restaurantId;
@@ -430,6 +436,10 @@ export default function restaurantReducer(state = initialState, action) {
     }
     case REMOVE_REVIEWS: {
       newState = { ...state };
+      const reviews = { ...newState[action.restaurantId].reviews };
+      delete reviews[action.reviewId];
+      newState[action.restaurantId].reviews = reviews;
+      return newState;
     }
     case ADD: {
       return {
@@ -479,7 +489,8 @@ export default function restaurantReducer(state = initialState, action) {
       const allReservationsForRestaurant =
         newState[canceledRestartId].reservations;
       const idxToReassign = allReservationsForRestaurant.findIndex(
-        (reservation) => reservation.id == canceledReservationId
+        (reservation) =>
+          Number(reservation.id) === Number(canceledReservationId)
       );
       newState[canceledRestartId].reservations[idxToReassign] =
         action.canceledReservation;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import { NavLink } from 'react-router-dom';
@@ -22,14 +22,6 @@ function ProfileButton() {
   const closeMenu = () => {
     setShowMenu(false);
   };
-
-  useEffect(() => {
-    if (!showMenu) return;
-
-    document.addEventListener('click', closeMenu);
-
-    return () => document.removeEventListener('click', closeMenu);
-  }, []);
 
   const logout = (e) => {
     e.preventDefault();
@@ -83,18 +75,36 @@ function ProfileButton() {
       {showMenu && (
         <div className="profile-dropdown">
           {sessionUser ? (
-            <div className='profileButtons'>
+            <div className="profileButtons">
               <li className="WelcomeUser">Welcome, {sessionUser.firstName}!</li>
-              <NavLink to='/profile' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu}>
+              <NavLink
+                to="/profile"
+                exact={true}
+                activeClassName="active"
+                className="NavHome"
+                onClick={closeMenu}
+              >
                 My Profile
               </NavLink>
 
-              <NavLink to='/favorites' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu}>
+              <NavLink
+                to="/favorites"
+                exact={true}
+                activeClassName="active"
+                className="NavHome"
+                onClick={closeMenu}
+              >
                 My Favorites
               </NavLink>
             </div>
           ) : null}
-          <NavLink to='/home' exact={true} activeClassName='active' className='NavHome' onClick={closeMenu} >
+          <NavLink
+            to="/home"
+            exact={true}
+            activeClassName="active"
+            className="NavHome"
+            onClick={closeMenu}
+          >
             Home
           </NavLink>
           {sessionLinks}

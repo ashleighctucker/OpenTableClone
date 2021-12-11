@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { getRestaurants } from '../../store/restaurant';
 import './editReview.css';
 
-const EditReview = ({ id, setShowModal }) => {
+const EditReview = ({ id, setShowModal, review }) => {
   const dispatch = useDispatch();
-  const [rating, setRating] = useState(1);
-  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState(review?.rating);
+  const [comment, setComment] = useState(review?.comment);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const EditReview = ({ id, setShowModal }) => {
     <div className="createReview">
       <form onSubmit={handleSubmit} className="editReviewForm">
         <div className="ratingDiv">
-          <label for="rating">Rating:</label>
+          <label htmlFor="rating">Rating:</label>
           <select
             onChange={(e) => setRating(Number(e.target.value))}
             value={rating}
