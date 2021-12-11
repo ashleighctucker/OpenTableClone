@@ -2,7 +2,6 @@ from app.models import db, User, Restaurant, Review
 from sqlalchemy.sql.expression import func
 from random import randrange
 from faker import Faker
-#import datetime
 fake = Faker()
 def seed_reviews():
     
@@ -10,7 +9,6 @@ def seed_reviews():
         user_id = db.session.query(
             User.id).order_by(func.random()).first()[0]
         restaurant_obj = db.session.query(Restaurant).filter(Restaurant.user_id != user_id ).order_by(func.random()).first()
-        print(restaurant_obj.id)
         restaurant_id =restaurant_obj.id
         rating = randrange(1, 5)
         comment =  fake.paragraph(nb_sentences=3)

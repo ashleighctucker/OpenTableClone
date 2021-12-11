@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeFavorite, deleteFavorite } from '../../store/favorites';
 import { useParams, NavLink } from 'react-router-dom';
@@ -11,7 +11,7 @@ import './restaurant.css';
 
 const Restaurant = () => {
   const { restaurantId } = useParams();
-  const [date, setDate] = useState('');
+  //const [date, setDate] = useState('');
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const user = useSelector((state) => state.session?.user);
   const dispatch = useDispatch();
@@ -38,7 +38,6 @@ const Restaurant = () => {
         ratings?.reduce((prev, curr) => prev + curr) / ratings.length;
       for (let i = 0; i < 5; i++) {
         if (ratingNumber >= 1) stars += '★';
-        // else if (ratingNumber > 0.25 && ratingNumber < .75) stars += '1/2'
         else stars += '☆';
         ratingNumber -= 1;
       }
@@ -63,17 +62,17 @@ const Restaurant = () => {
       return new Date(a.date) - new Date(b.date);
   })
 
-  let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date)
+                return new Date(a.date) - new Date(b.date);
+            })
   let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
-  let reviews;
 
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
   );
 
-  if (rawReviews) {
-    reviews = Object.values(rawReviews);
-  }
+  // if (rawReviews) {
+  //   reviews = Object.values(rawReviews);
+  // }
 
   const deleteOneReview = (id) => {
     dispatch(deleteReview(id));
@@ -88,6 +87,7 @@ const Restaurant = () => {
 
   const delFav = (restId) => {
     let favId;
+
     for (let id in restaurant.favorites) {
       if (restaurant.favorites[id].restaurantId === restId) {
         favId = id;
@@ -201,7 +201,6 @@ const Restaurant = () => {
         <p>{restaurant.description}</p>
       </div>
 
-      {/* --- */}
       <div className="reviewsContainer">
         <h2 className="reviewsHeader">Reviews</h2>
         {Object.values(rawReviews)?.map((review) => {

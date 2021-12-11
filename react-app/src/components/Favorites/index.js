@@ -26,10 +26,8 @@ const Favorites = () => {
   let favId;
   const deleteFav = async (restId) => {
     for (let id in favorites) {
-      console.log(favorites[id], restId, 'favorites');
       if (favorites[id].restaurantId === restId) {
         favId = id;
-        console.log(favId, '<<<<<---');
       }
     }
     await dispatch(deleteFavorite(favId, userId));
@@ -81,7 +79,6 @@ const Favorites = () => {
   useEffect(() => {
     const asyncLoad = async () => {
       await dispatch(getFavorite(userId));
-      console.log('dispatching favorite', '<---');
     };
     asyncLoad();
   }, [dispatch]);

@@ -28,9 +28,6 @@ def get_favs(id):
 def create_favs(id):
     form = FavoriteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # form.data['restaurantId'] = int(form.data['restaurantId'])
-    # form.data['userId'] = int(form.data['userId'])
-    print(request.get_json(), '<-----')
     if form.validate_on_submit():
         newFav = Favorite(userId=form['userId'].data, restaurantId=form['restaurantId'].data)
         db.session.add(newFav)

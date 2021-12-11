@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {editCustomerReservation} from "../../store/restaurant" 
 import { authenticate } from '../../store/session'
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from 'react-router-dom';
 
 function CustomerEditReservationForm({
   reservationToEditOrDelete, reservationRestaurantId, reservationPartySize, reservationNotes, reservationAvailableSize}) {
