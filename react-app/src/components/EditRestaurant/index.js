@@ -28,10 +28,10 @@ const EditRestaurant = () => {
       <div id="edit-page-container">
         <div className="main-container">
           <h1>{restaurant?.name} Admin Page</h1>
-          <h3>Welcome back, {restaurant.ownerName}!</h3>
-          <NavLink to={`/restaurants/${restaurant.id}`}>
+          <h3>Welcome back, {restaurant?.ownerName}!</h3>
+          <NavLink to={`/restaurants/${restaurant?.id}`}>
             <button className="edit-page-buttons">
-              Return to {restaurant.name} Main Page
+              Return to {restaurant?.name} Main Page
             </button>
           </NavLink>
           <button
@@ -64,7 +64,7 @@ const EditRestaurant = () => {
           </div>
         </div>
         <h2>Current Reservations: ({reservations?.length})</h2>
-        {reservations.length === 0
+        {reservations?.length === 0
           ? 'Add reservations to your restaurant!'
           : null}
         <div id="reservation-card-container">

@@ -193,7 +193,7 @@ export const deleteRestaurant = (restaurantId) => async (dispatch) => {
     headers: { 'Content-Type': 'application/json' },
   });
   const message = await response.json();
-  dispatch(remove(restaurantId));
+  await dispatch(remove(restaurantId));
   return message;
 };
 
