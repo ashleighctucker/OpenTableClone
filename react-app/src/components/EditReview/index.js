@@ -8,7 +8,6 @@ const EditReview = ({ id, setShowModal, review }) => {
   const dispatch = useDispatch();
   const [rating, setRating] = useState(review?.rating);
   const [comment, setComment] = useState(review?.comment);
-  console.log(review);
 
   const handleSubmit = (e) => {
     e.preventDefault();
