@@ -5,8 +5,8 @@ import { useParams, NavLink } from 'react-router-dom';
 import EditReviewModal from '../EditReview/EditReviewModal';
 import { deleteReview, getRestaurants } from '../../store/restaurant';
 import CustomerBookReservationModal from '../CustomerBookReservation';
-import {authenticate} from '../../store/session'
-import CreateReview from '../NewReview/index'
+import { authenticate } from '../../store/session';
+import CreateReview from '../NewReview/index';
 import './restaurant.css';
 
 const Restaurant = () => {
@@ -16,7 +16,7 @@ const Restaurant = () => {
   const user = useSelector((state) => state.session?.user);
   const dispatch = useDispatch();
 
-  const userId = user.id
+  const userId = user.id;
 
   let dollars = '';
   for (let i = 0; i < restaurant.price_point; i++) {
@@ -57,14 +57,18 @@ const Restaurant = () => {
     return reviewStars;
   };
 
-  let allReservations = useSelector((state) =>state.restaurants?.[restaurantId]?.reservations)
-  let availableReservationsArray = allReservations.filter(res => res.booked === false).sort(function(a,b){
+  let allReservations = useSelector(
+    (state) => state.restaurants?.[restaurantId]?.reservations
+  );
+  let availableReservationsArray = allReservations
+    .filter((res) => res.booked === false)
+    .sort(function (a, b) {
       return new Date(a.date) - new Date(b.date);
-  })
+    });
 
-                return new Date(a.date) - new Date(b.date);
-            })
-  let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
+  let arrayOfAvailableDates = availableReservationsArray.map(
+    (reservation) => reservation.date
+  );
 
   const rawReviews = useSelector(
     (state) => state.restaurants[restaurantId]?.reviews
@@ -81,7 +85,7 @@ const Restaurant = () => {
 
   const makeFav = (restaurantId) => {
     dispatch(makeFavorite(+userId, +restaurantId));
-    dispatch(authenticate())
+    dispatch(authenticate());
     window.location.reload();
   };
 
@@ -94,10 +98,9 @@ const Restaurant = () => {
       }
     }
     dispatch(deleteFavorite(favId, userId));
-    dispatch(authenticate())
+    dispatch(authenticate());
     window.location.reload();
   };
-
 
   const checkFavs = (restId) => {
     for (let id in restaurant.favorites) {
@@ -207,7 +210,9 @@ const Restaurant = () => {
           return (
             <div className="review">
               <div className="reviewContent">
-                <div className="reviewUsername"><strong>{review.username}</strong> gave: </div>
+                <div className="reviewUsername">
+                  <strong>{review.username}</strong> gave:{' '}
+                </div>
                 <div className="reviewRating">{makeStars(review)}</div>
                 <div className="reviewComment">{review.comment}</div>
               </div>
@@ -228,9 +233,7 @@ const Restaurant = () => {
         })}
       </div>
 
-      {user? (
-        <CreateReview />
-      ): null}
+      {user ? <CreateReview /> : null}
     </div>
   );
 };

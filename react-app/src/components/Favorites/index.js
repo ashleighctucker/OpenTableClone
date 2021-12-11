@@ -10,8 +10,6 @@ const Favorites = () => {
   const userId = useSelector((state) => state.session?.user?.id);
   const dispatch = useDispatch();
 
-  console.log(favorites, restaurants, '<------------------------------------')
-
   let favRestaurants = [];
   for (const fav in favorites) {
     const favObj = favorites[fav];
@@ -32,8 +30,6 @@ const Favorites = () => {
     }
     await dispatch(deleteFavorite(favId, userId));
   };
-
-  console.log(favRestaurants)
 
   let sessionLinks;
   if (favRestaurants.length) {

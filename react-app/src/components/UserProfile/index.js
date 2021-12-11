@@ -4,9 +4,6 @@ import './profile.css';
 import CustomerEditReservationCards from '../CustomerEditReservation';
 import { NavLink } from 'react-router-dom';
 
-import { NavLink } from 'react-router-dom';
-
-
 const Profile = () => {
   let sessionUser = useSelector((state) => state.session.user);
   let restaurants = useSelector((state) => state.restaurants);
@@ -38,7 +35,6 @@ const Profile = () => {
     }
     return links;
   };
-
 
   return (
     <div className="profileContainer">
