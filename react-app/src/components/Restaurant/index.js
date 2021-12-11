@@ -16,7 +16,7 @@ const Restaurant = () => {
   const user = useSelector((state) => state.session?.user);
   const dispatch = useDispatch();
 
-  const userId = user.id;
+  const userId = user?.id;
 
   let dollars = '';
   for (let i = 0; i < restaurant.price_point; i++) {
@@ -129,25 +129,28 @@ const Restaurant = () => {
         <div className="header">
           <h1 className="restName">{restaurant?.name}</h1>
 
-          {checkFavs(restaurant.id) ? (
-            <button
-              id="red"
-              className="favButton"
-              type="button"
-              onClick={() => delFav(restaurant.id)}
-            >
-              <i className="fas fa-heart"></i>
-            </button>
-          ) : (
-            <button
-              className="favButton"
-              type="button"
-              onClick={() => makeFav(restaurant.id)}
-            >
-              <i className="far fa-heart"></i>
-            </button>
-          )}
-
+          {user ? (
+            <span>
+              {checkFavs(restaurant.id) ? (
+                <button
+                  id="red"
+                  className="favButton"
+                  type="button"
+                  onClick={() => delFav(restaurant.id)}
+                >
+                  <i className="fas fa-heart"></i>
+                </button>
+              ) : (
+                <button
+                  className="favButton"
+                  type="button"
+                  onClick={() => makeFav(restaurant.id)}
+                >
+                  <i className="far fa-heart"></i>
+                </button>
+              )}
+            </span>
+          ) : null}
           {userId === restaurant.ownerId ? editOptions() : null}
         </div>
 
