@@ -108,10 +108,9 @@ function CustomerReservationForm({
           onChange={(e) => setDate(e.target.value)}
           name="date"
           id="date"
+          value={date}
         >
-          <option value="" disabled selected>
-            Select a date
-          </option>
+          <option value="----">Select a date</option>
           {arrayOfAvailableDates.map((dateString, i) => {
             return (
               <option key={i} value={dateString}>
@@ -167,7 +166,7 @@ function CustomerReservationForm({
         <button
           className="submitButton"
           type="submit"
-          disabled={checkStatesArentNull}
+          disabled={checkStatesArentNull()}
         >
           Book reservation
         </button>
