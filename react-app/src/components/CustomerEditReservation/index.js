@@ -11,7 +11,7 @@ function CustomerEditReservationCards({ reservation }) {
     '-' +
     (resDate.getMonth() + 1) +
     '-' +
-    resDate.getDate();
+    (resDate.getDate() + 1);
 
   return (
     <div className="reservation-div">

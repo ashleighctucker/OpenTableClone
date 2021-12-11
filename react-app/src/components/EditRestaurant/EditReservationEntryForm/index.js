@@ -17,7 +17,7 @@ function EditReservationEntryForm({ reservation, close }) {
     '-' +
     (resDate.getMonth() + 1) +
     '-' +
-    resDate.getDate();
+    (resDate.getDate() + 1);
 
   const [time_slot, setTimeSlot] = useState(reservation.time_slot);
   const [date, setDate] = useState('');
