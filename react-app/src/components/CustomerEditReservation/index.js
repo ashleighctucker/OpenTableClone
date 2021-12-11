@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import CustomerEditReservationForm from './CustomerEditReservationForm';
 
-function CustomerEditReservationCards({ reservation, restaurant }) {
+function CustomerEditReservationCards({ reservation }) {
   const [showModal, setShowModal] = useState(false);
 
   const resDate = new Date(reservation.date);
@@ -16,7 +16,7 @@ function CustomerEditReservationCards({ reservation, restaurant }) {
   return (
     <div className="reservation-div">
       <span>
-        {restaurant.name} ({reservation.party_size})
+        {reservation.restaurant_name} ({reservation.party_size})
       </span>
       <span>Time: {reservation.time_slot}</span>
       <span>Date: {dateString}</span>
@@ -28,7 +28,7 @@ function CustomerEditReservationCards({ reservation, restaurant }) {
           <CustomerEditReservationForm
             reservation={reservation}
             close={() => setShowModal(false)}
-            restaurantId={restaurant.id}
+            restaurantId={reservation.restaurant_id}
           />
         </Modal>
       )}

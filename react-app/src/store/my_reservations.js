@@ -25,16 +25,12 @@ export const getMyReservations = (id) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = [];
 
 export default function myResReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD: {
-      const normalReservations = {};
-      action.list.forEach((reservation) => {
-        normalReservations[reservation.id] = reservation;
-      });
-      return { ...state, ...normalReservations };
+      return [...state, ...action.list];
     }
     default: {
       return state;

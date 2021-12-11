@@ -9,7 +9,7 @@ import { editCustomerReservation } from '../../store/restaurant';
 import { useDispatch, useSelector } from 'react-redux';
 >>>>>>> 0692c03 (refactorAZZ)
 
-function CustomerEditReservationForm({ reservation, restaurantId, close }) {
+function CustomerEditReservationForm({ reservation, restaurantId }) {
   const dispatch = useDispatch();
   const [partySize, setPartySize] = useState(reservation.party_size);
   const [notes, setNotes] = useState(reservation.notes);
@@ -28,7 +28,7 @@ function CustomerEditReservationForm({ reservation, restaurantId, close }) {
         notes
       )
     );
-    close();
+    window.location.reload();
   };
 
   return (
@@ -52,7 +52,7 @@ function CustomerEditReservationForm({ reservation, restaurantId, close }) {
         <input
           type="number"
           min="1"
-          max={reservation.availabe_size}
+          max={reservation.available_size}
           name="party_size"
           id="party_size"
           onChange={(e) => setPartySize(e.target.value)}

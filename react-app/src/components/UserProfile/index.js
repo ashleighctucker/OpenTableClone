@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './profile.css';
+import CustomerEditReservationCards from '../CustomerEditReservation';
 import { NavLink } from 'react-router-dom';
 
 import { NavLink } from 'react-router-dom';
@@ -9,6 +10,10 @@ import { NavLink } from 'react-router-dom';
 const Profile = () => {
   let sessionUser = useSelector((state) => state.session.user);
   let restaurants = useSelector((state) => state.restaurants);
+  let myReservations = useSelector((state) => state.my_reservations);
+  myReservations?.sort(function (a, b) {
+    return new Date(a.date) - new Date(b.date);
+  });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   let myRestaurants = {};
@@ -17,7 +22,6 @@ const Profile = () => {
       myRestaurants[id] = restaurants[id];
     }
   }
-
 
   const myLinks = () => {
     const links = [];
@@ -34,6 +38,7 @@ const Profile = () => {
     }
     return links;
   };
+
 
   return (
     <div className="profileContainer">
@@ -63,8 +68,20 @@ const Profile = () => {
         <h3>My Restaurants:</h3>
         <div className="links">{myRestaurants ? myLinks() : null}</div>
       </div>
-
-      <h2 className="profileReservations">My Reservations</h2>
+      <div>
+        <h2 className="profileReservations">
+          My Reservations: ({myReservations.length})
+        </h2>
+        {myReservations.length === 0 ? 'Book a reservation today!' : null}
+        <div id="reservation-card-container">
+          {myReservations?.map((reservation) => (
+            <CustomerEditReservationCards
+              key={reservation.id}
+              reservation={reservation}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
