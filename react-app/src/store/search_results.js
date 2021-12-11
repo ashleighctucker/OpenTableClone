@@ -1,6 +1,6 @@
 const LOAD = 'search/LOAD';
 
-const LOAD = (list) => ({
+const load = (list) => ({
   type: LOAD,
   list,
 });
@@ -30,7 +30,7 @@ const initialState = [];
 export default function SearchReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD: {
-      return [...state, ...action.list];
+      return [...action.list];
     }
     default: {
       return state;
