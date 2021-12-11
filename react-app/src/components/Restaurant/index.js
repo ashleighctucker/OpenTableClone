@@ -120,11 +120,15 @@ const Restaurant = () => {
 
   return (
     <div>
-      <img
+      <div
+        style={{ backgroundImage: `url(${restaurant.cover_photo})` }}
+        className="header-image"
+      ></div>
+      {/* <img
         src={restaurant.cover_photo}
         alt="restaurant cover"
         className="coverPhoto"
-      />
+      /> */}
       <div className="restaurant-container">
         <div className="header">
           <h1 className="restName">{restaurant?.name}</h1>

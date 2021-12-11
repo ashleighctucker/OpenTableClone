@@ -36,6 +36,8 @@
   height: 2rem;
   width: 25rem;
   border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
   border: none;
   padding: 5px;
 }
@@ -61,6 +63,8 @@
   justify-content: center;
   width: 2.5rem;
   border-radius: 5px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
   border: none;
 }
 .icon-div:hover {

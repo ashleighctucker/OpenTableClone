@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getSearch } from '../../store/search_results';
 import { useHistory } from 'react-router';
-import './searchBar.css';
+import './navbarsearch.css';
 
-const SearchBar = () => {
+const NavBarSearch = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,15 +17,16 @@ const SearchBar = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="search">
+      <div className="searchh">
         <input
           type="text"
-          id="splash-search"
+          id="splash-searchh"
           value={searchTerm}
-          placeholder="Find my next experience"
+          placeholder="Search"
           onChange={(e) => setSearchTerm(e.target.value)}
+          className="searchInput"
         ></input>
-        <div className="icon-div">
+        <div className="icon-divv">
           <i className="fas fa-search" onClick={handleSubmit}></i>
         </div>
       </div>
@@ -33,4 +34,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default NavBarSearch;
