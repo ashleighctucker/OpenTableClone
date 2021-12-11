@@ -13,7 +13,7 @@ def searchRestaurants(term):
     descriptionSearchResults = Restaurant.query.filter(
         Restaurant.description.ilike(f"%{term}%")).all()
     cuisineTypeSearchResult = Cuisine.query.filter(
-        Cuisine.type.ilike(f"%{term}%")).one_or_none()
+        Cuisine.type.ilike(f"%{term}%")).first()
 
     print(cuisineTypeSearchResult)
     if (cuisineTypeSearchResult):
