@@ -27,8 +27,8 @@ function CustomerEditReservationCards({ reservation }) {
         <Modal onClose={() => setShowModal(false)}>
           <CustomerEditReservationForm
             reservation={reservation}
-            close={() => setShowModal(false)}
             restaurantId={reservation.restaurant_id}
+            dateString={dateString}
           />
         </Modal>
       )}
