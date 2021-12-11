@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal } from '../../context/Modal';
-import {cancelCustomerReservation} from "../../store/restaurant" 
+import {cancelCustomerReservation} from "../../store/restaurant"
 import { authenticate } from '../../store/session'
-import UserEditForm from './UserEditForm'
 import './profile.css'
 import CustomerEditReservationModal from '../CustomerEditReservation/'
 import { NavLink,  useHistory } from 'react-router-dom';
@@ -13,7 +11,6 @@ const Profile = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [showModal, setShowModal] = useState(false);
   const [reservationToEditOrDelete, setReservationToEditOrDelete] = useState("");
   const [restaurantIdOfReservationToEditOrDelete, setRestaurantIdOfReservationToEditOrDelete] = useState("");
   const [typeOfThunktoCall, setTypeOfThunktoCall] = useState("");
@@ -33,7 +30,7 @@ const Profile = () => {
     await setRestaurantIdOfReservationToEditOrDelete(e.target.id)
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     console.log(typeOfThunktoCall, "LOOK")
     if (typeOfThunktoCall =="delete") {
       handleCancelReservation()
@@ -45,7 +42,7 @@ const Profile = () => {
   const handleCancelReservation = async e =>{
   setErrors([]);
   const cancelledCustomerReservation = await dispatch(
-      cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete) 
+      cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete)
   )
   //await reauthenticate of user to force-reload reservations
   await dispatch(authenticate());

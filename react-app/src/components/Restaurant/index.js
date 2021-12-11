@@ -6,15 +6,17 @@ import EditReviewModal from '../EditReview/EditReviewModal';
 import { deleteReview, getRestaurants } from '../../store/restaurant';
 import CustomerBookReservationModal from '../CustomerBookReservation';
 import {authenticate} from '../../store/session'
+import CreateReview from '../NewReview/index'
 import './restaurant.css';
 
 const Restaurant = () => {
   const { restaurantId } = useParams();
   const [date, setDate] = useState('');
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
-  const favorites = useSelector((state) => state.favorites);
-  const userId = useSelector((state) => state.session?.user?.id);
+  const user = useSelector((state) => state.session?.user);
   const dispatch = useDispatch();
+
+  const userId = user.id
 
   let dollars = '';
   for (let i = 0; i < restaurant.price_point; i++) {
@@ -58,10 +60,9 @@ const Restaurant = () => {
 
   let allReservations = useSelector((state) =>state.restaurants?.[restaurantId]?.reservations)
   let availableReservationsArray = allReservations.filter(res => res.booked === false).sort(function(a,b){
+      return new Date(a.date) - new Date(b.date);
+  })
 
-                return new Date(a.date) - new Date(b.date);
-            })
-  console.log(availableReservationsArray)
   let reservationsByDate = availableReservationsArray.filter((reservation) => reservation.date == date)
   let arrayOfAvailableDates= availableReservationsArray.map((reservation) => reservation.date)
   let reviews;
@@ -88,7 +89,6 @@ const Restaurant = () => {
   const delFav = (restId) => {
     let favId;
     for (let id in restaurant.favorites) {
-      console.log(restaurant.favorites[id], restId, 'favorites');
       if (restaurant.favorites[id].restaurantId === restId) {
         favId = id;
       }
@@ -208,6 +208,7 @@ const Restaurant = () => {
           return (
             <div className="review">
               <div className="reviewContent">
+                <div className="reviewUsername"><strong>{review.username}</strong> gave: </div>
                 <div className="reviewRating">{makeStars(review)}</div>
                 <div className="reviewComment">{review.comment}</div>
               </div>
@@ -227,6 +228,10 @@ const Restaurant = () => {
           );
         })}
       </div>
+
+      {user? (
+        <CreateReview />
+      ): null}
     </div>
   );
 };
