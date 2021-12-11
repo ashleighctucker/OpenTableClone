@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import {createCustomerReservation} from "../../store/restaurant" 
 import { authenticate } from '../../store/session'
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function CustomerReservationForm({
   arrayOfAvailableDates,
   availableReservationsArray,
 }) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [partySize, setPartySize] = useState(1);
   const [availableSize, setAvailableSize] = useState('');
   const [notes, setNotes] = useState('Leave a note for your server...');

@@ -6,12 +6,11 @@ import { authenticate } from '../../store/session'
 import UserEditForm from './UserEditForm'
 import './profile.css'
 import CustomerEditReservationModal from '../CustomerEditReservation/'
-import { NavLink,  useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Profile = () => {
   let sessionUser = useSelector(state => state.session.user)
   const dispatch = useDispatch();
-  const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   const [reservationToEditOrDelete, setReservationToEditOrDelete] = useState("");
   const [restaurantIdOfReservationToEditOrDelete, setRestaurantIdOfReservationToEditOrDelete] = useState("");
@@ -23,7 +22,6 @@ const Profile = () => {
 
   const getReservationandRestaurantId = async (e) =>{
     e.preventDefault();
-    console.log(e.target, "HELLO")
     let stringTypeOfThunktoCall = await e.target.getAttribute('data-typeofthunktocall')
     await setReservationNotes(await e.target.getAttribute("data-notes"))
     await setReservationPartySize(await e.target.getAttribute("data-partysize"))
@@ -33,7 +31,6 @@ const Profile = () => {
   }
 
   useEffect(() => { 
-    console.log(typeOfThunktoCall, "LOOK")
     if (typeOfThunktoCall =="delete") {
       handleCancelReservation()
     }
@@ -46,7 +43,6 @@ const Profile = () => {
   const cancelledCustomerReservation = await dispatch(
       cancelCustomerReservation(reservationToEditOrDelete, restaurantIdOfReservationToEditOrDelete) 
   )
-  //await reauthenticate of user to force-reload reservations
   await dispatch(authenticate());
   window.location.reload();
   }
