@@ -5,6 +5,7 @@ import restaurants from './restaurant';
 import cuisine_types from './cuisine_types';
 import favoriteReducer from './favorites';
 import myResReducer from './my_reservations';
+import SearchReducer from './search_results';
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   cuisine_types,
   favorites: favoriteReducer,
   my_reservations: myResReducer,
+  search_results: SearchReducer,
 });
 
 let enhancer;

@@ -1,135 +1,146 @@
 .restaurant-container {
-    width: 75%;
-    margin: auto;
-    min-width: 500px;
+  width: 75%;
+  margin: auto;
+  min-width: 500px;
 }
 
 .coverPhoto {
-    width: 100%;
-    max-height: 300px;
-    /* padding: 10px; */
+  width: 100%;
+  max-height: 300px;
+  /* padding: 10px; */
 }
 
 .header {
-    display: flex;
-    border-bottom: solid 1px lightgrey;
-    justify-content: space-between;
+  display: flex;
+  border-bottom: solid 1px lightgrey;
+  justify-content: space-between;
 }
 
 .restName {
-    font-size: 40px;
-    margin: 10px 10px 10px 25px;
-    padding: 10px 10px 25px 25px;
+  font-size: 40px;
+  margin: 10px 10px 10px 25px;
+  padding: 10px 10px 25px 25px;
 }
 
-.favButton{
-    border: none;
-    margin: 10px 30px 10px 10px;
-    background-color: rgba(0,0,0,0);
+.favButton {
+  border: none;
+  margin: 10px 30px 10px 10px;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 #red {
-    color: crimson;
+  color: crimson;
 }
 
 .restDescriptionContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    margin: 10px 40px 10px 40px;
-    min-width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px 40px 10px 40px;
+  min-width: 400px;
 }
 
 .contactContainer {
-    display: flex;
-    justify-content: space-around;
-    vertical-align: top;
+  display: flex;
+  justify-content: space-around;
+  vertical-align: top;
 }
 
-.openTime, .closeTime, .locationText, .phone, .email {
-    margin: 10px;
-    padding-left: 10px;
+.openTime,
+.closeTime,
+.locationText,
+.phone,
+.email {
+  margin: 10px;
+  padding-left: 10px;
 }
 
 .rating {
-    color: black;
-    font-size: 16px;
+  color: black;
+  font-size: 16px;
 }
 
-
 .far {
-    margin: 10px;
+  margin: 10px;
 }
 
 .stars {
-    color: crimson;
-    font-size: 20px;
-    margin: 10px;
+  color: crimson;
+  font-size: 20px;
+  margin: 10px;
 }
 
-#icon, .pricePoint, .cuisineType {
-    margin: 5px;
+#icon,
+.pricePoint,
+.cuisineType {
+  margin: 5px;
 }
 
 .reserve {
-    margin: 100px;
+  margin: 100px;
 }
-
 
 /* -----------------------------     reviews   ---------------------------------------- */
 .reviewsContainer {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 70%;
 }
 
 .reviewsHeader {
-    border-bottom: solid 1px grey;
-    margin: 30px 0px 20px 0px;
-    padding: 10px 20px;
+  border-bottom: solid 1px grey;
+  margin: 30px 0px 20px 0px;
+  padding: 10px 20px;
 }
 
 .review {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: solid 1px lightgrey;
-    margin: 10px;
-    padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px lightgrey;
+  margin: 10px;
+  padding: 10px;
 }
 
 .reviewRating {
-    margin: 5px;
-    color: crimson;
+  margin: 5px;
+  color: crimson;
 }
 
 .reviewComment {
-    margin: 10px 20px;
+  margin: 10px 20px;
 }
 
 .ratingButtons {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
-.ratingDelete, .ratingEdit {
-    margin: 10px;
-    padding: 10px;
-    width: fit-content;
-    height: fit-content;
-    border-radius: 5px;
-    border: none;
+.ratingDelete,
+.ratingEdit {
+  margin: 10px;
+  padding: 10px;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 5px;
+  border: none;
 }
 
 .ratingDelete:hover {
-    background-color: crimson;
-    color: white;
-    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.4);
+  background-color: crimson;
+  color: white;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.4);
 }
 
 .ratingEdit:hover {
-    background-color: rgb(35, 158, 52);
-    color: white;
-    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.4);
+  background-color: rgb(35, 158, 52);
+  color: white;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.4);
+}
+
+.header-image {
+  min-height: 12rem;
+  background-size: cover;
+  background-position: 50%;
 }

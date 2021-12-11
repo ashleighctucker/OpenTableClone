@@ -8,8 +8,8 @@ const DeleteRestaurantConfirm = ({ restaurant, close }) => {
   const history = useHistory();
 
   const handleDelete = async () => {
-    await dispatch(deleteRestaurant(restaurant.id));
-    history.push('/home');
+    dispatch(deleteRestaurant(restaurant.id));
+    return history.push('/home');
   };
 
   return (

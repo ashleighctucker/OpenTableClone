@@ -12,12 +12,14 @@ function EditReservationEntryForm({ reservation, close }) {
   const { restaurantId } = useParams();
 
   const resDate = new Date(reservation.date);
+  let realresDate = resDate.setDate(resDate.getDate() + 1);
+  realresDate = new Date(realresDate);
   const resDateString =
-    resDate.getFullYear() +
+    realresDate.getFullYear() +
     '-' +
-    (resDate.getMonth() + 1) +
+    (realresDate.getMonth() + 1) +
     '-' +
-    resDate.getDate();
+    realresDate.getDate();
 
   const [time_slot, setTimeSlot] = useState(reservation.time_slot);
   const [date, setDate] = useState('');
