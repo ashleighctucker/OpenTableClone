@@ -21,11 +21,6 @@ const LoginForm = ({ setShowModal }) => {
     history.push('/home');
   };
 
-  const cancel = async (e) => {
-    e.preventDefault();
-    setShowModal(false);
-  };
-
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -63,6 +58,7 @@ const LoginForm = ({ setShowModal }) => {
             placeholder="Email"
             value={email}
             onChange={updateEmail}
+            autoComplete="email"
           />
         </div>
         <div>
@@ -76,6 +72,7 @@ const LoginForm = ({ setShowModal }) => {
             placeholder="Password"
             value={password}
             onChange={updatePassword}
+            autoComplete="current-password"
           />
         </div>
         <div className="LoginFormButtons">

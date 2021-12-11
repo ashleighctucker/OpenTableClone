@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { makeFavorite, deleteFavorite } from '../../store/favorites';
 import { useParams, NavLink } from 'react-router-dom';
 import EditReviewModal from '../EditReview/EditReviewModal';
-import { deleteReview, getRestaurants } from '../../store/restaurant';
+import { deleteReview } from '../../store/restaurant';
 import CustomerBookReservationModal from '../CustomerBookReservation';
 import { authenticate } from '../../store/session';
 import CreateReview from '../NewReview/index';
@@ -78,9 +78,8 @@ const Restaurant = () => {
   //   reviews = Object.values(rawReviews);
   // }
 
-  const deleteOneReview = (id) => {
-    dispatch(deleteReview(id));
-    dispatch(getRestaurants());
+  const deleteOneReview = async (id) => {
+    await dispatch(deleteReview(id, restaurant.id));
   };
 
   const makeFav = (restaurantId) => {
@@ -208,7 +207,7 @@ const Restaurant = () => {
         <h2 className="reviewsHeader">Reviews</h2>
         {Object.values(rawReviews)?.map((review) => {
           return (
-            <div className="review">
+            <div key={review.id} className="review">
               <div className="reviewContent">
                 <div className="reviewUsername">
                   <strong>{review.username}</strong> gave:{' '}
@@ -219,7 +218,11 @@ const Restaurant = () => {
 
               {userId === review.userId ? (
                 <div className="ratingButtons">
-                  <EditReviewModal id={review.id} className="ratingEdit" />
+                  <EditReviewModal
+                    id={review.id}
+                    review={review}
+                    className="ratingEdit"
+                  />
                   <button
                     onClick={() => deleteOneReview(review.id)}
                     className="ratingDelete"
