@@ -1,19 +1,38 @@
 from app.models import db, Favorite
+from sqlalchemy.sql.expression import func
+from random import randrange
+from faker import Faker
 
+fake = Faker()
 def seed_favorites():
-    fav1 = Favorite( userId=1, restaurantId=2)
-    fav2 = Favorite( userId=1, restaurantId=4)
-    fav3 = Favorite( userId=1, restaurantId=5)
-    fav4 = Favorite( userId=1, restaurantId=8)
-    fav5 = Favorite( userId=1, restaurantId=12)
-
-    db.session.add(fav1)
-    db.session.add(fav2)
-    db.session.add(fav3)
-    db.session.add(fav4)
-    db.session.add(fav5)
+    for favorite in range(0,15):
+        userId = randrange(1, 4)
+        restaurantId =randrange(1, 15)
+        seed_favorite = Favorite(userId=userId, restaurantId=restaurantId)
+        db.session.add(seed_favorite)
     db.session.commit()
 
 def undo_favorites():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE favorites RESTART IDENTITY CASCADE;')
+    db.session.commit()
+
+
+
+from app.models import db, User, Restaurant, Review
+
+def seed_reviews():
+    
+    for review in range(0,15):
+        user_id = db.session.query(
+            User.id).order_by(func.random()).first()[0]
+        restaurant_obj = db.session.query(Restaurant).filter(Restaurant.user_id != user_id ).order_by(func.random()).first()
+        restaurant_id =restaurant_obj.id
+        rating = randrange(1, 5)
+        comment =  fake.paragraph(nb_sentences=3)
+        seed_review = Review(rating=rating, comment=comment, userId=user_id, restaurantId=restaurant_id)
+        db.session.add(seed_review)
+    db.session.commit()
+    
+def undo_reviews():
+    db.session.execute('TRUNCATE reviews RESTART IDENTITY CASCADE;')
     db.session.commit()
