@@ -11,9 +11,14 @@ const NavBarSearch = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(searchTerm);
-    await dispatch(getSearch(searchTerm));
-    history.push('/search-results');
+    if (searchTerm === '') {
+      let term = 'food';
+      await dispatch(getSearch(term));
+      history.push('/search-results');
+    } else {
+      await dispatch(getSearch(searchTerm));
+      history.push('/search-results');
+    }
   };
   return (
     <form onSubmit={handleSubmit}>

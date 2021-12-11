@@ -1,6 +1,8 @@
 .searchh {
   display: flex;
+
 }
+
 .icon-divv {
   background-color: black;
   color: white;
@@ -13,12 +15,14 @@
   border-bottom-left-radius: 0px;
   border: none;
 }
+
 .icon-divv:hover {
   cursor: pointer;
 }
+
 #splash-searchh {
   height: 2rem;
-  width: 15rem;
+  width: 35rem;
   border: black;
   border-left: 1px;
   border-top: 1px;
