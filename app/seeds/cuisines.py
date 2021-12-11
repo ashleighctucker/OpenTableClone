@@ -15,5 +15,5 @@ def seed_cuisines():
 
     db.session.commit()
 def undo_cuisines():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE cuisines RESTART IDENTITY CASCADE;')
     db.session.commit()
