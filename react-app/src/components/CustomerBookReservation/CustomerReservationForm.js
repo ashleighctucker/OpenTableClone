@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {createCustomerReservation} from "../../store/restaurant" 
+import {createCustomerReservation} from "../../store/restaurant"
 import { authenticate } from '../../store/session'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
+import './reservations.css'
 
 function CustomerReservationForm({
   arrayOfAvailableDates,
@@ -79,7 +80,7 @@ function CustomerReservationForm({
         notes,
         booked,
         idxOfReservationSlotInState
-      ) 
+      )
   )
   await dispatch(authenticate())
   window.location.reload();
@@ -88,16 +89,17 @@ function CustomerReservationForm({
 
   // }
   return (
-    <div>
-      <h1>reservation</h1>
+    <div className="resContainer">
+      <h1 className="resHeader">Book Your Reservation</h1>
       <form onSubmit={handleSubmit}>
         <div className="error-div">
           {errors.map((error, i) => (
             <p key={i}>{error}</p>
           ))}
         </div>
-        <label>Reservation date</label>
-        <select onChange={(e) => setDate(e.target.value)} name="date" id="date">
+        <label className="resDateLabel">Reservation date:</label>
+        <select className="resDateSelect" onChange={(e) => setDate(e.target.value)} name="date" id="date">
+          <option value="" disabled selected>Select a date</option>
           {arrayOfAvailableDates.map((dateString, i) => {
             return (
               <option key={i} value={dateString}>
@@ -107,17 +109,30 @@ function CustomerReservationForm({
           })}
         </select>
         <br />
-        <label>
-          Reservation notes
-        </label>
-        <textarea onChange={(e)=>setNotes(e.target.value)} value={notes}></textarea>
-        <br/>
-        {reservationsByDate.map(res => {return <button onClick={handleTimeSelect} value={res.time_slot}>{res.time_slot}</button>})}
-        <br/>
-        <input type="number" min="1" max={availableSize} name="party_size" id="party_size" onChange={(e)=>setPartySize(e.target.value)} value={partySize}/>
-        <button type="submit" disabled={checkStatesArentNull}>Book reservation</button>
-        </form>
+
+        <div className="notesContainer">
+          <label className="resNotesHeader">
+            Reservation notes:
+          </label>
+          <textarea className="resNotes" onChange={(e)=>setNotes(e.target.value)} value={notes}></textarea>
         </div>
+        <br />
+
+        <div className="timesLabel">Available Times: </div>
+        <div className="resDateButtons">
+          {reservationsByDate.map(res => {return <button className="confirmResButton" onClick={handleTimeSelect} value={res.time_slot}>{res.time_slot}</button>})}
+        </div>
+        <br/>
+
+        <div className="partySizeContainer">
+          <div className="partySizeLabel">Select Party Size:</div>
+          <input className="partySizeInput" type="number" min="1" max={availableSize} name="party_size" id="party_size" onChange={(e)=>setPartySize(e.target.value)} value={partySize}/>
+        </div>
+        <br />
+
+        <button className="submitButton" type="submit" disabled={checkStatesArentNull}>Book reservation</button>
+      </form>
+    </div>
 )
 }
 

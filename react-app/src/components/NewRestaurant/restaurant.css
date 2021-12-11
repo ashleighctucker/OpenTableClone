@@ -1,4 +1,12 @@
-#new-restaurant-form {
+.restaurant-form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4%;
+}
+
+#new-description {
+  width: 24em;
+  height: 20em;
 }

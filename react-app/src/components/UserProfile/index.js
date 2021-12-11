@@ -1,13 +1,14 @@
+
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {cancelCustomerReservation} from "../../store/restaurant"
 import { authenticate } from '../../store/session'
 import './profile.css'
 import CustomerEditReservationModal from '../CustomerEditReservation/'
-import { NavLink,  useHistory } from 'react-router-dom';
 
 const Profile = () => {
-  let sessionUser = useSelector(state => state.session.user)
+  let sessionUser = useSelector((state) => state.session.user);
+  let restaurants = useSelector((state) => state.restaurants);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,9 +18,8 @@ const Profile = () => {
   const [reservationNotes, setReservationNotes] = useState("");
   const [reservationPartySize, setReservationPartySize] = useState("");
   const [errors, setErrors] = useState([]);
-
-
-  const getReservationandRestaurantId = async (e) =>{
+  
+const getReservationandRestaurantId = async (e) =>{
     e.preventDefault();
     console.log(e.target, "HELLO")
     let stringTypeOfThunktoCall = await e.target.getAttribute('data-typeofthunktocall')
@@ -49,27 +49,49 @@ const Profile = () => {
   window.location.reload();
   }
 
+  const myLinks = () => {
+    const links = [];
+    for (let id in myRestaurants) {
+      links.push(
+        <NavLink
+          className="single-link"
+          key={id}
+          to={`/restaurants/${id}/edit`}
+        >
+          {myRestaurants[id].name}
+        </NavLink>
+      );
+    }
+    return links;
+  };
+
   return (
     <div className="profileContainer">
-      <div className="profileSidebarContainer">
-        <div className="profileAboutContainer">
-          <h2 className="profileAbout">About Me</h2>
+      <div id="side-contain">
+        <div className="profileSidebarContainer">
+          <div className="profileAboutContainer">
+            <h2 className="profileAbout">About Me</h2>
+          </div>
+          <p className="profileInfoText" id="name">
+            {sessionUser.firstName} {sessionUser.lastName}
+          </p>
+          <p className="profileInfoText" id="username">
+            {sessionUser.username}
+          </p>
+          <p className="profileInfoText" id="email">
+            {sessionUser.email}
+          </p>
+          <NavLink to="/favorites" className="profileFavorites">
+            My Favorites
+          </NavLink>
         </div>
-        <p className="profileInfoText" id="name">
-          {' '}
-          {sessionUser.firstName} {sessionUser.lastName}
-        </p>
-        <p className="profileInfoText" id="username">
-          {' '}
-          {sessionUser.username}
-        </p>
-        <p className="profileInfoText" id="email">
-          {' '}
-          {sessionUser.email}
-        </p>
-        <NavLink to="/favorites" className="profileFavorites">
-          My Favorites
+        <NavLink to="/new-restaurant">
+          <button>
+            <i className="fas fa-plus"></i> Add New Restaurant
+          </button>
         </NavLink>
+        <h3>My Restaurants:</h3>
+        <div className="links">{myRestaurants ? myLinks() : null}</div>
       </div>
 
 
