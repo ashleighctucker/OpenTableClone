@@ -13,14 +13,18 @@ def searchRestaurants(term):
     descriptionSearchResults = Restaurant.query.filter(
         Restaurant.description.ilike(f"%{term}%")).all()
     cuisineTypeSearchResult = Cuisine.query.filter(
-        Cuisine.type.ilike(f"%{term}%")).first()
-    restaurantCuisineTypeResults = Restaurant.query.filter(
-        Restaurant.cuisine_type == cuisineTypeSearchResult.id)
+        Cuisine.type.ilike(f"%{term}%")).one_or_none()
+
+    print(cuisineTypeSearchResult)
+    if (cuisineTypeSearchResult):
+        restaurantCuisineTypeResults = Restaurant.query.filter(
+            Restaurant.cuisine_type == cuisineTypeSearchResult.id)
     searchSet = set(nameSearchResults)
     for i in descriptionSearchResults:
         searchSet.add(i)
-    for i in restaurantCuisineTypeResults:
-        searchSet.add(i)
+    if (cuisineTypeSearchResult):
+        for i in restaurantCuisineTypeResults:
+            searchSet.add(i)
     return list(searchSet)
 
 
