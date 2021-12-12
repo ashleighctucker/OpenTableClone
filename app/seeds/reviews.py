@@ -7,17 +7,51 @@ fake = Faker()
 
 def seed_reviews():
 
-    for review in range(0, 200):
+    for review in range(0, 10):
         user_id = db.session.query(
             User.id).order_by(func.random()).first()[0]
         restaurant_obj = db.session.query(Restaurant).filter(
             Restaurant.user_id != user_id).order_by(func.random()).first()
         restaurant_id = restaurant_obj.id
-        rating = randrange(1, 5)
+        rating = randrange(1, 3)
         comment = fake.paragraph(nb_sentences=3)
         seed_review = Review(rating=rating, comment=comment,
                              userId=user_id, restaurantId=restaurant_id)
         db.session.add(seed_review)
+    for review in range(0, 100):
+        user_id = db.session.query(
+            User.id).order_by(func.random()).first()[0]
+        restaurant_obj = db.session.query(Restaurant).filter(
+            Restaurant.user_id != user_id).order_by(func.random()).first()
+        restaurant_id = restaurant_obj.id
+        rating = randrange(4, 5)
+        comment = fake.paragraph(nb_sentences=3)
+        seed_review = Review(rating=rating, comment=comment,
+                             userId=user_id, restaurantId=restaurant_id)
+        db.session.add(seed_review)
+    for review in range(0, 10):
+        user_id = db.session.query(
+            User.id).order_by(func.random()).first()[0]
+        restaurant_obj = db.session.query(Restaurant).filter(
+            Restaurant.user_id != user_id).order_by(func.random()).first()
+        restaurant_id = restaurant_obj.id
+        rating = randrange(2, 3)
+        comment = fake.paragraph(nb_sentences=3)
+        seed_review = Review(rating=rating, comment=comment,
+                             userId=user_id, restaurantId=restaurant_id)
+        db.session.add(seed_review)
+    for review in range(0, 100):
+        user_id = db.session.query(
+            User.id).order_by(func.random()).first()[0]
+        restaurant_obj = db.session.query(Restaurant).filter(
+            Restaurant.user_id != user_id).order_by(func.random()).first()
+        restaurant_id = restaurant_obj.id
+        rating = randrange(4, 5)
+        comment = fake.paragraph(nb_sentences=3)
+        seed_review = Review(rating=rating, comment=comment,
+                             userId=user_id, restaurantId=restaurant_id)
+        db.session.add(seed_review)
+
     db.session.commit()
 
 

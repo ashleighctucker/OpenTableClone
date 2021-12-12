@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import './profile.css';
 import CustomerEditReservationCards from '../CustomerEditReservation';
 import { NavLink } from 'react-router-dom';
+import '../EditRestaurant/EditRestaurant.css';
 
 const Profile = () => {
   let sessionUser = useSelector((state) => state.session.user);
@@ -57,7 +58,7 @@ const Profile = () => {
           </NavLink>
         </div>
         <NavLink to="/new-restaurant">
-          <button>
+          <button >
             <i className="fas fa-plus"></i> Add New Restaurant
           </button>
         </NavLink>
