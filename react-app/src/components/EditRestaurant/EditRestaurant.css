@@ -42,8 +42,9 @@
 }
 
 .edit-page-buttons {
-  padding: 1%;
+  padding: 1.5%;
   margin: 2%;
+  border-radius: 5px;
 }
 
 #reservation-form-container {
