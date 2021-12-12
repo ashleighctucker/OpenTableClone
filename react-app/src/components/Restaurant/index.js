@@ -11,7 +11,6 @@ import './restaurant.css';
 
 const Restaurant = () => {
   const { restaurantId } = useParams();
-  //const [date, setDate] = useState('');
   const restaurant = useSelector((state) => state.restaurants[+restaurantId]);
   const user = useSelector((state) => state.session?.user);
   const dispatch = useDispatch();
@@ -74,10 +73,6 @@ const Restaurant = () => {
     (state) => state.restaurants[restaurantId]?.reviews
   );
 
-  // if (rawReviews) {
-  //   reviews = Object.values(rawReviews);
-  // }
-
   const deleteOneReview = async (id) => {
     await dispatch(deleteReview(id, restaurant.id));
   };
@@ -102,10 +97,10 @@ const Restaurant = () => {
   };
 
   const checkFavs = (restId) => {
-    for (let id in restaurant.favorites) {
-      if (restaurant.favorites[id]?.restaurantId === restId) return 'true';
-      return 'false';
+    for (let key in restaurant.favorites) {
+      if ((restaurant.favorites[key].userId = userId)) return true;
     }
+    return false;
   };
 
   const editOptions = () => {
@@ -124,11 +119,6 @@ const Restaurant = () => {
         style={{ backgroundImage: `url(${restaurant.cover_photo})` }}
         className="header-image"
       ></div>
-      {/* <img
-        src={restaurant.cover_photo}
-        alt="restaurant cover"
-        className="coverPhoto"
-      /> */}
       <div className="restaurant-container">
         <div className="header">
           <h1 className="restName">{restaurant?.name}</h1>
@@ -142,7 +132,7 @@ const Restaurant = () => {
                   type="button"
                   onClick={() => delFav(restaurant.id)}
                 >
-                  <i className="fas fa-heart"></i>
+                  <i className="far fa-heart"></i>
                 </button>
               ) : (
                 <button
