@@ -16,8 +16,12 @@ const CreateReservations = ({ restaurant }) => {
   const [available_size, setAvailableSize] = useState(1);
 
   const loopThroughRange = async (start_date, end_date) => {
-    const start = new Date(start_date);
-    const end = new Date(end_date);
+    let startD = new Date(start_date);
+    let start = startD.setDate(startD.getDate() + 1);
+    start = new Date(start);
+    let endD = new Date(end_date);
+    let end = endD.setDate(endD.getDate() + 1);
+    end = new Date(end);
 
     let loopDate = new Date(start);
     while (loopDate <= end) {

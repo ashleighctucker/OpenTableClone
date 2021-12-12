@@ -39,35 +39,36 @@ function App() {
   }
 
   const Routes = () => {
-    return (
-      <>
-        <Route path="/home">
-          <HomePage />
-        </Route>
-        <Route path="/new-restaurant" exact={true}>
-          <NewRestaurant />
-        </Route>
-        <Route path="/restaurants/:restaurantId/edit" exact={true}>
-          <EditRestaurant />
-        </Route>
-        <Route path="/restaurants/:restaurantId" exact={true}>
-          <Restaurant />
-        </Route>
-        <Route path="/favorites">
-          <Favorites />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
+    if (loaded) {
+      return (
+        <>
+          <Route path="/home">
+            <HomePage />
+          </Route>
+          <Route path="/new-restaurant" exact={true}>
+            <NewRestaurant />
+          </Route>
+          <Route path="/restaurants/:restaurantId/edit" exact={true}>
+            <EditRestaurant />
+          </Route>
+          <Route path="/restaurants/:restaurantId" exact={true}>
+            <Restaurant />
+          </Route>
+          <Route path="/favorites" exact={true}>
+            <Favorites />
+          </Route>
+          <Route path="/profile" exact={true}>
+            <Profile />
+          </Route>
 
-        <Route path="/search-results">
-          <SearchResults />
-        </Route>
-        <Route>
-            <h1>Page Not Found</h1>
-        </Route>
-      </>
-    );
+          <Route path="/search-results" exact={true}>
+            <SearchResults />
+          </Route>
+        </>
+      );
+    } else {
+      return null;
+    }
   };
 
   return (
@@ -75,10 +76,13 @@ function App() {
       <div className="content">
         <NavBar />
         <Switch>
-          <Route exact path="/">
+          <Route exact={true} path="/">
             <SplashPage />
           </Route>
-          {loaded ? <Routes /> : null}
+          {Routes()}
+          <Route>
+            <h1>Page Not Found</h1>
+          </Route>
         </Switch>
       </div>
       <Footer />
