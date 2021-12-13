@@ -17,7 +17,6 @@ export const getSearch = (term) => async (dispatch) => {
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
-    console.log(data.errors);
     if (data.errors) {
       return data.errors;
     }

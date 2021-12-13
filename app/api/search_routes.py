@@ -29,6 +29,4 @@ def searchRestaurants(term):
 @search_routes.route('/<term>/')
 def get_search(term):
     searchResults = searchRestaurants(term)
-    for i in searchResults:
-        print(i.to_dict())
     return {'search': [restaurant.simple_dict() for restaurant in searchResults]}
