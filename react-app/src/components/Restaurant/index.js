@@ -140,7 +140,7 @@ const Restaurant = () => {
                   type="button"
                   onClick={() => makeFav(restaurant.id)}
                 >
-                  <i className="far fa-heart"></i>
+                  <i className="fas fa-heart"></i>
                 </button>
               )}
             </span>
