@@ -22,13 +22,13 @@ https://github.com/ashleighctucker/OpenTableClone/wiki/Redux-State
 
 * node.js
 
-* Express.js
-
 * React JS
 
 * Redux
 
 * Python
+
+* Flask
 
 * SQL Alchemy
 
