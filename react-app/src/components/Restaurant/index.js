@@ -191,13 +191,11 @@ const Restaurant = () => {
             ) : null}
           </div>
         </div>
-        {user ?
           <CustomerBookReservationModal
             className="reserve"
             arrayOfAvailableDates={arrayOfAvailableDates}
             availableReservationsArray={availableReservationsArray}
           />
-        : null}
         <p>{restaurant.description}</p>
       </div>
 
