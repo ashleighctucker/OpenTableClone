@@ -1,3 +1,5 @@
+***
+
 --- Welcome to La Table! A clone of Open Table (https://www.opentable.com). ----
 
 Link to the live site: https://la-table.herokuapp.com/
@@ -13,26 +15,28 @@ https://github.com/ashleighctucker/OpenTableClone/wiki/Feature-List
 Example Redux State:
 https://github.com/ashleighctucker/OpenTableClone/wiki/Redux-State
 
---- Tech Stack --- 
+***
+#Tech Stack
 
-Javascript  
+* Javascript  
 
-node.js
+* node.js
 
-Express.js
+* Express.js
 
-React JS
+* React JS
 
-Redux
+* Redux
 
-Python
+* Python
 
-SQL Alchemy
+* SQL Alchemy
 
-Alembic
+* Alembic
 
-Faker API
+* Faker API
 
+***
 ---- Want to try it out locally? La Table requires Postgres. ----
 
 1. Clone our repo with the command: `git clone https://github.com/ashleighctucker/OpenTableClone.git`
@@ -45,7 +49,8 @@ Faker API
   `flask seed all`
   `flask run`
 6. To run the React App in development, checkout the README inside the react-app directory.
-  
+
+***
 --- Future Features for La Table ---
 
 Auto removal of reservations after the date has passed 
