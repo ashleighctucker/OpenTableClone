@@ -132,7 +132,7 @@ const Restaurant = () => {
                   type="button"
                   onClick={() => delFav(restaurant.id)}
                 >
-                  <i className="far fa-heart"></i>
+                  <i className="fas fa-heart"></i>
                 </button>
               ) : (
                 <button
