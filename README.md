@@ -15,7 +15,7 @@ La Table is a clone of Open Table with CRUD operations for Restaurants, Reservat
 ### [Example Redux State](https://github.com/ashleighctucker/OpenTableClone/wiki/Redux-State)
 
 
-##Tech Stack
+## Tech Stack
 
 ### [Front-End](https://github.com/ashleighctucker/OpenTableClone/wiki/Frontend-Routes)
 
