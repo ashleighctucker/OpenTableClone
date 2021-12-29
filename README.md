@@ -6,6 +6,8 @@ Link to the [live site](https://la-table.herokuapp.com/)
 
 La Table is a clone of Open Table with CRUD operations for Restaurants, Reservations & Reviews. You can also favorite and search restaurants currently on the app. 
 
+![Preview](https://github.com/ashleighctucker/OpenTableClone/blob/main/db_schemas/la-table-preview.gif)
+
 ### [Database Schema](https://github.com/ashleighctucker/OpenTableClone/wiki/Database-Schema-&-Breakdowns)
 
 ### [Current MVPs](https://github.com/ashleighctucker/OpenTableClone/wiki/Feature-List)
