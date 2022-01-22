@@ -7,15 +7,23 @@ function LoginModal() {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <>
-            <span type='button' onClick={() => {setShowModal(true)}} className='NavLogin point'>Log In</span>
-            {showModal && (
-                <Modal onClose={()=> setShowModal(false)}>
-                    <LoginForm setShowModal={setShowModal} />
-                </Modal>
-            )}
-        </>
-    )
+      <>
+        <span
+          type="button"
+          onClick={() => {
+            setShowModal(true);
+          }}
+          className="NavLogin point"
+        >
+          <i class="fas fa-sign-in-alt"></i> Log In
+        </span>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <LoginForm setShowModal={setShowModal} />
+          </Modal>
+        )}
+      </>
+    );
 }
 
 export default LoginModal

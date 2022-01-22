@@ -39,7 +39,7 @@ function ProfileButton() {
   if (sessionUser) {
     sessionLinks = (
       <span className="NavHome point" id="NavLogout" onClick={logout}>
-        Log Out
+        <i class="fas fa-sign-out-alt"></i> Log Out
       </span>
     );
   } else {
@@ -50,7 +50,7 @@ function ProfileButton() {
         <SignupModal className="NavSignin" />
 
         <span onClick={loginGuest} className="NavHome point">
-          Demo User
+          <i class="fas fa-user-secret"></i> Demo User
         </span>
       </>
     );
@@ -85,7 +85,7 @@ function ProfileButton() {
                   className="NavHome"
                   onClick={closeMenu}
                 >
-                  My Profile
+                  <i class="fas fa-user"></i> My Profile
                 </NavLink>
 
                 <NavLink
@@ -95,7 +95,7 @@ function ProfileButton() {
                   className="NavHome"
                   onClick={closeMenu}
                 >
-                  My Favorites
+                  <i class="fas fa-heart"></i> My Favorites
                 </NavLink>
               </>
             ) : null}
@@ -106,7 +106,7 @@ function ProfileButton() {
               className="NavHome"
               onClick={closeMenu}
             >
-              Home
+              <i class="fas fa-home"></i> Home
             </NavLink>
             {sessionLinks}
           </div>
