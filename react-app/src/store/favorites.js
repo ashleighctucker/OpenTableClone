@@ -69,7 +69,6 @@ const favoriteReducer = (state = { favorites: {} }, action) => {
   switch (action.type) {
     case GET_FAV:
       const normalFavs = { ...action.payload };
-      console.log(action.payload);
       action.payload.favorites.forEach((fave) => (normalFavs[fave.id] = fave));
       return normalFavs;
     case MAKE_FAV:

@@ -6,7 +6,6 @@ import CustomerEditReservationForm from './CustomerEditReservationForm';
 function CustomerEditReservationCards({ reservation }) {
   let restaurants = useSelector((state) => state.restaurants);
   const [showModal, setShowModal] = useState(false);
-  console.log(restaurants, reservation);
 
   let resDate = new Date(reservation.date);
   let realresDate = resDate.setDate(resDate.getDate() + 1);
