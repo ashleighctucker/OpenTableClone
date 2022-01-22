@@ -40,20 +40,20 @@
   z-index: 1;
   display: flex;
   color: rgb(0, 0, 0);
-  background-color: rgba(226, 226, 226, 0.7);
+  background-color: white;
   flex-direction: column;
   position: absolute;
-  padding: 10px 20px;
-  right: 15px;
-  top: 75px;
+  padding: 10px 0;
+  right: 20px;
+  top: 55px;
   list-style: none;
   border-radius: 5px;
+  font-size: 1rem;
 }
 
 .WelcomeUser {
   margin-bottom: 10px;
   padding: 10px;
-  border-bottom: solid 1px grey;
 }
 
 .NavHeader {
@@ -78,38 +78,14 @@
 .NavLogin,
 .NavSignin {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  text-align: center;
-  margin: 10px;
   padding: 3px 35px;
   color: black;
-  background-color: rgb(230, 230, 230);
   text-decoration: none;
-  border: solid 1px black;
-  border-radius: 5px;
 }
 
-.NavGuest {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  text-align: center;
-  padding: 3px;
-  border: solid 1px black;
-  background-color: rgb(230, 230, 230);
-  border-radius: 5px;
-  max-width: 125px;
-  margin: 10px 0px 10px 10px;
-}
 
-.NavLogout {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  text-align: center;
-  margin: 10px;
-  padding: 3px 30px;
-  border: solid 1px black;
-  background-color: rgb(230, 230, 230);
-  border-radius: 5px;
+#NavLogout {
+  color: rgba(220, 20, 60, 0.952);
 }
 
 .NavHome:hover,
@@ -117,8 +93,7 @@
 .NavSignin:hover,
 .NavGuest:hover,
 .NavLogout:hover {
-  box-shadow: 0px 0px 2px 1px grey;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(230, 230, 230);
 }
 
 .NavProfile {
@@ -141,5 +116,3 @@
 .logo2 {
   font-family: 'Meow Script', cursive;
 }
-
-

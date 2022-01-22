@@ -38,23 +38,21 @@ function ProfileButton() {
 
   if (sessionUser) {
     sessionLinks = (
-      <div className="NavButtons">
-        <button className="NavLogout" onClick={logout}>
-          Log Out
-        </button>
-      </div>
+      <span className="NavHome point" id="NavLogout" onClick={logout}>
+        Log Out
+      </span>
     );
   } else {
     sessionLinks = (
-      <div className="NavButtons">
+      <>
         <LoginModal className="NavLogin" />
 
         <SignupModal className="NavSignin" />
 
-        <button type="button" onClick={loginGuest} className="NavGuest">
-          Guest User
-        </button>
-      </div>
+        <span onClick={loginGuest} className="NavHome point">
+          Demo User
+        </span>
+      </>
     );
   }
 
@@ -63,51 +61,55 @@ function ProfileButton() {
       {!showMenu ? (
         <div>
           <button className="MenuButton" onClick={openMenu}>
-            <i className="fa-solid fa-bars fa-2x"></i>
+            <i className="fa-solid fa-bars fa-2x point"></i>
           </button>
         </div>
       ) : (
         <button className="MenuButton" onClick={closeMenu}>
-          <i className="far fa-window-close fa-2x"></i>
+          <i className="far fa-window-close fa-2x point"></i>
         </button>
       )}
 
       {showMenu && (
         <div className="profile-dropdown">
-          {sessionUser ? (
-            <div className="profileButtons">
-              <li className="WelcomeUser">Welcome, {sessionUser.firstName}!</li>
-              <NavLink
-                to="/profile"
-                exact={true}
-                activeClassName="active"
-                className="NavHome"
-                onClick={closeMenu}
-              >
-                My Profile
-              </NavLink>
+          <div className="profileButtons">
+            {sessionUser ? (
+              <>
+                <li className="WelcomeUser">
+                  Welcome, {sessionUser.firstName}!
+                </li>
+                <NavLink
+                  to="/profile"
+                  exact={true}
+                  activeClassName="active"
+                  className="NavHome"
+                  onClick={closeMenu}
+                >
+                  My Profile
+                </NavLink>
 
-              <NavLink
-                to="/favorites"
-                exact={true}
-                activeClassName="active"
-                className="NavHome"
-                onClick={closeMenu}
-              >
-                My Favorites
-              </NavLink>
-            </div>
-          ) : null}
-          <NavLink
-            to="/home"
-            exact={true}
-            activeClassName="active"
-            className="NavHome"
-            onClick={closeMenu}
-          >
-            Home
-          </NavLink>
-          {sessionLinks}
+                <NavLink
+                  to="/favorites"
+                  exact={true}
+                  activeClassName="active"
+                  className="NavHome"
+                  onClick={closeMenu}
+                >
+                  My Favorites
+                </NavLink>
+              </>
+            ) : null}
+            <NavLink
+              to="/home"
+              exact={true}
+              activeClassName="active"
+              className="NavHome"
+              onClick={closeMenu}
+            >
+              Home
+            </NavLink>
+            {sessionLinks}
+          </div>
         </div>
       )}
     </div>
