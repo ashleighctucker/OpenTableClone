@@ -19,7 +19,7 @@ function CustomerEditReservationCards({ reservation }) {
     realresDate.getDate();
 
   return (
-    <div className="reservation-div">
+    <div className="reservation-view">
       <div
         style={{
           backgroundImage: `url(${

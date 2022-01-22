@@ -107,3 +107,13 @@
     border-radius: 5px;
     font-size: 80%;
 }
+
+.reservation-view {
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  padding: 2%;
+  border: 1px black solid;
+  margin: 1%;
+  width: fit-content;
+}

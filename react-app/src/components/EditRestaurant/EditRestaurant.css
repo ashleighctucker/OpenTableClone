@@ -82,7 +82,7 @@
 
 .reservation-div {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   border-radius: 5px;
   padding: 2%;
   border: 1px black solid;
