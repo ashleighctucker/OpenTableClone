@@ -82,13 +82,30 @@
 
 .reservation-div {
   display: flex;
-  width: fit-content;
-  flex-direction: column;
+  flex-direction: row;
   border-radius: 5px;
   padding: 2%;
   border: 1px black solid;
   margin: 1%;
-  width: 12em;
+  width: fit-content;
+}
+
+.res-photo {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.res-info {
+  display: flex;
+  flex-direction: column;
+  margin: 0 4%;
+}
+
+.res-info span {
+  margin: 2% ;
+  white-space: nowrap;
 }
 
 .booked-res {
