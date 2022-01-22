@@ -21,8 +21,9 @@ const Favorites = () => {
     }
   }
 
-  let favId;
+
   const deleteFav = async (restId) => {
+    let favId;
     for (let id in favorites) {
       if (favorites[id].restaurantId === restId) {
         favId = id;
