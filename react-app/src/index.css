@@ -19,6 +19,10 @@ body {
   overflow-x: hidden;
 }
 
+.point, button {
+  cursor: pointer;
+}
+
 .footer {
   grid-row-start: 2;
   grid-row-end: 3;

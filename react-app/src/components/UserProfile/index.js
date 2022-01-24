@@ -42,42 +42,40 @@ const Profile = () => {
       <div id="side-contain">
         <div className="profileSidebarContainer">
           <div className="profileAboutContainer">
-            <h2 className="profileAbout">About Me</h2>
+            <h2>My Profile</h2>
           </div>
-          <p className="profileInfoText" id="name">
-            {sessionUser.firstName} {sessionUser.lastName}
+          <p className="profileInfoText">
+            Name: <span className="my-info">{sessionUser.firstName} {sessionUser.lastName}</span>
           </p>
-          <p className="profileInfoText" id="username">
-            {sessionUser.username}
+          <p className="profileInfoText" >
+            Username: <span className="my-info">{sessionUser.username}</span>
           </p>
-          <p className="profileInfoText" id="email">
-            {sessionUser.email}
+          <p className="profileInfoText">
+            Email: <span className="my-info">{sessionUser.email}</span>
           </p>
-          <NavLink to="/favorites" className="profileFavorites">
+          <NavLink to="/favorites" className="profileFavorites my-info">
             My Favorites
           </NavLink>
         </div>
-        <NavLink to="/new-restaurant">
-          <button >
+        <NavLink className="addbutton" to="/new-restaurant">
             <i className="fas fa-plus"></i> Add New Restaurant
-          </button>
         </NavLink>
         <h3>My Restaurants:</h3>
         <div className="links">{myRestaurants ? myLinks() : null}</div>
       </div>
-      <div>
+      <div className="reservation-container">
         <h2 className="profileReservations">
           My Reservations: ({myReservations.length})
         </h2>
         {myReservations.length === 0 ? 'Book a reservation today!' : null}
-        <div id="reservation-card-container">
+
           {myReservations?.map((reservation) => (
             <CustomerEditReservationCards
               key={reservation.id}
               reservation={reservation}
             />
           ))}
-        </div>
+
       </div>
     </div>
   );

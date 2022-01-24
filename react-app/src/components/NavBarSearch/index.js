@@ -27,7 +27,7 @@ const NavBarSearch = () => {
           type="text"
           id="splash-searchh"
           value={searchTerm}
-          placeholder="Search"
+          placeholder=" Search (by name or cuisine type)"
           onChange={(e) => setSearchTerm(e.target.value)}
           className="searchInput"
         ></input>

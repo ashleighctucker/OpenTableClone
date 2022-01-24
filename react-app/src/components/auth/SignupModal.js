@@ -7,15 +7,23 @@ function SignupModal() {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <>
-            <button type='button' onClick={() => {setShowModal(true)}} className='NavSignin'>Sign Up</button>
-            {showModal && (
-                <Modal onClose={()=> setShowModal(false)}>
-                    <SignUpForm setShowModal={setShowModal} />
-                </Modal>
-            )}
-        </>
-    )
+      <>
+        <span
+          type="button"
+          onClick={() => {
+            setShowModal(true);
+          }}
+          className="NavSignin point"
+        >
+          <i class="fas fa-user-plus"></i> Sign Up
+        </span>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <SignUpForm setShowModal={setShowModal} />
+          </Modal>
+        )}
+      </>
+    );
 }
 
 export default SignupModal;

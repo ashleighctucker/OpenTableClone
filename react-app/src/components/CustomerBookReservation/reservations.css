@@ -85,6 +85,8 @@
     background-color: rgba(220, 20, 60, 0.952);
     color: white;
     border-radius: 5px;
+    white-space: nowrap;
+    border: none;
 }
 
 .button-div {
