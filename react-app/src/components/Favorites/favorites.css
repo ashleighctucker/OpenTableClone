@@ -24,7 +24,7 @@
     border: solid 1px black;
     border-radius: 5px;
     width: 300px;
-    height: fit-content;
+    height: 345px;
 }
 
 .restaurantName {
@@ -40,6 +40,8 @@
 .restaurantImage {
     width: 300px;
     border-radius: 5px;
+    height: 200px;
+    object-fit: cover;
 }
 
 .noFavs {
