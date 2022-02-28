@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { signUp, login } from '../../store/session';
 import './forms.css';
+import {useContext} from 'react';
+import {MenuContext} from '../../context/Menu'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -15,6 +17,7 @@ const SignUpForm = () => {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
+  const {showMenu, setShowMenu} = useContext(MenuContext);
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ const SignUpForm = () => {
       if (data) {
         return setErrors(data);
       }
+      setShowMenu(false)
       history.push('/home');
     } else {
       return setErrors(['Passwords do not match.']);
