@@ -7,12 +7,13 @@ import SignupModal from '../auth/SignupModal';
 import './NavBar.css';
 import LoginModal from '../auth/LoginModal';
 import { useHistory } from 'react-router';
-
+import {useContext} from 'react';
+import {MenuContext} from '../../context/Menu'
 function ProfileButton() {
   const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const [showMenu, setShowMenu] = useState(false);
+  const {showMenu, setShowMenu} = useContext(MenuContext)
 
   const openMenu = () => {
     if (showMenu) return;
@@ -26,11 +27,13 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    setShowMenu(false)
     return history.push('/');
   };
   const loginGuest = (e) => {
     e.preventDefault();
     dispatch(login('demo@aa.io', 'password'));
+    setShowMenu(false)
     return history.push('/home');
   };
 
