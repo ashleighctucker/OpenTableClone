@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../store/session';
 import './forms.css';
+import {useContext} from 'react';
+import {MenuContext} from '../../context/Menu'
 
 const LoginForm = ({ setShowModal }) => {
   const [errors, setErrors] = useState([]);
@@ -11,6 +13,7 @@ const LoginForm = ({ setShowModal }) => {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
+  const {showMenu, setShowMenu} = useContext(MenuContext)
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -18,6 +21,7 @@ const LoginForm = ({ setShowModal }) => {
     if (data) {
       return setErrors(data);
     }
+    setShowMenu(false)
     history.push('/home');
   };
 
